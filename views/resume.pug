@@ -1,6 +1,44 @@
 doctype
-html
+html(lang="en")
 	head
-		title= "Jack Sorrell | Resume"
+		title= profile.name.first + " " + profile.name.last + " | Resume"
+		meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+		link(href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy", crossorigin="anonymous")
+		script(src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous" defer)
+		script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous" defer)
+		script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js", integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4", crossorigin="anonymous" defer)
+		link(href="/stylesheets/resume.css", rel="stylesheet")
+		link(href="https://fonts.googleapis.com/css?family=Open+Sans:300,600", rel="stylesheet")
 	body
-		h1= "Test"
+		div(id="outer-container" class="container")
+			//- rtl to force profile to the right
+			div(dir="rtl" class="row")
+				div(dir="ltr" id="profile-box" class="col-md-3 col-xs-12")
+					div(id="profile-header-box")
+						img(id="profile-image" src=profile.image alt="Image of Jack" class="img-fluid")
+						span(class="profile-name")= profile.name.first + " " + profile.name.last
+						span(class="profile-title")= profile.title
+					div(id="profile-details-box")
+						ul(class="links")
+							each link_detail, link_name in links
+								li(class="link")
+									a(href=link_detail.href)
+										img(src=link_detail.icon class="link-icon")
+										span= link_name
+						//-div(class="education")
+							//-ul
+								//-each
+				div(dir="ltr" id="main-box" class="col-md-9 col-xs-12")
+					div(id="bio")
+						h2= "MAIN BOX"
+					div(id="education" class="row")
+						h2= "Schools"
+						ul
+							each school_detail, school in education.schools
+								li
+									div(class='school')
+										p= school + " " + moment(school_detail.start_date).format("MMMM YYYY") + " - " + moment(school_detail.end_date).format("MMMM YYYY")
+					div(id="skills" class="row")
+						p= "skills"
+					div(id="links" class="row")
+						p= "links"

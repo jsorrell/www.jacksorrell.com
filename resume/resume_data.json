@@ -4,17 +4,29 @@
 			"first": "Jack",
 			"last": "Sorrell"
 		},
+		"title": "Software Engineer",
 		"birthdate": "1993-12-22",
 		"residence": {
 			"city": "Versailles",
 			"state": "Kentucky",
 			"country": "USA"
 		},
-		"bio": "This is by bio",
-		"image": "myface.jpg"
+		"bio": "Lorem ipsum dolor sit amet, sit hinc facilisi no. Minimum lucilius instructior ut mel. Duis tibique eu pri, cu scaevola perfecto scribentur eos, eleifend senserit sea et. Ad pro animal deseruisse contentiones, unum gloriatur eum ei. Scaevola splendide mea eu.",
+		"image": "/images/myface.jpg"
 	},
 	"education": {
 		"schools": {
+			"Carnegie Mellon University": {
+				"start_date": "2012-08",
+				"end_date": "2017-08",
+				"type": "undergraduate",
+				"degree": "Bachelor of Science",
+				"major": "Computer Science",
+				"minors": [
+					"Physics",
+					"Mathematics"
+				]
+			},
 			"Catalina Foothills High School": {
 				"start_date": "2008-08",
 				"end_date": "2012-05",
@@ -22,21 +34,12 @@
 					"city": "Tucson",
 					"state": "Arizona"
 				},
-				"type": "highschool"
-			},
-			"Carnegie Mellon University": {
-				"start_date": "2012-08",
-				"end_date": "2017-08",
-				"type": "undergraduate",
-				"major": "Computer Science",
-				"minors": [
-					"Physics",
-					"Mathematics"
-				]
+				"type": "highschool",
+				"degree": "High School"
 			}
 		},
 		"courses": {
-			"Computer Science": [
+			"Computer Science": {
 				"Compiler Design": {
 					"id": "15-411",
 					"description": "This course covers the design and implementation of compiler and run-time systems for high-level languages, and examines the interaction between language design, compiler design, and run-time organization. Topics covered include syntactic and lexical analysis, handling of user-defined types and type-checking, context analysis, code generation and optimization, and memory management and run-time organization."
@@ -69,8 +72,8 @@
 					"id": "CS1555",
 					"description": "There are two principle objectives for this course. First, to introduce the fundamental concepts necessary for the design and use of a database.  Second, to provide practical experience in applying these concepts using commercial database management systems."
 				}
-			],
-			"Mathematics": [
+			},
+			"Mathematics": {
 				"Number Theory": {
 					"id": "21-441",
 					"description": "Number theory deals with the integers, the most basic structures of mathematics. It is one of the most ancient, beautiful, and well-studied branches of mathematics, and has recently found surprising new applications in communications and cryptography. Course contents: Structure of the integers, greatest common divisiors, prime factorization. Modular arithmetic, Fermat's Theorem, Chinese Remainder Theorem. Number theoretic functions, e.g. Euler's function, Mobius functions, and identities. Diophantine equations, Pell's Equation, continued fractions. Modular polynomial equations, quadratic reciprocity."
@@ -99,8 +102,8 @@
 					"id": "21-259",
 					"description": "Vectors, lines, planes, quadratic surfaces, polar, cylindrical and spherical coordinates, partial derivatives, directional derivatives, gradient, divergence, curl, chain rule, maximum-minimum problems, multiple integrals, parametric surfaces and curves, line integrals, surface integrals, Green-Gauss theorems."
 				}
-			],
-			"Physics": [
+			},
+			"Physics": {
 				"Physical Mechanics 1": {
 					"id": "33-331",
 					"description": "Fundamental concepts of classical mechanics. Conservation laws, momentum, energy, angular momentum, Lagrange's and Hamilton's equations, motion under a central force, scattering, cross section, and systems of particles."
@@ -133,103 +136,103 @@
 					"id": "33-231",
 					"description": "This course aims to develop analytical skills and mathematical modeling skills across a broad spectrum of physical phenomena, stressing analogies in behavior of a wide variety of systems. Specific topics include dimensional analysis and scaling in physical phenomena, exponential growth and decay, the harmonic oscillator with damping and driving forces, linear approximations of nonlinear systems, coupled oscillators, and wave motion. Necessary mathematical techniques, including differential equations, complex exponential functions, matrix algebra, and elementary Fourier series, are introduced as needed."
 				}
-			]
-		}, 
-		"skills": {
-			"Platforms": {
-				"Linux": {
-					"level": 5	
-				},
-				"Windows": {
-					"level": 3	
-				},
-				"Android": {
-					"level": 2
-				},
-				"Web": {
-					"level": 3	
-				}
-			},
-			"Development Concepts": {
-				"Object Oriented Design": {
-					"level": 5
-				},
-				"Functional Programming": {
-					"level": 5
-				},
-				"Concurrency": {
-					"level": 4	
-				},
-				"Recursion": {
-					"level": 5	
-				},
-				"Dynamic Programming": {
-					"level": 3	
-				},
-				"Algorithms and Datastructures": {
-					"level": 5	
-				}
-			},
-			"Languages": {
-				"C": {
-					"level": 5	
-				},
-				"C++": {
-					"level": 5	
-				}, 
-				"C#": {
-					"level": 4	
-				},
-				"Javascript": {
-					"level": 4	
-				},
-				"Haskell": {
-					"level": 5	
-				},
-				"Python": {
-					"level": 4	
-				},
-				"Java": {
-					"level": 4
-				},
-				"Go": {
-					"level": 4	
-				}
-			},
-			"Tools": {
-				"Vim": {
-					"level": 4	
-				},
-				"Git": {
-					"level": 4	
-				},
-				"Visual Studio": {
-					"level": 3
-				},
-				"Linux Command Line": {
-					"level": 4	
-				},
-				"Latex": {
-					"level": 4	
-				},
-				"Intellij IDEA": {
-					"level": 3	
-				}
-			}
-		},
-		"links": {
-			"github.com/jsorrell": {
-				"icon": "githubicon.png",
-				"href": "https://github.com/jsorrell"
-			},
-			"jack@jacksorrell.com": {
-				"icon": "emailicon.png",
-				"href": "mailto:jack@jacksorrell.com"
-			},
-			"keybase.io/jsorrell": {
-				"icon": "keybaseicon.png",
-				"href": "https://keybase.io/jsorrell"
 			}
 		}
-	}
+	},
+	"skills": {
+		"Platforms": {
+			"Linux": {
+				"level": 5	
+			},
+			"Windows": {
+				"level": 3	
+			},
+			"Android": {
+				"level": 2
+			},
+			"Web": {
+				"level": 3	
+			}
+		},
+		"Development Concepts": {
+			"Object Oriented Design": {
+				"level": 5
+			},
+			"Functional Programming": {
+				"level": 5
+			},
+			"Concurrency": {
+				"level": 4	
+			},
+			"Recursion": {
+				"level": 5	
+			},
+			"Dynamic Programming": {
+				"level": 3	
+			},
+			"Algorithms and Datastructures": {
+				"level": 5	
+			}
+		},
+		"Languages": {
+			"C": {
+				"level": 5	
+			},
+			"C++": {
+				"level": 5	
+			}, 
+			"C#": {
+				"level": 4	
+			},
+			"Javascript": {
+				"level": 4	
+			},
+			"Haskell": {
+				"level": 5	
+			},
+			"Python": {
+				"level": 4	
+			},
+			"Java": {
+				"level": 4
+			},
+			"Go": {
+				"level": 4	
+			}
+		},
+		"Tools": {
+			"Vim": {
+				"level": 4	
+			},
+			"Git": {
+				"level": 4	
+			},
+			"Visual Studio": {
+				"level": 3
+			},
+			"Linux Command Line": {
+				"level": 4	
+			},
+			"Latex": {
+				"level": 4	
+			},
+			"Intellij IDEA": {
+				"level": 3	
+			}
+		}
+	},
+	"links": {
+		"jack@jacksorrell.com": {
+			"icon": "images/envelope-closed.svg",
+			"href": "mailto:jack@jacksorrell.com"
+		},
+		"github.com/jsorrell": {
+			"icon": "images/GitHub-Mark.svg",
+			"href": "https://github.com/jsorrell"
+		},
+		"keybase.io/jsorrell": {
+			"icon": "images/keybase_logo_official.svg",
+			"href": "https://keybase.io/jsorrell"
+		}
+	}	
 }
