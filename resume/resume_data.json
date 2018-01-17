@@ -19,8 +19,13 @@
 			"Carnegie Mellon University": {
 				"start_date": "2012-08",
 				"end_date": "2017-08",
+				"location": {
+					"city": "Pittsburgh",
+					"state": "Pennsylvania"
+				},
 				"type": "undergraduate",
 				"degree": "Bachelor of Science",
+				"degree_short": "BS",
 				"major": "Computer Science",
 				"minors": [
 					"Physics",
@@ -223,11 +228,11 @@
 	},
 	"links": {
 		"jack@jacksorrell.com": {
-			"icon": "images/envelope-closed.svg",
+			"icon": "images/mail-light.svg",
 			"href": "mailto:jack@jacksorrell.com"
 		},
 		"github.com/jsorrell": {
-			"icon": "images/GitHub-Mark.svg",
+			"icon": "images/mark-github-light.svg",
 			"href": "https://github.com/jsorrell"
 		},
 		"keybase.io/jsorrell": {

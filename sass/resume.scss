@@ -1,10 +1,12 @@
 body {
 	background-color: #f5f5f5;
 	font-family: open sans, sans-serif;
+	font-weight: 300;
 }
 
 ul {
 	list-style-type: none;
+	padding: 0;
 }
 
 #outer-container {
@@ -24,6 +26,7 @@ ul {
 	padding: 0;
 	background-color: teal;
 	color: white;
+	font-weight: 400;
 }
 
 #profile-header-box {
@@ -39,6 +42,13 @@ ul {
 	display: block;
 	text-align: center;
 };
+
+#profile-details-container {
+	display: inline-block;
+	margin: 0 auto;
+	white-space: nowrap;
+	text-align: left;
+}
 
 #main-box {
 	padding: 30px;
@@ -59,7 +69,7 @@ ul {
 }
 
 .profile-name {
-	font-weight: bold;
+	font-weight: 800;
 	font-size: xx-large;
 	margin: 10px 0px;
 	display: block;
@@ -69,20 +79,14 @@ ul {
 	font-size: large;
 	margin: 10px;
 	display: block;
+	font-weight: 400;
 }
 
-ul.links {
+#profile-details-container>div {
 	padding: 0;
 	margin: 20px auto;
-	display: inline-block;
-	width: auto;
-	text-align: left;
-}
-
-.link {
 	display: block;
-	white-space:nowrap;
-
+	width: auto;
 }
 
 .link > a {
@@ -96,4 +100,27 @@ ul.links {
 	height: 24px;
 	width: 24px;
 	margin-right: 8px;
+}
+
+.profile-details-header {
+	font-weight: 800;
+	font-size: large;
+	margin-bottom: 3px;
+}
+
+.school {
+	margin: 10px 0px;
+}
+
+.school-degree {
+	font-weight: 700;
+}
+
+.school-detail {
+	color: rgba(255,255,255,0.8);
+}
+
+.location-pin {
+	height: 24px;
+	width: 24px;
 }

@@ -8,7 +8,7 @@ html(lang="en")
 		script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous" defer)
 		script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js", integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4", crossorigin="anonymous" defer)
 		link(href="/stylesheets/resume.css", rel="stylesheet")
-		link(href="https://fonts.googleapis.com/css?family=Open+Sans:300,600", rel="stylesheet")
+		link(href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800", rel="stylesheet")
 	body
 		div(id="outer-container" class="container")
 			//- rtl to force profile to the right
@@ -19,26 +19,32 @@ html(lang="en")
 						span(class="profile-name")= profile.name.first + " " + profile.name.last
 						span(class="profile-title")= profile.title
 					div(id="profile-details-box")
-						ul(class="links")
-							each link_detail, link_name in links
-								li(class="link")
-									a(href=link_detail.href)
-										img(src=link_detail.icon class="link-icon")
-										span= link_name
-						//-div(class="education")
-							//-ul
-								//-each
+						div(id="profile-details-container")
+							div
+								ul(class="links")
+									each link_detail, link_name in links
+										li(class="link")
+											a(href=link_detail.href)
+												img(src=link_detail.icon class="link-icon")
+												span= link_name
+							div
+								h3(class="profile-details-header")="EDUCATION"
+								ul(class="education")
+									each school_detail, school_name in education.schools
+										li(class="school")
+											if school_detail.type == "highschool"
+												span(class="school-degree")= school_detail.degree
+											else
+												span(class="school-degree")= school_detail.degree_short + " in " + school_detail.major
+											br
+											span(class="school-detail")= school_name
+											br
+											span(class="school-detail")= moment(school_detail.start_date).format("MMMM YYYY") + " - " + moment(school_detail.end_date).format("MMMM YYYY")
+											br
+											//-img(class="location-pin" src="/images/location-pin-light.svg")
+											span(class="school-detail")= school_detail.location.city + ", " + school_detail.location.state
 				div(dir="ltr" id="main-box" class="col-md-9 col-xs-12")
 					div(id="bio")
 						h2= "MAIN BOX"
-					div(id="education" class="row")
-						h2= "Schools"
-						ul
-							each school_detail, school in education.schools
-								li
-									div(class='school')
-										p= school + " " + moment(school_detail.start_date).format("MMMM YYYY") + " - " + moment(school_detail.end_date).format("MMMM YYYY")
 					div(id="skills" class="row")
 						p= "skills"
-					div(id="links" class="row")
-						p= "links"
