@@ -228,7 +228,7 @@
 	},
 	"links": {
 		"jack@jacksorrell.com": {
-			"icon": "images/mail-light.svg",
+			"icon": "images/envelope-closed-light.svg",
 			"href": "mailto:jack@jacksorrell.com"
 		},
 		"github.com/jsorrell": {

@@ -8,12 +8,12 @@ html(lang="en")
 		script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous" defer)
 		script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js", integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4", crossorigin="anonymous" defer)
 		link(href="/stylesheets/resume.css", rel="stylesheet")
-		link(href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800", rel="stylesheet")
+		//-link(href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800", rel="stylesheet")
 	body
 		div(id="outer-container" class="container")
 			//- rtl to force profile to the right
 			div(dir="rtl" class="row")
-				div(dir="ltr" id="profile-box" class="col-md-3 col-xs-12")
+				div(dir="ltr" id="profile-box" class="col-lg-3 col-md-4 col-xs-12")
 					div(id="profile-header-box")
 						img(id="profile-image" src=profile.image alt="Image of Jack" class="img-fluid")
 						span(class="profile-name")= profile.name.first + " " + profile.name.last
@@ -27,24 +27,40 @@ html(lang="en")
 											a(href=link_detail.href)
 												img(src=link_detail.icon class="link-icon")
 												span= link_name
-							div
-								h3(class="profile-details-header")="EDUCATION"
-								ul(class="education")
-									each school_detail, school_name in education.schools
-										li(class="school")
-											if school_detail.type == "highschool"
-												span(class="school-degree")= school_detail.degree
-											else
-												span(class="school-degree")= school_detail.degree_short + " in " + school_detail.major
-											br
-											span(class="school-detail")= school_name
-											br
-											span(class="school-detail")= moment(school_detail.start_date).format("MMMM YYYY") + " - " + moment(school_detail.end_date).format("MMMM YYYY")
-											br
-											//-img(class="location-pin" src="/images/location-pin-light.svg")
-											span(class="school-detail")= school_detail.location.city + ", " + school_detail.location.state
-				div(dir="ltr" id="main-box" class="col-md-9 col-xs-12")
-					div(id="bio")
-						h2= "MAIN BOX"
-					div(id="skills" class="row")
-						p= "skills"
+				div(dir="ltr" id="main-box" class="col-lg-9 col-md-8 col-xs-12")
+					div(id="bio" class="section")
+						div(class="section-title")
+							img(src="/images/person.svg")
+							h2= "ABOUT ME"
+						p= profile.bio 
+					div(id="education" class="section")
+						div(class="section-title")
+							img(src="/images/beaker.svg")
+							h2= "EDUCATION"
+						ul(class="education")
+							each school_detail, school_name in education.schools
+								li(class="school")
+									div(class="row")
+										if school_detail.type == "highschool"
+											span(class="school-degree nopad col-lg-6 col-md-12")= school_detail.degree
+										else
+											span(class="school-degree nopad col-lg-6 col-md-12")= school_detail.degree_short + " in " + school_detail.major
+										span(class="education-right-column nopad col-lg-6 col-md-12")= moment(school_detail.start_date).format("MMMM YYYY") + " - " + moment(school_detail.end_date).format("MMMM YYYY")
+										div(class="w-100")
+										span(class="school-name nopad col-lg-6 col-md-12")= school_name
+										div(class="education-right-column nopad col-lg-6 col-md-12")
+											img(src="/images/map-marker.svg" class="location-pin")
+											span= school_detail.location.city + ", " + school_detail.location.state
+					div(id="experiences" class="section")
+						div(class="section-title")
+							img(src="/images/briefcase.svg")
+							h2= "EXPERIENCES"
+					div(id="projects" class="section")
+						div(class="section-title")
+							img(src="/images/project.svg")
+							h2= "PROJECTS"
+					div(id="skills" class="section")
+						div(class="section-title")
+							img(src="/images/terminal.svg")
+							h2= "SKILLS"
+
