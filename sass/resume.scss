@@ -1,3 +1,7 @@
+* {
+	padding: 0;
+}
+
 body {
 	background-color: #f5f5f5;
 	//font-family: open sans, sans-serif;
@@ -11,7 +15,7 @@ ul {
 	padding: 0;
 }
 
-#outer-container {
+.resume-container {
     max-width: 1080px;
 	box-shadow: -1px 4px 4px rgba(0, 0, 0, 0.3);
 	margin: auto;
@@ -19,12 +23,7 @@ ul {
 	min-width: 400px;
 }
 
-#resume-row {
-	//max-width: 960px;
-	/*padding: 0;*/
-}
-
-#profile-box {
+.profile-box {
 	right: 0;
 	padding: 0;
 	background-color: teal;
@@ -32,7 +31,7 @@ ul {
 	font-weight: 400;
 }
 
-#profile-header-box {
+.profile-header-box {
 	background-color: #20b2aa;
 	text-align: center;
 	margin: 0px;
@@ -40,25 +39,25 @@ ul {
 	overflow: hidden;
 }
 
-#profile-details-box {
+.profile-details-box {
 	overflow: hidden;
 	display: block;
 	text-align: center;
 };
 
-#profile-details-container {
+.profile-details-container {
 	display: inline-block;
 	margin: 0 auto;
 	white-space: nowrap;
 	text-align: left;
 }
 
-#main-box {
-	padding: 0;
+.main-box {
+	padding: 0 25px !important;
 	background-color: white;
 }
 
-#profile-image {
+.profile-image {
 	height: 112px;
 	width: 112px;
 	border-radius: 50%;
@@ -73,20 +72,20 @@ ul {
 
 .profile-name {
 	font-weight: 800;
-	font-size: xx-large;
+	font-size: 32px;
 	margin: 10px 0px;
 	display: block;
 }
 
 .profile-title {
-	font-size: large;
+	font-size: 18px;
 	margin: 10px;
 	display: block;
 	font-weight: 400;
 	color: rgba(255,255,255,0.8);
 }
 
-#profile-details-container>div {
+.profile-details-container>div {
 	padding: 0;
 	margin: 20px auto;
 	display: block;
@@ -106,26 +105,23 @@ ul {
 	margin-right: 8px;
 }
 
-.profile-details-header {
-	font-weight: 800;
-	font-size: large;
-	margin-bottom: 3px;
-}
-
-.school {
+.section-row {
+	font-size: 17px;
 	margin: 10px 0px;
 	position: relative;
 }
 
-.school-degree {
+.section-row-title {
 	font-weight: 700;
+	font-size: inherit;
 }
 
 .section {
-	margin: 50px 50px;
+	margin: 50px 0;
+	padding: 0 10px;
 }
 
-.section-title * {
+.section-title > * {
 	display: inline-block;
 	margin: 0;
 }
@@ -134,21 +130,28 @@ ul {
 	display: flex;
 	justify-content: left;
 	align-items: center;
+	font-size: 28px;
 }
 
-.section-title img {
+.section-title-icon {
 	height: 28px;
 	margin-right: 10px;
 }
 
-.education {
-	font-size: large;
+.section-description {
+	font-size: 13px;
+	margin: 10px 0;
 }
 
 @media (min-width: 992px) {
-	.education-right-column {
+	.section-row-r {
 		display: inline-block;
 		text-align: right;
+	}
+
+	.skills:nth-child(2n) .skill {
+		margin-left: 0px;
+		margin-right: -5px;
 	}
 }
 
@@ -162,6 +165,31 @@ ul {
 	position: relative;
 }
 
-.nopad {
-	padding: 0;
+.row-description {
+	font-size: 13px;
+	margin: 10px 0px;
+}
+
+.skill {
+	position: relative;
+	padding: 0 10px;
+	margin-left: -10px;
+}
+
+.skill-level {
+	position: absolute;
+	right: 10px;
+	transition: letter-spacing 0.3s;
+}
+
+.skill:hover {
+	background-color: rgba(0,0,0,0.2);
+}
+
+.skill:hover .skill-level {
+	letter-spacing: 1px;
+}
+
+.section > {
+	margin: 0 10px;
 }

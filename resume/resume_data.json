@@ -144,6 +144,36 @@
 			}
 		}
 	},
+	"experiences": [
+		{
+			"title": "Software Engineering Intern",
+			"company": "Applied Predictive Technologies",
+			"location": {
+				"city": "Arlington",
+				"state": "Virginia"
+			},
+			"start_date": "2015-05",
+			"end_date": "2015-08",
+			"description": "Lorem ipsum dolor sit amet, duo voluptua insolens recteque et, ex sed perfecto conclusionemque, eu brute cetero utroque sit. Qui ea case vero erroribus. Ius dicta conclusionemque cu, tibique scaevola inciderint cum te. Explicari comprehensam pro ne. Et rebum recteque est. Integre virtute inermis te sed. Ex ridens ancillae eligendi nam, has graece recteque ex, essent molestie intellegat id eos."
+		}
+	],
+	"projects": {
+		"C0 Language Compiler": {
+			"start_date": "2015-08",
+			"end_date": "2015-12",
+			"description": "Lorem ipsum dolor sit amet, duo voluptua insolens recteque et, ex sed perfecto conclusionemque, eu brute cetero utroque sit. Qui ea case vero erroribus. Ius dicta conclusionemque cu, tibique scaevola inciderint cum te. Explicari comprehensam pro ne. Et rebum recteque est. Integre virtute inermis te sed. Ex ridens ancillae eligendi nam, has graece recteque ex, essent molestie intellegat id eos."
+		},
+		"C0 Language Compiler 1": {
+			"start_date": "2015-08",
+			"end_date": "2015-12",
+			"description": "Lorem ipsum dolor sit amet, duo voluptua insolens recteque et, ex sed perfecto conclusionemque, eu brute cetero utroque sit. Qui ea case vero erroribus. Ius dicta conclusionemque cu, tibique scaevola inciderint cum te. Explicari comprehensam pro ne. Et rebum recteque est. Integre virtute inermis te sed. Ex ridens ancillae eligendi nam, has graece recteque ex, essent molestie intellegat id eos."
+		},
+		"C0 Language Compiler 2": {
+			"start_date": "2015-08",
+			"end_date": "2015-12",
+			"description": "Lorem ipsum dolor sit amet, duo voluptua insolens recteque et, ex sed perfecto conclusionemque, eu brute cetero utroque sit. Qui ea case vero erroribus. Ius dicta conclusionemque cu, tibique scaevola inciderint cum te. Explicari comprehensam pro ne. Et rebum recteque est. Integre virtute inermis te sed. Ex ridens ancillae eligendi nam, has graece recteque ex, essent molestie intellegat id eos."
+		}
+	},
 	"skills": {
 		"Platforms": {
 			"Linux": {
@@ -175,7 +205,7 @@
 			"Dynamic Programming": {
 				"level": 3	
 			},
-			"Algorithms and Datastructures": {
+			"Algorithms": {
 				"level": 5	
 			}
 		},

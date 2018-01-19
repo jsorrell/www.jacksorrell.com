@@ -10,16 +10,16 @@ html(lang="en")
 		link(href="/stylesheets/resume.css", rel="stylesheet")
 		//-link(href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800", rel="stylesheet")
 	body
-		div(id="outer-container" class="container")
+		div(class="container resume-container")
 			//- rtl to force profile to the right
-			div(dir="rtl" class="row")
-				div(dir="ltr" id="profile-box" class="col-lg-3 col-md-4 col-xs-12")
-					div(id="profile-header-box")
-						img(id="profile-image" src=profile.image alt="Image of Jack" class="img-fluid")
+			div(dir="rtl" class="row no-gutters")
+				div(dir="ltr" class="profile-box" class="col-lg-3 col-md-4 col-xs-12")
+					div(class="profile-header-box")
+						img(class="profile-image" src=profile.image alt="Image of Jack" class="img-fluid")
 						span(class="profile-name")= profile.name.first + " " + profile.name.last
 						span(class="profile-title")= profile.title
-					div(id="profile-details-box")
-						div(id="profile-details-container")
+					div(class="profile-details-box")
+						div(class="profile-details-container")
 							div
 								ul(class="links")
 									each link_detail, link_name in links
@@ -27,40 +27,72 @@ html(lang="en")
 											a(href=link_detail.href)
 												img(src=link_detail.icon class="link-icon")
 												span= link_name
-				div(dir="ltr" id="main-box" class="col-lg-9 col-md-8 col-xs-12")
-					div(id="bio" class="section")
+				div(dir="ltr" class="main-box col-lg-9 col-md-8 col-xs-12")
+					div(id="bio" class="section section-row")
 						div(class="section-title")
-							img(src="/images/person.svg")
+							img(src="/images/person.svg" class="section-title-icon")
 							h2= "ABOUT ME"
-						p= profile.bio 
+						p(class="section-description")= profile.bio 
 					div(id="education" class="section")
 						div(class="section-title")
-							img(src="/images/beaker.svg")
+							img(src="/images/beaker.svg" class="section-title-icon")
 							h2= "EDUCATION"
-						ul(class="education")
+						ul
 							each school_detail, school_name in education.schools
-								li(class="school")
-									div(class="row")
-										if school_detail.type == "highschool"
-											span(class="school-degree nopad col-lg-6 col-md-12")= school_detail.degree
-										else
-											span(class="school-degree nopad col-lg-6 col-md-12")= school_detail.degree_short + " in " + school_detail.major
-										span(class="education-right-column nopad col-lg-6 col-md-12")= moment(school_detail.start_date).format("MMMM YYYY") + " - " + moment(school_detail.end_date).format("MMMM YYYY")
-										div(class="w-100")
-										span(class="school-name nopad col-lg-6 col-md-12")= school_name
-										div(class="education-right-column nopad col-lg-6 col-md-12")
-											img(src="/images/map-marker.svg" class="location-pin")
-											span= school_detail.location.city + ", " + school_detail.location.state
+								li(class="section-row row no-gutters")
+									if school_detail.type == "highschool"
+										span(class="section-row-title section-row-tl col-lg-6 col-md-12")= school_detail.degree
+									else
+										span(class="section-row-title section-row-tl col-lg-6 col-md-12")= school_detail.degree_short + " in " + school_detail.major
+									span(class="section-row-tr section-row-r col-lg-6 col-md-12")= moment(school_detail.start_date).format("MMMM YYYY") + " - " + moment(school_detail.end_date).format("MMMM YYYY")
+									div(class="w-100")
+									span(class="section-row-bl col-lg-6 col-md-12")= school_name
+									div(class="section-row-br section-row-r col-lg-6 col-md-12")
+										img(src="/images/map-marker.svg" class="location-pin")
+										span= school_detail.location.city + ", " + school_detail.location.state
 					div(id="experiences" class="section")
 						div(class="section-title")
-							img(src="/images/briefcase.svg")
+							img(src="/images/briefcase.svg" class="section-title-icon")
 							h2= "EXPERIENCES"
+						ul
+							each experience in experiences
+								li(class="section-row row no-gutters")
+									span(class="section-row-title section-row-tl col-lg-6 col-md-12")= experience.title
+									span(class="section-row-r col-lg-6 col-md-12")= moment(experience.start_date).format("MMMM YYYY") + " - " + moment(experience.end_date).format("MMMM YYYY")
+									.w-100
+									span(class="section-row-bl col-lg-6 col-md-12")= experience.company
+									div(class="section-row-br section-row-r col-lg-6 col-md-12")
+										img(src="/images/map-marker.svg" class="location-pin")
+										span= experience.location.city + ", " + experience.location.state
+									p(class="col-12 row-description")= experience.description
 					div(id="projects" class="section")
 						div(class="section-title")
-							img(src="/images/project.svg")
+							img(src="/images/project.svg" class="section-title-icon")
 							h2= "PROJECTS"
+						ul
+							each project_details, project_name in projects
+								li(class="section-row row no-gutters")
+									span(class="section-row-title col-lg-6 col-md-12")= project_name
+									span(class="section-row-r col-lg-6 col-md-12")= moment(project_details.start_date).format("MMMM YYYY") + " - " + moment(project_details.end_date).format("MMMM YYYY")
+									p(class="col-12 row-description")= project_details.description
+
 					div(id="skills" class="section")
 						div(class="section-title")
-							img(src="/images/terminal.svg")
+							img(src="/images/terminal.svg" class="section-title-icon")
 							h2= "SKILLS"
-
+						ul
+							each skill_list, skill_category in skills
+								li(class="skill-category section-row")
+									h4(class="section-row-title")= skill_category
+									ul(class="skills row no-gutters")
+										each skill_detail, skill in skill_list
+											li(class="col-lg-6 col-md-12")
+												.skill
+													span(class="skill-name")= skill
+													- 
+														var stars = '';
+														for (var i = 0; i < skill_detail.level; i++)
+															stars += '★';
+														for (; i < 5; i++)
+															stars += '☆';
+													span(class="skill-level")= stars
