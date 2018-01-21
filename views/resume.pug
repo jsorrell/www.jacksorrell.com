@@ -2,43 +2,50 @@ doctype
 html(lang="en")
 	head
 		title= profile.name.first + " " + profile.name.last + " | Resume"
-		meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+		meta(id="vp" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+		//- zoom out viewport if less than 472 pixels across. keep this updated to body min-width
+		//-script.
+			window.onload = function() {
+				if (screen.width < 360) {
+					var mvp = document.getElementById('vp');
+					mvp.setAttribute('content','width=360, initial-scale=1, shrink-to-fit=no');
+				}
+			}
 		link(href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy", crossorigin="anonymous")
 		script(src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous" defer)
 		script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous" defer)
 		script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js", integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4", crossorigin="anonymous" defer)
 		link(href="/stylesheets/resume.css", rel="stylesheet")
-		//-link(href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800", rel="stylesheet")	
 		link(href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700|Roboto+Slab" rel="stylesheet")
 	body
 		div(class="container resume-container")
 			//- rtl to force profile to the right
 			div(dir="rtl" class="row no-gutters")
-				div(dir="ltr" class="profile-box" class="col-lg-3 col-md-4 col-xs-12")
+				div(dir="ltr" class="profile-box" class="col-xl-3 col-lg-4 col-md-12")
 					div(class="profile-header-box")
 						img(class="profile-image" src=profile.image alt="Image of Jack" class="img-fluid")
-						span(class="profile-name text-uppercase")= profile.name.first + " " + profile.name.last
-						span(class="profile-title")= profile.title
+						.profile-name-wrapper
+							h1(class="profile-name text-uppercase")= profile.name.first + " " + profile.name.last
+						h2(class="profile-title")= profile.title
 					div(class="profile-details-box")
-						div(class="profile-details-container")
-							div
-								ul(class="links")
-									each link_detail, link_name in links
-										li(class="link")
-											a(href=link_detail.href)
-												img(src=link_detail.icon class="link-icon")
-												span= link_name
-				div(dir="ltr" class="main-box col-lg-9 col-md-8 col-xs-12")
+						.links
+							ul
+								each link_detail, link_name in links
+									li(class="link")
+										a(href=link_detail.href)
+											img(src=link_detail.icon class="link-icon")
+											span= link_name
+				div(dir="ltr" id="main-box" class="main-box col-xl-9 col-lg-8 col-md-12")
 					div(id="bio" class="section")
 						div(class="section-title")
 							img(src="/images/person.svg" class="section-title-icon")
-							h2= "ABOUT ME"
+							h3= "ABOUT ME"
 						.section-row
 							p(class="row-description")= profile.bio 
 					div(id="education" class="section")
 						div(class="section-title")
 							img(src="/images/beaker.svg" class="section-title-icon")
-							h2= "EDUCATION"
+							h3= "EDUCATION"
 						ul
 							each school_detail, school_name in education.schools
 								li(class="section-header section-row row no-gutters")
@@ -55,7 +62,7 @@ html(lang="en")
 					div(id="experiences" class="section")
 						div(class="section-title")
 							img(src="/images/briefcase.svg" class="section-title-icon")
-							h2= "EXPERIENCES"
+							h3= "EXPERIENCES"
 						ul
 							each experience, experience_no in experiences
 								li(class="section-row")
@@ -72,7 +79,7 @@ html(lang="en")
 					div(id="projects" class="section")
 						div(class="section-title")
 							img(src="/images/fork.svg" class="section-title-icon")
-							h2= "PROJECTS"
+							h3= "PROJECTS"
 						ul
 							each project, project_no in projects
 								li(class="section-row")
@@ -85,14 +92,14 @@ html(lang="en")
 					div(id="skills" class="section")
 						div(class="section-title")
 							img(src="/images/terminal.svg" class="section-title-icon")
-							h2= "SKILLS"
+							h3= "SKILLS"
 						ul
 							each skill_list, skill_category in skills
 								li(class="skill-category section-row")
 									h4(class="section-row-title")= skill_category
 									ul(class="skills row no-gutters")
 										each skill_detail, skill in skill_list
-											li(class="col-lg-6 col-md-12")
+											li(class="col-xl-6 col-md-12")
 												.skill
 													span(class="skill-name")= skill
 													- 
@@ -102,3 +109,5 @@ html(lang="en")
 														for (; i < 5; i++)
 															stars += '☆';
 													span(class="skill-level")= stars
+		footer
+			a(href="https://www.useiconic.com/open")= "Icons from Open Iconic"
