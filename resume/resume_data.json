@@ -157,23 +157,26 @@
 			"description": "Lorem ipsum dolor sit amet, duo voluptua insolens recteque et, ex sed perfecto conclusionemque, eu brute cetero utroque sit. Qui ea case vero erroribus. Ius dicta conclusionemque cu, tibique scaevola inciderint cum te. Explicari comprehensam pro ne. Et rebum recteque est. Integre virtute inermis te sed. Ex ridens ancillae eligendi nam, has graece recteque ex, essent molestie intellegat id eos."
 		}
 	],
-	"projects": {
-		"C0 Language Compiler": {
+	"projects": [
+		{
+			"name": "C0 Language Compiler",
 			"start_date": "2015-08",
 			"end_date": "2015-12",
 			"description": "Lorem ipsum dolor sit amet, duo voluptua insolens recteque et, ex sed perfecto conclusionemque, eu brute cetero utroque sit. Qui ea case vero erroribus. Ius dicta conclusionemque cu, tibique scaevola inciderint cum te. Explicari comprehensam pro ne. Et rebum recteque est. Integre virtute inermis te sed. Ex ridens ancillae eligendi nam, has graece recteque ex, essent molestie intellegat id eos."
 		},
-		"C0 Language Compiler 1": {
+		{
+			"name": "C0 Language Compiler",
 			"start_date": "2015-08",
 			"end_date": "2015-12",
 			"description": "Lorem ipsum dolor sit amet, duo voluptua insolens recteque et, ex sed perfecto conclusionemque, eu brute cetero utroque sit. Qui ea case vero erroribus. Ius dicta conclusionemque cu, tibique scaevola inciderint cum te. Explicari comprehensam pro ne. Et rebum recteque est. Integre virtute inermis te sed. Ex ridens ancillae eligendi nam, has graece recteque ex, essent molestie intellegat id eos."
 		},
-		"C0 Language Compiler 2": {
+		{
+			"name": "C0 Language Compiler",
 			"start_date": "2015-08",
 			"end_date": "2015-12",
 			"description": "Lorem ipsum dolor sit amet, duo voluptua insolens recteque et, ex sed perfecto conclusionemque, eu brute cetero utroque sit. Qui ea case vero erroribus. Ius dicta conclusionemque cu, tibique scaevola inciderint cum te. Explicari comprehensam pro ne. Et rebum recteque est. Integre virtute inermis te sed. Ex ridens ancillae eligendi nam, has graece recteque ex, essent molestie intellegat id eos."
 		}
-	},
+	],
 	"skills": {
 		"Platforms": {
 			"Linux": {

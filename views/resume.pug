@@ -8,7 +8,8 @@ html(lang="en")
 		script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous" defer)
 		script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js", integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4", crossorigin="anonymous" defer)
 		link(href="/stylesheets/resume.css", rel="stylesheet")
-		//-link(href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800", rel="stylesheet")
+		//-link(href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800", rel="stylesheet")	
+		link(href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700|Roboto+Slab" rel="stylesheet")
 	body
 		div(class="container resume-container")
 			//- rtl to force profile to the right
@@ -16,7 +17,7 @@ html(lang="en")
 				div(dir="ltr" class="profile-box" class="col-lg-3 col-md-4 col-xs-12")
 					div(class="profile-header-box")
 						img(class="profile-image" src=profile.image alt="Image of Jack" class="img-fluid")
-						span(class="profile-name")= profile.name.first + " " + profile.name.last
+						span(class="profile-name text-uppercase")= profile.name.first + " " + profile.name.last
 						span(class="profile-title")= profile.title
 					div(class="profile-details-box")
 						div(class="profile-details-container")
@@ -28,18 +29,19 @@ html(lang="en")
 												img(src=link_detail.icon class="link-icon")
 												span= link_name
 				div(dir="ltr" class="main-box col-lg-9 col-md-8 col-xs-12")
-					div(id="bio" class="section section-row")
+					div(id="bio" class="section")
 						div(class="section-title")
 							img(src="/images/person.svg" class="section-title-icon")
 							h2= "ABOUT ME"
-						p(class="section-description")= profile.bio 
+						.section-row
+							p(class="row-description")= profile.bio 
 					div(id="education" class="section")
 						div(class="section-title")
 							img(src="/images/beaker.svg" class="section-title-icon")
 							h2= "EDUCATION"
 						ul
 							each school_detail, school_name in education.schools
-								li(class="section-row row no-gutters")
+								li(class="section-header section-row row no-gutters")
 									if school_detail.type == "highschool"
 										span(class="section-row-title section-row-tl col-lg-6 col-md-12")= school_detail.degree
 									else
@@ -55,26 +57,30 @@ html(lang="en")
 							img(src="/images/briefcase.svg" class="section-title-icon")
 							h2= "EXPERIENCES"
 						ul
-							each experience in experiences
-								li(class="section-row row no-gutters")
-									span(class="section-row-title section-row-tl col-lg-6 col-md-12")= experience.title
-									span(class="section-row-r col-lg-6 col-md-12")= moment(experience.start_date).format("MMMM YYYY") + " - " + moment(experience.end_date).format("MMMM YYYY")
-									.w-100
-									span(class="section-row-bl col-lg-6 col-md-12")= experience.company
-									div(class="section-row-br section-row-r col-lg-6 col-md-12")
-										img(src="/images/map-marker.svg" class="location-pin")
-										span= experience.location.city + ", " + experience.location.state
-									p(class="col-12 row-description")= experience.description
+							each experience, experience_no in experiences
+								li(class="section-row")
+									a(class="section-header section-row-toggle row no-gutters" data-toggle="collapse" href="#experience-" + experience_no role="button")
+										span(class="section-row-title section-row-tl col-lg-6 col-md-12")= experience.title
+										span(class="section-row-r col-lg-6 col-md-12")= moment(experience.start_date).format("MMMM YYYY") + " - " + moment(experience.end_date).format("MMMM YYYY")
+										.w-100
+										span(class="section-row-bl col-lg-6 col-md-12")= experience.company
+										div(class="section-row-br section-row-r col-lg-6 col-md-12")
+											img(src="/images/map-marker.svg" class="location-pin")
+											span= experience.location.city + ", " + experience.location.state
+									.collapse(id="experience-" + experience_no)
+										p(class="col-12 row-description")= experience.description
 					div(id="projects" class="section")
 						div(class="section-title")
-							img(src="/images/project.svg" class="section-title-icon")
+							img(src="/images/fork.svg" class="section-title-icon")
 							h2= "PROJECTS"
 						ul
-							each project_details, project_name in projects
-								li(class="section-row row no-gutters")
-									span(class="section-row-title col-lg-6 col-md-12")= project_name
-									span(class="section-row-r col-lg-6 col-md-12")= moment(project_details.start_date).format("MMMM YYYY") + " - " + moment(project_details.end_date).format("MMMM YYYY")
-									p(class="col-12 row-description")= project_details.description
+							each project, project_no in projects
+								li(class="section-row")
+									a(class="section-header section-row-toggle row no-gutters" data-toggle="collapse" href="#project-" + project_no role="button")
+										span(class="section-row-title section-row-tl col-lg-6 col-md-12")= project.name
+										span(class="section-row-r col-lg-6 col-md-12")= moment(project.start_date).format("MMMM YYYY") + " - " + moment(project.end_date).format("MMMM YYYY")
+									.collapse(id="project-" + project_no)
+										p(class="col-12 row-description")= project.description
 
 					div(id="skills" class="section")
 						div(class="section-title")
