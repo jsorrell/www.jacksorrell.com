@@ -62,7 +62,7 @@ html(lang="en-US")
 									ul(class="section-category-items row no-gutters")
 										each course, course_no in category_courses
 											li(class="col-lg-6 col-sm-12")
-												a(tabindex="0" class="highlight-on-hover section-category-item" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" data-html="true" title=course.id + ": " + course.name data-content=course.description)= course.shortName
+												a(tabindex="0" class="highlight-on-hover section-category-item" role="button" data-toggle="popover" data-placement="top" data-trigger="click" title=course.id + ": " + course.name data-content=course.description)= course.shortName
 					div(id="experiences" class="section")
 						div(class="section-title")
 							img(src="/images/briefcase.svg" class="section-title-icon")
