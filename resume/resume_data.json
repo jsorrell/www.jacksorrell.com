@@ -296,15 +296,15 @@
 	},
 	"links": {
 		"jack@jacksorrell.com": {
-			"icon": "images/envelope-closed-light.svg",
+			"icon": "/images/envelope-closed-light.svg",
 			"href": "mailto:jack@jacksorrell.com"
 		},
 		"github.com/jsorrell": {
-			"icon": "images/mark-github-light.svg",
+			"icon": "/images/mark-github-light.svg",
 			"href": "https://github.com/jsorrell"
 		},
 		"keybase.io/jsorrell": {
-			"icon": "images/keybase_logo_official.svg",
+			"icon": "/images/keybase_logo_official.svg",
 			"href": "https://keybase.io/jsorrell"
 		}
 	}	
