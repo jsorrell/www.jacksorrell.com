@@ -5,6 +5,7 @@ var logger = require('morgan');
 var sassMiddleware = require('node-sass-middleware');
 var index = require('./routes/index');
 var resume = require('./routes/resume');
+var redirect = require('express-simple-redirect');
 
 var app = express();
 
@@ -16,6 +17,11 @@ app.set('view engine', 'pug');
 
 app.use(favicon(path.join(__dirname, 'favicon/public', 'favicon.ico')));
 app.use(logger('dev'));
+
+app.use(redirect({
+	'/': '/resume'
+}));
+
 app.use(
 	sassMiddleware({
 		src: path.join(__dirname, 'sass'), 
