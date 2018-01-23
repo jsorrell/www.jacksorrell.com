@@ -8,6 +8,8 @@ body {
 	font-weight: 300;
 	padding: 36px 3%;
 	min-width: 360px;
+	//- always show scrollbar so no horizontal shifts when expanding
+	overflow-y: scroll;
 }
 
 ul {
@@ -18,6 +20,7 @@ ul {
 a {
 	color: inherit;
 	text-decoration: none;
+	cursor: pointer;
 }
 
 a:hover {
@@ -32,6 +35,10 @@ p {
 footer {
 	margin-top: 30px;
 	text-align: center;
+	color: rgba(0,0,0,0.8);
+}
+
+footer a {
 	text-decoration: underline;
 }
 
@@ -200,11 +207,6 @@ $cap-height: 0.7065;
 		display: inline-block;
 		text-align: right;
 	}
-
-	.skills:nth-child(2n) .skill {
-		margin-left: 0px;
-		margin-right: -5px;
-	}
 }
 
 .location-pin {
@@ -223,10 +225,8 @@ $cap-height: 0.7065;
 	padding: 10px 0;
 }
 
-.skill {
-	position: relative;
+.section-category-item {
 	padding: 0 10px;
-	margin-left: -10px;
 }
 
 .skill-level {
@@ -235,7 +235,7 @@ $cap-height: 0.7065;
 	transition: letter-spacing 0.3s;
 }
 
-.skill:hover {
+.highlight-on-hover:hover {
 	background-color: rgba(0,0,0,0.2);
 }
 
@@ -249,4 +249,15 @@ $cap-height: 0.7065;
 
 .section-row-toggle {
 	outline: 0;
+}
+
+.dropdown-arrow {
+	display: inline-block;
+	backface-visibility: visible;
+	margin-right: 5px;
+	transition: 0.25s linear;
+}
+
+.dropdown-arrow-flipped {
+	transform: rotateX(180deg);
 }

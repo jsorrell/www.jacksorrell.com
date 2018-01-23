@@ -1,20 +1,15 @@
 doctype
-html(lang="en")
+html(lang="en-US")
 	head
 		title= profile.name.first + " " + profile.name.last + " | Resume"
+		meta(name="author" content="Jack Sorrell")
+		meta(name="description" content="The online resume of Jack Sorrell")
 		meta(id="vp" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
-		//- zoom out viewport if less than 472 pixels across. keep this updated to body min-width
-		//-script.
-			window.onload = function() {
-				if (screen.width < 360) {
-					var mvp = document.getElementById('vp');
-					mvp.setAttribute('content','width=360, initial-scale=1, shrink-to-fit=no');
-				}
-			}
 		link(href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy", crossorigin="anonymous")
 		script(src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous" defer)
 		script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous" defer)
 		script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js", integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4", crossorigin="anonymous" defer)
+		script(src="/javascripts/resume.js", defer)
 		link(href="/stylesheets/resume.css", rel="stylesheet")
 		link(href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700|Roboto+Slab" rel="stylesheet")
 	body
@@ -45,20 +40,29 @@ html(lang="en")
 					div(id="education" class="section")
 						div(class="section-title")
 							img(src="/images/beaker.svg" class="section-title-icon")
-							h3= "EDUCATION"
+							h3= "DEGREES"
 						ul
-							each school_detail, school_name in education.schools
-								li(class="section-header section-row row no-gutters")
-									if school_detail.type == "highschool"
-										span(class="section-row-title section-row-tl col-lg-6 col-md-12")= school_detail.degree
-									else
-										span(class="section-row-title section-row-tl col-lg-6 col-md-12")= school_detail.degree_short + " in " + school_detail.major
-									span(class="section-row-tr section-row-r col-lg-6 col-md-12")= moment(school_detail.start_date).format("MMMM YYYY") + " - " + moment(school_detail.end_date).format("MMMM YYYY")
-									div(class="w-100")
-									span(class="section-row-bl col-lg-6 col-md-12")= school_name
-									div(class="section-row-br section-row-r col-lg-6 col-md-12")
+							each school, school_no in degrees
+								li(class="section-row section-header row no-gutters")
+									span(class="section-row-title section-row-tl col-lg-6 col-md-12")= school.degree_short + " in " + school.major
+									span(class="section-row-tr section-row-r col-lg-6 col-md-12")= moment(school.start_date).format("MMMM YYYY") + " - " + moment(school.end_date).format("MMMM YYYY")
+									.w-101
+									span(class="section-row-bl col-lg-6 col-md-12")= school.name
+									.section-row-br.section-row-r.col-lg-6.col-md-12
 										img(src="/images/map-marker.svg" class="location-pin")
-										span= school_detail.location.city + ", " + school_detail.location.state
+										span= school.location.city + ", " + school.location.state
+					div(id="courses" class="section")
+						div(class="section-title")
+							img(src="/images/paperclip.svg" class="section-title-icon")
+							h3= "COURSES"
+						ul
+							each category_courses, course_category in courses
+								li(class="section-category section-row")
+									h4(class="section-row-title")= course_category
+									ul(class="section-category-items row no-gutters")
+										each course, course_no in category_courses
+											li(class="col-lg-6 col-sm-12")
+												a(tabindex="0" class="highlight-on-hover section-category-item" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title=course.id + ": " + course.name data-content=course.description)= course.shortName
 					div(id="experiences" class="section")
 						div(class="section-title")
 							img(src="/images/briefcase.svg" class="section-title-icon")
@@ -67,7 +71,9 @@ html(lang="en")
 							each experience, experience_no in experiences
 								li(class="section-row")
 									a(class="section-header section-row-toggle row no-gutters" data-toggle="collapse" href="#experience-" + experience_no role="button")
-										span(class="section-row-title section-row-tl col-lg-6 col-md-12")= experience.title
+										.section-row-tl.col-lg-6.col-md-12
+											span(class="dropdown-arrow") ▼
+											span(class="section-row-title")= experience.title
 										span(class="section-row-r col-lg-6 col-md-12")= moment(experience.start_date).format("MMMM YYYY") + " - " + moment(experience.end_date).format("MMMM YYYY")
 										.w-100
 										span(class="section-row-bl col-lg-6 col-md-12")= experience.company
@@ -84,7 +90,9 @@ html(lang="en")
 							each project, project_no in projects
 								li(class="section-row")
 									a(class="section-header section-row-toggle row no-gutters" data-toggle="collapse" href="#project-" + project_no role="button")
-										span(class="section-row-title section-row-tl col-lg-6 col-md-12")= project.name
+										.section-row-tl.col-lg-6.col-md-12
+											span(class="dropdown-arrow") ▼
+											span(class="section-row-title")= project.name
 										span(class="section-row-r col-lg-6 col-md-12")= moment(project.start_date).format("MMMM YYYY") + " - " + moment(project.end_date).format("MMMM YYYY")
 									.collapse(id="project-" + project_no)
 										p(class="col-12 row-description")= project.description
@@ -95,13 +103,13 @@ html(lang="en")
 							h3= "SKILLS"
 						ul
 							each skill_list, skill_category in skills
-								li(class="skill-category section-row")
+								li(class="section-category section-row")
 									h4(class="section-row-title")= skill_category
-									ul(class="skills row no-gutters")
+									ul(class="section-category-items row no-gutters")
 										each skill_detail, skill in skill_list
 											li(class="col-xl-6 col-md-12")
-												.skill
-													span(class="skill-name")= skill
+												.section-category-item.skill
+													span(class="section-category-item-name")= skill
 													- 
 														var stars = '';
 														for (var i = 0; i < skill_detail.level; i++)
@@ -111,3 +119,5 @@ html(lang="en")
 													span(class="skill-level")= stars
 		footer
 			a(href="https://www.useiconic.com/open")= "Icons from Open Iconic"
+			span  | 
+			span= "Updated January 2018"
