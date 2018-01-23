@@ -3,7 +3,6 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var sassMiddleware = require('node-sass-middleware');
-var index = require('./routes/index');
 var resume = require('./routes/resume');
 var redirect = require('express-simple-redirect');
 
@@ -34,7 +33,6 @@ app.use(
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'favicon/public')));
 
-app.use('/', index);
 app.use('/resume', resume);
 
 // catch 404 and forward to error handler
