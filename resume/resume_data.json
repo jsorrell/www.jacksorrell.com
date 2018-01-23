@@ -45,7 +45,7 @@
 				"name": "Operating System Design and Implementation",
 				"shortName": "Operating Systems",
 				"id": "15-410",
-				"description": "Operating System Design and Implementation is a rigorous hands-on introduction to the principles and practice of operating systems. The core experience is writing a small Unix-inspired OS kernel, in C with some x86 assembly language, which runs on a PC hardware simulator (and on actual PC hardware if you wish). Work is done in two-person teams, and \"team programming\" skills (source control, modularity, documentation) are emphasized. The size and scope of the programming assignments typically result in students significantly developing their design, implementation, and debugging abilities. Core concepts include the process model, virtual memory, threads, synchronization, and deadlock; the course also surveys higher-level OS topics including file systems, interprocess communication, networking, and security. Students, especially graduate students, who have not satisfied the prerequisite at Carnegie Mellon are strongly cautioned - to enter the class you must be able to write a storage allocator in C, use a debugger, understand 2's-complement arithmetic, and translate between C and x86 assembly language. The instructor may require you to complete a skills assessment exercise before the first week of the semester in order to remain registered in the class. Auditing: this course is usually full, and we generally receive many more requests to audit than we can accept. If you wish to audit, please have your advisor contact us before the semester begins to discuss your educational goals."
+				"description": "Operating System Design and Implementation is a rigorous hands-on introduction to the principles and practice of operating systems. The core experience is writing a small Unix-inspired OS kernel, in C with some x86 assembly language, which runs on a PC hardware simulator (and on actual PC hardware if you wish). Work is done in two-person teams, and \"team programming\" skills (source control, modularity, documentation) are emphasized. The size and scope of the programming assignments typically result in students significantly developing their design, implementation, and debugging abilities. Core concepts include the process model, virtual memory, threads, synchronization, and deadlock; the course also surveys higher-level OS topics including file systems, interprocess communication, networking, and security."
 			},
 			{
 				"name": "Algorithm Design and Analysis",
@@ -73,9 +73,9 @@
 			},
 			{
 				"name": "Principles of Functional Programming",
-				"shortName": "Furncional Programming",
+				"shortName": "Functional Programming",
 				"id": "15-150",
-				"description": "An introduction to programming based on a \"functional\" model of computation. The functional model is a natural generalization of algebra in which programs are formulas that describe the output of a computation in terms of its inputs—-that is, as a function. But instead of being confined to real- or complex-valued functions, the functional model extends the algebraic view to a very rich class of data types, including not only aggregates built up from other types, but also functions themselves as values. This course is an introduction to programming that is focused on the central concepts of function and type. One major theme is the interplay between inductive types, which are built up incrementally; recursive functions, which compute over inductive types by decomposition; and proof by structural induction, which is used to prove the correctness and time complexity of a recursive function. Another major theme is the role of types in structuring large programs into separate modules, and the integration of imperative programming through the introduction of data types whose values may be altered during computation."
+				"description": "One major theme is the interplay between inductive types, which are built up incrementally; recursive functions, which compute over inductive types by decomposition; and proof by structural induction, which is used to prove the correctness and time complexity of a recursive function. Another major theme is the role of types in structuring large programs into separate modules, and the integration of imperative programming through the introduction of data types whose values may be altered during computation."
 			},
 			{
 				"name": "Database Management Systems",
@@ -101,7 +101,7 @@
 				"name": "Combinatorics",
 				"shortName": "Combinatorics",
 				"id": "21-301",
-				"description": "A major part of the course concentrates on algebraic methods, which are relevant in the study of error correcting codes, and other areas. Topics covered in depth include permutations and combinations, generating functions, recurrence relations, the principle of inclusion and exclusion, and the Fibonacci sequence and the harmonic series. Additional topics may include existence proofs, partitions, finite calculus, generating combinatorial objects, Polya theory, codes, probabilistic methods."
+				"description": "A major part of the course concentrates on algebraic methods, which are relevant in the study of error correcting codes, and other areas. Topics covered in depth include permutations and combinations, generating functions, recurrence relations, the principle of inclusion and exclusion, and the Fibonacci sequence and the harmonic series."
 			},
 			{
 				"name": "Matrix Theory",
@@ -119,7 +119,7 @@
 				"name": "Probability",
 				"shortName": "Probability",
 				"id": "21-325",
-				"description": "This course focuses on the understanding of basic concepts in probability theory and illustrates how these concepts can be applied to develop and analyze a variety of models arising in computational biology, finance, engineering and computer science. The firm grounding in the fundamentals is aimed at providing students the flexibility to build and analyze models from diverse applications as well as preparing the interested student for advanced work in these areas. The course will cover core concepts such as probability spaces, random variables, random vectors, multivariate densities, distributions, expectations, sampling and simulation; independence, conditioning, conditional distributions and expectations; limit theorems such as the strong law of large numbers and the central limit theorem; as well as additional topics such as large deviations, random walks and Markov chains, as time permits."
+				"description": "This course focuses on the understanding of basic concepts in probability theory and illustrates how these concepts can be applied to develop and analyze a variety of models arising in computational biology, finance, engineering and computer science. The firm grounding in the fundamentals is aimed at providing students the flexibility to build and analyze models from diverse applications as well as preparing the interested student for advanced work in these areas."
 			},
 			{
 				"name": "Calculus in Three Dimensions",
@@ -139,7 +139,7 @@
 				"name": "Quantum Physics",
 				"shortName": "Quantum Physics",
 				"id": "33-234",
-				"description": "An introduction to the fundamental principles and applications of quantum physics. A brief review of the experimental basis for quantization motivates the development of the Schrodinger wave equation. Several unbound and bound problems are treated in one dimension. The properties of angular momentum are developed and applied to central potentials in three dimensions. The one electron atom is then treated. Properties of collections of indistinguishable particles are developed allowing an understanding of the structure of the Periodic Table of elements. A variety of mathematical tools are introduced as needed."
+				"description": "An introduction to the fundamental principles and applications of quantum physics. A brief review of the experimental basis for quantization motivates the development of the Schrodinger wave equation. Several unbound and bound problems are treated in one dimension. The properties of angular momentum are developed and applied to central potentials in three dimensions. The one electron atom is then treated. Properties of collections of indistinguishable particles are developed allowing an understanding of the structure of the Periodic Table of elements."
 			},
 			{
 				"name": "Mathematical Methods of Physics",
