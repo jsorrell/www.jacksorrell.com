@@ -62,7 +62,7 @@ html(lang="en-US")
 									ul(class="section-category-items row no-gutters")
 										each course, course_no in category_courses
 											li(class="col-lg-6 col-sm-12")
-												a(tabindex="0" class="highlight-on-hover section-category-item" role="button" data-toggle="popover" data-trigger="focus" data-html="true" title=course.id + ": " + course.name data-content=course.description)= course.shortName
+												a(tabindex="0" class="highlight-on-hover section-category-item" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" data-html="true" title=course.id + ": " + course.name data-content=course.description)= course.shortName
 					div(id="experiences" class="section")
 						div(class="section-title")
 							img(src="/images/briefcase.svg" class="section-title-icon")
@@ -72,7 +72,7 @@ html(lang="en-US")
 								li(class="section-row")
 									a(class="section-header section-row-toggle row no-gutters" data-toggle="collapse" href="#experience-" + experience_no role="button")
 										.section-row-tl.col-lg-6.col-md-12
-											span(class="dropdown-arrow") ▼
+											img(src="/images/chevron-bottom.svg" class="dropdown-arrow")
 											span(class="section-row-title")= experience.title
 										span(class="section-row-r col-lg-6 col-md-12")= moment(experience.start_date).format("MMMM YYYY") + " - " + moment(experience.end_date).format("MMMM YYYY")
 										.w-100
@@ -91,12 +91,11 @@ html(lang="en-US")
 								li(class="section-row")
 									a(class="section-header section-row-toggle row no-gutters" data-toggle="collapse" href="#project-" + project_no role="button")
 										.section-row-tl.col-lg-6.col-md-12
-											span(class="dropdown-arrow") ▼
+											img(src="/images/chevron-bottom.svg" class="dropdown-arrow")
 											span(class="section-row-title")= project.name
 										span(class="section-row-r col-lg-6 col-md-12")= moment(project.start_date).format("MMMM YYYY") + " - " + moment(project.end_date).format("MMMM YYYY")
 									.collapse(id="project-" + project_no)
 										p(class="col-12 row-description")= project.description
-
 					div(id="skills" class="section")
 						div(class="section-title")
 							img(src="/images/terminal.svg" class="section-title-icon")
@@ -118,6 +117,6 @@ html(lang="en-US")
 															stars += '☆';
 													span(class="skill-level")= stars
 		footer
-			a(href="https://www.useiconic.com/open")= "Icons from Open Iconic"
+			a(href="https://www.useiconic.com/open") Icons from Open Iconic
 			span  | 
-			span= "Updated January 2018"
+			span Updated January 2018

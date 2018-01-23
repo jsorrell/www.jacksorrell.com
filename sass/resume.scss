@@ -52,16 +52,16 @@ footer a {
 .profile-box {
 	right: 0;
 	padding: 0;
-	background-color: teal;
 	color: white;
 	font-weight: 400;
+	background: #88b04b; //pantone color of the year 2017 (greenery)
 }
 
 .profile-header-box {
-	background-color: #20b2aa;
 	text-align: center;
 	margin: 0;
 	padding: 10px;
+	background: #66648b;
 }
 
 .profile-details-box {
@@ -79,7 +79,7 @@ footer a {
 
 #main-box {
 	padding: 20px;
-	background-color: white;
+	background: white;
 }
 
 .profile-image {
@@ -132,22 +132,25 @@ footer a {
 
 .links > ul {
 	display: inline-block;
-	text-align: left;
+	text-align: center;
 	margin: 0;
 }
 
 .link {
-	margin: 5px 0px;
+	margin: 40px 0px;
 }
 
 .link > a {
+	display: block;
+	font-size: 20px;
 	color: inherit;
 	text-decoration: none;
 }
 
 .link-icon {
-	width: 24px;
-	margin-right: 8px;
+	width: 56px;
+	margin: 5px auto;
+	display: block;
 }
 
 .section-row {
@@ -256,6 +259,9 @@ $cap-height: 0.7065;
 	backface-visibility: visible;
 	margin-right: 5px;
 	transition: 0.25s linear;
+	display: inline-block;
+	height: 1em * $cap-height;
+	vertical-align: baseline;
 }
 
 .dropdown-arrow-flipped {
