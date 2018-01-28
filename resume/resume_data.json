@@ -11,7 +11,7 @@
 			"state": "Kentucky",
 			"country": "USA"
 		},
-		"bio": "Lorem ipsum dolor sit amet, sit hinc facilisi no. Minimum lucilius instructior ut mel. Duis tibique eu pri, cu scaevola perfecto scribentur eos, eleifend senserit sea et. Ad pro animal deseruisse contentiones, unum gloriatur eum ei. Scaevola splendide mea eu.",
+		"bio": "I am an all-round developer who is yet to specialize. I have a strong understanding of the principles underlying all realms of computer science, rather that simply knowing a specific language thoroughly. I am most interested in cryptography and systems development. I am an open-source enthusiast and see morality and privacy concerns as paramount.",
 		"image": "/images/myface.jpg"
 	},
 	"degrees": [
@@ -93,7 +93,7 @@
 			},
 			{
 				"name": "Basic Logic",
-				"shortName": "Basic Logic",
+				"shortName": "Logic",
 				"id": "21-300",
 				"description": "Propositional and predicate logic: Syntax, proof theory and semantics up to completeness theorem, Lowenheim Skolem theorems, and applications of the compactness theorem."
 			},
@@ -189,7 +189,7 @@
 			},
 			"start_date": "2015-05",
 			"end_date": "2015-08",
-			"description": "Lorem ipsum dolor sit amet, duo voluptua insolens recteque et, ex sed perfecto conclusionemque, eu brute cetero utroque sit. Qui ea case vero erroribus. Ius dicta conclusionemque cu, tibique scaevola inciderint cum te. Explicari comprehensam pro ne. Et rebum recteque est. Integre virtute inermis te sed. Ex ridens ancillae eligendi nam, has graece recteque ex, essent molestie intellegat id eos."
+			"description": "Applied Predictive Technologies (APT) is a SAAS company which seeks to allow business to systematically test changes on a subset of its businesses before deciding whether to implement everywhere. In this internship, I used the Agile approach to software development and worked mostly using C# and Microsoft SQL Server. I joined two teams: the Infrastructure team and an Analytics team. As part of the Infrastructure team, I lead the effort to implement a job scheduling platform. I designed and built every part of the system from the backend scheduling to the API to the client library and web interface. As part of the Analytics team, I implemented an improved calculation that was rolled out into APT's main product."
 		}
 	],
 	"projects": [
@@ -197,19 +197,19 @@
 			"name": "C0 Language Compiler",
 			"start_date": "2015-08",
 			"end_date": "2015-12",
-			"description": "Lorem ipsum dolor sit amet, duo voluptua insolens recteque et, ex sed perfecto conclusionemque, eu brute cetero utroque sit. Qui ea case vero erroribus. Ius dicta conclusionemque cu, tibique scaevola inciderint cum te. Explicari comprehensam pro ne. Et rebum recteque est. Integre virtute inermis te sed. Ex ridens ancillae eligendi nam, has graece recteque ex, essent molestie intellegat id eos."
+			"description": "As part of my Compiler Design course at Carnegie Mellon University, I developed a compiler for a C-like programming language taught in early computer science courses. I designed and implemented every part of the compiler from lexing to assembly generation. I used SSA form for the intermediate representation and implemented many optimizations including constant propogation and folding, dead-code elimination, tail-call optimization, function-inlining, and register coalescing. Source is available upon request."
 		},
 		{
-			"name": "C0 Language Compiler",
-			"start_date": "2015-08",
-			"end_date": "2015-12",
-			"description": "Lorem ipsum dolor sit amet, duo voluptua insolens recteque et, ex sed perfecto conclusionemque, eu brute cetero utroque sit. Qui ea case vero erroribus. Ius dicta conclusionemque cu, tibique scaevola inciderint cum te. Explicari comprehensam pro ne. Et rebum recteque est. Integre virtute inermis te sed. Ex ridens ancillae eligendi nam, has graece recteque ex, essent molestie intellegat id eos."
+			"name": "OS Kernel",
+			"start_date": "2015-01",
+			"end_date": "2015-05",
+			"description": "As part of my Operating System Design and Implementation course at Carnegie Mellon University, I worked with a partner to develop an x86 kernel. We implemented a thread-library for use by user processes, as well as virtual memory, context switching, and a disk driver. Source is available upon request."
 		},
 		{
-			"name": "C0 Language Compiler",
-			"start_date": "2015-08",
-			"end_date": "2015-12",
-			"description": "Lorem ipsum dolor sit amet, duo voluptua insolens recteque et, ex sed perfecto conclusionemque, eu brute cetero utroque sit. Qui ea case vero erroribus. Ius dicta conclusionemque cu, tibique scaevola inciderint cum te. Explicari comprehensam pro ne. Et rebum recteque est. Integre virtute inermis te sed. Ex ridens ancillae eligendi nam, has graece recteque ex, essent molestie intellegat id eos."
+			"name": "Tetris Friends AI",
+			"start_date": "2014-04",
+			"end_date": "2014-09",
+			"description": "Begun in a hackathon and completed individually, I designed an AI to play the game Tetris online at www.tetrisfriends.com. I used pcap to intercept TCP packets sent from the server containing a seed for the a random number generator that determined which pieces would be given in which order. By decompiling the local Java client, I reverse engineered the random number generator. I designed the AI to then determine possible future board states in a few rounds and use a heuristic to choose the optimal one. Moves for generating this board state were then converted into a series of virtual keypresses that were passed to the client program."
 		}
 	],
 	"skills": {
