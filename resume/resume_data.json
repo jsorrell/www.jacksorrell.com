@@ -295,15 +295,15 @@
 		}
 	},
 	"links": {
-		"jack@jacksorrell.com": {
-			"icon": "/images/envelope-closed-light.svg",
-			"href": "mailto:jack@jacksorrell.com"
+		"contact": {
+			"icon": "/images/feedback.svg",
+			"href": "/contact"
 		},
-		"github.com/jsorrell": {
-			"icon": "/images/mark-github-light.svg",
+		"github": {
+			"icon": "/images/octocat.svg",
 			"href": "https://github.com/jsorrell"
 		},
-		"keybase.io/jsorrell": {
+		"keybase": {
 			"icon": "/images/keybase_logo_official.svg",
 			"href": "https://keybase.io/jsorrell"
 		}
