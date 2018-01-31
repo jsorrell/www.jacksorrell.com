@@ -1,0 +1,42 @@
+- var name='Jack Sorrell'
+doctype
+html(lang="en-US")
+	head
+		title= name + " | Contact"
+		meta(name="author" content=name)
+		meta(name="description" content="Contact " + name)
+		meta(id="vp" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+		link(href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm", crossorigin="anonymous")
+		script(src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous" defer)
+		script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous" defer)
+		script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous" defer)
+		script(src="/javascripts/contact.js" defer)
+		link(href="/stylesheets/contact.css", rel="stylesheet")
+		link(href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet")
+		script(src="https://www.google.com/recaptcha/api.js")
+	body
+		.floating-container
+			h1 Contact
+			form(id="contact-form" class="collapse show" method="POST")
+				.form-row
+					.form-group.col-md-6.col-12
+						label(for="contactFormName") Name
+						input(type="text" name="name" class="form-control" id="contactFormName" maxlength=maxNameLength placeholder="John Doe" required)
+					.form-group.col-md-6.col-12
+						label(for="contactFormEmail") Email
+						input(type="email" name="email" class="form-control" id="contactFormEmail" maxlength=maxEmailLength placeholder="name@example.com" required)
+				.form-group
+					label(for="contactFormMessage") Message
+					textarea(name="message" class="form-control" id="contactFormMessage" rows=4 maxlength=maxMessageLength placeholder="Your Message" required)
+				div(class="g-recaptcha" data-sitekey=gRecaptchaSiteKey data-size="invisible" data-callback="contactOnSubmit")
+				button(id="contact-submit" class="btn btn-primary")
+					span Send Message
+					img(src="/images/tail-spin.svg" class="loading-spinner")
+			div(id="message-success-alert" class="alert alert-success alert-dismissible" role="alert" style="display: none;")
+				h2(class="alert-heading mb-0") Message sent.
+				button(type="button" class="close close-alert" aria-label="Close")
+					span &times;
+			div(id="message-error-alert" class="alert alert-warning alert-dismissible" role="alert" style="display: none;")
+				h2(class="alert-heading mb-0") Error sending message. Please try again
+				button(type="button" class="close close-alert" aria-label="Close")
+					span &times;

@@ -60,3 +60,5 @@ typings/
 *.swp
 
 public/stylesheets/*
+
+lib/config/*
