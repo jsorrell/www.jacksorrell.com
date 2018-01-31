@@ -18,7 +18,6 @@ var renderVars = {
 };
 
 router.get('/', function(req, res) {
-	console.log(renderVars);
 	res.render('contact', renderVars);
 });	
 
