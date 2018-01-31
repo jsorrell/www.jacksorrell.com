@@ -118,7 +118,6 @@ footer a {
 	margin: 10px;
 	display: block;
 	font-weight: 400;
-	opacity: 0.9;
 }
 
 .profile-details-container>div {
@@ -240,10 +239,6 @@ $cap-height: 0.7065;
 	transition: letter-spacing 0.3s;
 }
 
-.highlight-on-hover:hover {
-	background-color: rgba(0,0,0,0.2);
-}
-
 .skill:hover .skill-level {
 	letter-spacing: 1px;
 }
@@ -264,4 +259,10 @@ $cap-height: 0.7065;
 
 .dropdown-arrow-flipped {
 	transform: rotateX(180deg);
+}
+
+.course-chevron-right {
+	display: inline-block;
+	margin-left: 5px;
+	height: 0.7em;
 }
