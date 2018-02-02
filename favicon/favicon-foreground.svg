@@ -13,7 +13,7 @@
    viewBox="0 0 4096 4096.0001"
    height="4096"
    width="4096"
-   sodipodi:docname="favicon.svg"
+   sodipodi:docname="favicon-foreground.svg"
    inkscape:version="0.92.2 5c3e80d, 2017-08-06">
   <sodipodi:namedview
      pagecolor="#ffffff"
@@ -136,26 +136,6 @@
       </cc:Work>
     </rdf:RDF>
   </metadata>
-  <g
-     transform="matrix(128,0,0,128.00001,-9593.92,-12371.125)"
-     style="display:inline"
-     id="layer1">
-    <path
-       id="path3711"
-       d="M 74.9525,112.6494 V 96.649403 h 16 16 v 15.999997 16 h -16 -16 z"
-       style="fill:#66648b;fill-opacity:1;stroke-width:0.03690888"
-       inkscape:connector-curvature="0" />
-    <text
-       id="text4520"
-       y="124.70724"
-       x="79.725922"
-       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       xml:space="preserve"><tspan
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:35.27777863px;font-family:'The Wastes of Space';-inkscape-font-specification:'The Wastes of Space, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#88b04b;fill-opacity:1;stroke-width:0.26458332"
-         y="124.70724"
-         x="79.725922"
-         id="tspan4518" /></text>
-  </g>
   <path
      id="path835"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:35.27777863px;line-height:1.25;font-family:'The Wastes of Space';-inkscape-font-specification:'The Wastes of Space, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#88b04b;fill-opacity:1;stroke:none;stroke-width:33.43481064"
