@@ -24,7 +24,7 @@ app.use(
 	sassMiddleware({
 		src: path.join(__dirname, 'sass'), 
 		dest: path.join(__dirname, 'public/stylesheets'),
-		debug: true,
+		debug: process.env.NODE_ENV === 'development',
 		outputStyle: 'compressed',
 		prefix: '/stylesheets'
 	})
