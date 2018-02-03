@@ -1,5 +1,10 @@
 html.resume {
+
+	$cap-height: 0.7065;
+	$x-height: 0.5315;
+
 	body {
+		// When changing the font update the heights (https://codepen.io/MisterCurtis/pen/doEzzx)
 		font-family: 'Roboto Condensed', sans-serif;
 		background: #f5f5f5;
 		font-weight: 300;
@@ -102,7 +107,6 @@ html.resume {
 	}
 
 	.profile-name {
-		font-family: 'Roboto Condensed', sans-serif;
 		font-size: 32px;
 		margin: 0;
 		border: 5px solid white;
@@ -179,16 +183,12 @@ html.resume {
 	}
 
 	.section-title {
-		// When changing the font update the cap-height (https://codepen.io/MisterCurtis/pen/doEzzx)
-		font-family: 'Roboto Condensed', sans-serif;
 		display: block;
 		padding: 0 10px;
 		font-size: 40px;
 		line-height: 1.2;
 	}
 
-	// Change this if the font changes
-	$cap-height: 0.7065;
 
 	.section-title h3 {
 		font-size: inherit;
@@ -266,6 +266,7 @@ html.resume {
 	.course-chevron-right {
 		display: inline-block;
 		margin-left: 5px;
-		height: 0.7em;
+		height: 1.25em * $x-height;
+		vertical-align: baseline;
 	}
 }
