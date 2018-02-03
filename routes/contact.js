@@ -21,7 +21,7 @@ var renderVars = {
 
 router.get('/', function(req, res) {
 	var host = req.get('Host');
-	res.setHeader('Link', '<https://' + host + canonicalPath + '>; rel="canonical"');
+	res.setHeader('Link', '<' + req.protocol + '://' + host + canonicalPath + '>; rel="canonical"');
 	res.render('contact', renderVars);
 });	
 

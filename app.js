@@ -14,6 +14,8 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+if (process.env.NODE_ENV === 'production')
+	app.set('trust proxy', 'loopback');
 
 app.use(favicon(path.join(__dirname, 'favicon/public', 'favicon.ico')));
 
