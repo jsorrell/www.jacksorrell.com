@@ -26,6 +26,7 @@ body.error {
 	}
 	
 	.error-container-container {
+		margin: 0 auto;
 		padding: 0 20px;
 		width: 100%;
 		box-sizing: border-box;
@@ -35,6 +36,7 @@ body.error {
 		height: 100%;
 		min-width: 320px;
 		flex-wrap: wrap;
+		max-width: 90%;
 	}
 
 	.error-container {
