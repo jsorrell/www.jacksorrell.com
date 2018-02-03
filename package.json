@@ -5,8 +5,13 @@
   "scripts": {
     "start": "node --use-strict ./bin/www"
   },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ],
   "dependencies": {
     "app-module-path": "^2.2.0",
+    "autoprefixer": "^7.2.5",
     "body-parser": "^1.18.2",
     "debug": "~2.6.9",
     "express": "~4.15.5",
@@ -14,6 +19,7 @@
     "mailgun-js": "^0.14.2",
     "moment": "^2.20.1",
     "node-sass-middleware": "^0.11.0",
+    "postcss-middleware": "^1.1.4",
     "pug": "2.0.0-beta11",
     "request": "^2.83.0",
     "serve-favicon": "~2.4.5",

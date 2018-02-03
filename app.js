@@ -3,12 +3,13 @@ var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var sassMiddleware = require('node-sass-middleware');
+var redirect = require('express-simple-redirect');
+var postcssMiddleware = require('postcss-middleware');
+var autoprefixer = require('autoprefixer');
 var resume = require('./routes/resume');
 var contact = require('./routes/contact');
-var redirect = require('express-simple-redirect');
 
 var app = express();
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -29,6 +30,16 @@ app.use(
 		prefix: '/stylesheets'
 	})
 );
+
+app.use('/stylesheets', postcssMiddleware({
+	src: function(req) {
+		console.log(req.path);
+		
+		return path.join(__dirname, path.join('public/stylesheets', req.path));
+	},
+	plugins: [ autoprefixer({ cascade: false }) ]
+}));
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'favicon/public')));
 
