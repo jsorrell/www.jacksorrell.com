@@ -1,7 +1,8 @@
 - var name='Jack Sorrell'
 doctype
-html(lang="en-US").contact
+html(lang="en").contact
 	head
+		meta(charset="utf-8")
 		title= name + " | Contact"
 		meta(name="author" content=name)
 		meta(name="description" content="Contact " + name)
@@ -29,7 +30,7 @@ html(lang="en-US").contact
 				div(class="g-recaptcha" data-sitekey=gRecaptchaSiteKey data-size="invisible" data-callback="contactOnSubmit")
 				button(id="contact-submit" class="btn btn-primary")
 					span Send Message
-					img(src="/images/tail-spin.svg" class="loading-spinner")
+					img(src="/images/tail-spin.svg" alt="Loading spinner" class="loading-spinner")
 			div(id="message-success-alert" class="alert alert-success alert-dismissible" role="alert" style="display: none;")
 				h2(class="alert-heading mb-0") Message sent.
 				button(type="button" class="close close-alert" aria-label="Close")

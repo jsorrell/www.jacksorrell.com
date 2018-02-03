@@ -1,15 +1,17 @@
+- var name = profile.name.first + " " + profile.name.last;
 doctype
-html(lang="en-US").resume
+html(lang="en").resume
 	head
-		title= profile.name.first + " " + profile.name.last + " | Resume"
-		meta(name="author" content=profile.name.first + " " + profile.name.last)
-		meta(name="description" content="The online resume of " + profile.name.first + " " + profile.name.last)
+		meta(charset="utf-8")
+		title= name + " | Resume"
+		meta(name="author" content=name)
+		meta(name="description" content="The online resume of " + name)
 		meta(id="vp" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
 		include includes/favicon
 		include includes/bootstrap_popper
 		script(src="/javascripts/resume.js", defer)
 		link(href="/stylesheets/style.css", rel="stylesheet")
-		link(href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700|Roboto+Slab" rel="stylesheet")
+		link(href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700%7CRoboto+Slab" rel="stylesheet")
 	body
 		div(class="container resume-container")
 			//- rtl to force profile to the right
@@ -26,18 +28,18 @@ html(lang="en-US").resume
 								each link_detail, link_name in links
 									li(class="link")
 										a(href=link_detail.href)
-											img(src=link_detail.icon class="link-icon")
+											img(src=link_detail.icon alt=link_name + "icon" class="link-icon")
 											span(class="text-capitalize")= link_name
 				div(dir="ltr" id="main-box" class="main-box col-xl-9 col-lg-8 col-md-12")
 					div(id="bio" class="section")
 						div(class="section-title")
-							img(src="/images/person.svg" class="section-title-icon")
+							img(src="/images/person.svg" alt="Person icon" class="section-title-icon")
 							h3= "ABOUT ME"
 						.section-row
 							p(class="row-description")= profile.bio 
 					div(id="education" class="section")
 						div(class="section-title")
-							img(src="/images/beaker.svg" class="section-title-icon")
+							img(src="/images/beaker.svg" alt="Beaker icon" class="section-title-icon")
 							h3= "DEGREES"
 						ul
 							each school, school_no in degrees
@@ -47,11 +49,11 @@ html(lang="en-US").resume
 									.w-101
 									span(class="section-row-bl col-lg-6 col-md-12")= school.name
 									.section-row-br.section-row-r.col-lg-6.col-md-12
-										img(src="/images/map-marker.svg" class="location-pin")
+										img(src="/images/map-marker.svg" alt="Location pin" class="location-pin")
 										span= school.location.city + ", " + school.location.state
 					div(id="courses" class="section")
 						div(class="section-title")
-							img(src="/images/paperclip.svg" class="section-title-icon")
+							img(src="/images/paperclip.svg" alt="Paperclip icon" class="section-title-icon")
 							h3= "COURSES"
 						ul
 							each category_courses, course_category in courses
@@ -62,23 +64,23 @@ html(lang="en-US").resume
 											li(class="col-lg-6 col-sm-12")
 												a(tabindex="0" class="section-category-item" role="button" data-toggle="popover" data-placement="top" data-trigger="click" title=course.id + ": " + course.name data-content=course.description)
 													span= course.shortName
-													img(class="course-chevron-right" src="/images/chevron-right.svg")
+													span(class="course-chevron-right") ⏵
 					div(id="experiences" class="section")
 						div(class="section-title")
-							img(src="/images/briefcase.svg" class="section-title-icon")
+							img(src="/images/briefcase.svg" alt="Briefcase icon" class="section-title-icon")
 							h3= "EXPERIENCES"
 						ul
 							each experience, experience_no in experiences
 								li(class="section-row")
 									a(class="section-header section-row-toggle row no-gutters" data-toggle="collapse" href="#experience-" + experience_no role="button")
 										.section-row-tl.col-lg-6.col-md-12
-											img(src="/images/chevron-bottom.svg" class="dropdown-arrow")
+											img(src="/images/chevron-bottom.svg" alt="Dropdown arrow" class="dropdown-arrow")
 											span(class="section-row-title")= experience.title
 										span(class="section-row-r col-lg-6 col-md-12")= moment(experience.start_date).format("MMMM YYYY") + " - " + moment(experience.end_date).format("MMMM YYYY")
 										.w-100
 										span(class="section-row-bl col-lg-6 col-md-12")= experience.company
 										div(class="section-row-br section-row-r col-lg-6 col-md-12")
-											img(src="/images/map-marker.svg" class="location-pin")
+											img(src="/images/map-marker.svg" alt="Location pin" class="location-pin")
 											span= experience.location.city + ", " + experience.location.state
 									.collapse(id="experience-" + experience_no)
 										p(class="col-12 row-description")= experience.description
@@ -91,14 +93,14 @@ html(lang="en-US").resume
 								li(class="section-row")
 									a(class="section-header section-row-toggle row no-gutters" data-toggle="collapse" href="#project-" + project_no role="button")
 										.section-row-tl.col-lg-6.col-md-12
-											img(src="/images/chevron-bottom.svg" class="dropdown-arrow")
+											img(src="/images/chevron-bottom.svg" alt="Dropdown arrow" class="dropdown-arrow")
 											span(class="section-row-title")= project.name
 										span(class="section-row-r col-lg-6 col-md-12")= moment(project.start_date).format("MMMM YYYY") + " - " + moment(project.end_date).format("MMMM YYYY")
 									.collapse(id="project-" + project_no)
 										p(class="col-12 row-description")= project.description
 					div(id="skills" class="section")
 						div(class="section-title")
-							img(src="/images/terminal.svg" class="section-title-icon")
+							img(src="/images/terminal.svg" alt="Terminal icon" class="section-title-icon")
 							h3= "SKILLS"
 						ul
 							each skill_list, skill_category in skills
