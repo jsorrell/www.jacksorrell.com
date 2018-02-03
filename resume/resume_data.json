@@ -297,11 +297,15 @@
 	"links": {
 		"contact": {
 			"icon": "/images/feedback.svg",
-			"href": "/contact"
+			"href": "/contact/"
 		},
 		"github": {
 			"icon": "/images/octocat.svg",
 			"href": "https://github.com/jsorrell"
+		},
+		"twitter": {
+			"icon": "/images/Twitter_Social_Icon_Circle_Color.svg",
+			"href": "https://twitter.com/jsorrell414"
 		},
 		"keybase": {
 			"icon": "/images/keybase_logo_official.svg",
