@@ -8,6 +8,8 @@ var recaptchaKeys = require('config/captcha');
 var verifyRecaptcha = require('captcha/gRecaptchaVerify');
 var validator = require('validator');
 
+const canonicalPath = '/contact/';
+
 const maxEmailLength = 254, maxNameLength = 70, maxMessageLength = 10000;
 
 var renderVars = {
@@ -18,6 +20,8 @@ var renderVars = {
 };
 
 router.get('/', function(req, res) {
+	var host = req.get('Host');
+	res.setHeader('Link', '<https://' + host + canonicalPath + '>; rel="canonical"');
 	res.render('contact', renderVars);
 });	
 

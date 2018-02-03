@@ -1,13 +1,17 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
-var resume_data = require('../resume/resume_data.json')
+var resumeData = require('../resume/resume_data.json')
+
+const canonicalPath = '/resume/';
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-	//not the cleanest
-	resume_data.moment = require('moment');
-	res.render('resume', resume_data);
+	var host = req.get('Host');
+	res.setHeader('Link', '<https://' + host + canonicalPath + '>; rel="canonical"');
+	
+	res.locals.moment = require('moment');
+	res.render('resume', resumeData);
 });	
 
 module.exports = router;
