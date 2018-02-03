@@ -1,6 +1,28 @@
-extends layout
-
-block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+doctype html
+html.error
+	head
+		title Error
+		meta(id="vp" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+		link(href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet")
+		link(rel='stylesheet', href='/stylesheets/style.css')
+	body.error
+		.error-container-container
+			.error-container
+				h1.status-code= status
+				h2.status-message= message
+				hr
+				if status === 404
+					h3 You may want to head back to the homepage.
+				else
+					h3 Go back to the previous page and try again.
+				h3 If you think something is broken, please report a problem.
+				.button-container
+					if status === 404
+						a(href="/") Go To Homepage
+					else
+						a(onclick="history.back()") Go Back
+					a(href="/contact") Report a Problem
+			//- Stack trace
+			if error
+				.stack-trace
+					pre #{error.stack}

@@ -37,20 +37,46 @@ app.use('/contact', contact);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+	var err = new Error('Not Found');
+	err.status = 404;
+	next(err);
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+	res.locals.status = err.status || 500;
+	switch (res.locals.status) {
+		case 403:
+		res.locals.message = "Hey! Stop! You're not allowed here!";
+		break;
+		case 404:
+		res.locals.message = "This is not the page you are looking for.";
+		break;
+		case 405:
+		res.locals.message = "You can't do it that way!";
+		break;
+		case 408:
+		res.locals.message = "Come on. Hurry up.";
+		break;
+		case 500:
+		res.locals.message = "My bad.";
+		break;
+		case 502:
+		res.locals.message = "Something's broken.";
+		break;
+		case 504:
+		res.locals.message = "Someone in the middle is asleep at work.";
+		break;
+		default:
+		res.locals.message = "Well, that's a weird error.";
+	}
+	
+	// set locals, only providing error in development
+	res.locals.error = req.app.get('env') === 'development' ? err : null;
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+	// render the error page
+	res.status(res.locals.status);
+	res.render('error');
 });
 
 module.exports = app;
