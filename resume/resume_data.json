@@ -14,30 +14,27 @@
 		"bio": "I am an all-round developer who is yet to specialize. I have a strong understanding of the principles underlying all realms of computer science, rather that simply knowing a specific language thoroughly. I am most interested in cryptography and systems development. I am an open-source enthusiast and see morality and privacy concerns as paramount.",
 		"image": "/images/myface-nobg.png"
 	},
-	"degrees": [
-		{
-			"name": "Carnegie Mellon University",
-			"start_date": "2012-08",
-			"end_date": "2017-08",
-			"location": {
-				"city": "Pittsburgh",
-				"state": "Pennsylvania"
-			},
-			"type": "undergraduate",
-			"degree": "Bachelor of Science",
-			"degree_short": "BS",
-			"major": "Computer Science",
-			"minors": [
-				"Physics",
-				"Mathematics"
-			]
-		}
-	],
+	"degrees": [{
+		"name": "Carnegie Mellon University",
+		"start_date": "2012-08",
+		"end_date": "2017-08",
+		"location": {
+			"city": "Pittsburgh",
+			"state": "Pennsylvania"
+		},
+		"type": "undergraduate",
+		"degree": "Bachelor of Science",
+		"degree_short": "BS",
+		"major": "Computer Science",
+		"minors": [
+			"Physics",
+			"Mathematics"
+		]
+	}],
 	"courses": {
-		"Computer Science": [
-			{
+		"Computer Science": [{
 				"name": "Compiler Design",
-				"shortName": "Compiler Design",	
+				"shortName": "Compiler Design",
 				"id": "15-411",
 				"description": "This course covers the design and implementation of compiler and run-time systems for high-level languages, and examines the interaction between language design, compiler design, and run-time organization. Topics covered include syntactic and lexical analysis, handling of user-defined types and type-checking, context analysis, code generation and optimization, and memory management and run-time organization."
 			},
@@ -84,8 +81,7 @@
 				"description": "There are two principle objectives for this course. First, to introduce the fundamental concepts necessary for the design and use of a database.  Second, to provide practical experience in applying these concepts using commercial database management systems."
 			}
 		],
-		"Mathematics": [
-			{
+		"Mathematics": [{
 				"name": "Number Theory",
 				"shortName": "Number Theory",
 				"id": "21-441",
@@ -128,8 +124,7 @@
 				"description": "Vectors, lines, planes, quadratic surfaces, polar, cylindrical and spherical coordinates, partial derivatives, directional derivatives, gradient, divergence, curl, chain rule, maximum-minimum problems, multiple integrals, parametric surfaces and curves, line integrals, surface integrals, Green-Gauss theorems."
 			}
 		],
-		"Physics": [
-			{
+		"Physics": [{
 				"name": "Physical Mechanics 1",
 				"shortName": "Physical Mechanics",
 				"id": "33-331",
@@ -179,21 +174,18 @@
 			}
 		]
 	},
-	"experiences": [
-		{
-			"title": "Software Engineering Intern",
-			"company": "Applied Predictive Technologies",
-			"location": {
-				"city": "Arlington",
-				"state": "Virginia"
-			},
-			"start_date": "2015-05",
-			"end_date": "2015-08",
-			"description": "Applied Predictive Technologies (APT) is a SAAS company which seeks to allow business to systematically test changes on a subset of its businesses before deciding whether to implement everywhere. In this internship, I used the Agile approach to software development and worked mostly using C# and Microsoft SQL Server. I joined two teams: the Infrastructure team and an Analytics team. As part of the Infrastructure team, I lead the effort to implement a job scheduling platform. I designed and built every part of the system from the backend scheduling to the API to the client library and web interface. As part of the Analytics team, I implemented an improved calculation that was rolled out into APT's main product."
-		}
-	],
-	"projects": [
-		{
+	"experiences": [{
+		"title": "Software Engineering Intern",
+		"company": "Applied Predictive Technologies",
+		"location": {
+			"city": "Arlington",
+			"state": "Virginia"
+		},
+		"start_date": "2015-05",
+		"end_date": "2015-08",
+		"description": "Applied Predictive Technologies (APT) is a SAAS company which seeks to allow business to systematically test changes on a subset of its businesses before deciding whether to implement everywhere. In this internship, I used the Agile approach to software development and worked mostly using C# and Microsoft SQL Server. I joined two teams: the Infrastructure team and an Analytics team. As part of the Infrastructure team, I lead the effort to implement a job scheduling platform. I designed and built every part of the system from the backend scheduling to the API to the client library and web interface. As part of the Analytics team, I implemented an improved calculation that was rolled out into APT's main product."
+	}],
+	"projects": [{
 			"name": "C0 Language Compiler",
 			"start_date": "2015-08",
 			"end_date": "2015-12",
@@ -215,16 +207,16 @@
 	"skills": {
 		"Platforms": {
 			"Linux": {
-				"level": 5	
+				"level": 5
 			},
 			"Windows": {
-				"level": 3	
+				"level": 3
 			},
 			"Android": {
 				"level": 2
 			},
 			"Web": {
-				"level": 3	
+				"level": 3
 			}
 		},
 		"Development Concepts": {
@@ -235,62 +227,62 @@
 				"level": 5
 			},
 			"Concurrency": {
-				"level": 4	
+				"level": 4
 			},
 			"Recursion": {
-				"level": 5	
+				"level": 5
 			},
 			"Dynamic Programming": {
-				"level": 3	
+				"level": 3
 			},
 			"Algorithms": {
-				"level": 5	
+				"level": 5
 			}
 		},
 		"Languages": {
 			"C": {
-				"level": 5	
+				"level": 5
 			},
 			"C++": {
-				"level": 5	
-			}, 
+				"level": 5
+			},
 			"C#": {
-				"level": 4	
+				"level": 4
 			},
 			"Javascript": {
-				"level": 4	
+				"level": 4
 			},
 			"Haskell": {
-				"level": 5	
+				"level": 5
 			},
 			"Python": {
-				"level": 4	
+				"level": 4
 			},
 			"Java": {
 				"level": 4
 			},
 			"Go": {
-				"level": 4	
+				"level": 4
 			}
 		},
 		"Tools": {
 			"Vim": {
-				"level": 4	
+				"level": 4
 			},
 			"Git": {
-				"level": 4	
+				"level": 4
 			},
 			"Visual Studio": {
 				"level": 3
 			},
 			"Linux Command Line": {
-				"level": 4	
+				"level": 4
 			},
 			"Latex": {
-				"level": 4	
+				"level": 4
 			},
 			"Intellij IDEA": {
-				"level": 3	
+				"level": 3
 			}
 		}
 	},
@@ -311,5 +303,5 @@
 			"icon": "/images/keybase_logo_official.svg",
 			"href": "https://keybase.io/jsorrell"
 		}
-	}	
+	}
 }

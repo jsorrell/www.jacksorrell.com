@@ -36,7 +36,7 @@ html(lang="en").resume
 							img(src="/images/person.svg" alt="Person icon" class="section-title-icon")
 							h3= "ABOUT ME"
 						.section-row
-							p(class="row-description")= profile.bio 
+							p(class="row-description")= profile.bio
 					div(id="education" class="section")
 						div(class="section-title")
 							img(src="/images/beaker.svg" alt="Beaker icon" class="section-title-icon")
@@ -111,7 +111,7 @@ html(lang="en").resume
 											li(class="col-xl-6 col-md-12")
 												.section-category-item.skill
 													span(class="section-category-item-name")= skill
-													- 
+													-
 														var stars = '';
 														for (var i = 0; i < skill_detail.level; i++)
 															stars += '★';
@@ -120,5 +120,5 @@ html(lang="en").resume
 													span(class="skill-level")= stars
 		footer
 			a(href="https://www.useiconic.com/open") Icons from Open Iconic
-			span  | 
+			span= " | "
 			span Updated February 2018

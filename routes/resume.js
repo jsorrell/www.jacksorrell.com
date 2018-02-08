@@ -9,9 +9,9 @@ const canonicalPath = '/resume/';
 router.get('/', function(req, res, next) {
 	var host = req.get('Host');
 	res.setHeader('Link', '<' + req.protocol + '//' + host + canonicalPath + '>; rel="canonical"');
-	
+
 	res.locals.moment = require('moment');
 	res.render('resume', resumeData);
-});	
+});
 
 module.exports = router;

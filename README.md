@@ -31,8 +31,8 @@ module.exports = {
 	subject: 'Contact Form Message'
 }
 ```
-5. Start with (remember to set port)  
-**Production:** `NODE_ENV="production" PORT=#### npm start`  
+5. Start with (remember to set port)
+**Production:** `NODE_ENV="production" PORT=#### npm start`
 **Development:** `NODE_ENV="development" DEBUG="jacksorrell.com:*" PORT=#### npm start`
 
 

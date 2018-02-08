@@ -25,7 +25,7 @@ app.use(redirect({
 
 app.use(
 	sassMiddleware({
-		src: path.join(__dirname, 'sass'), 
+		src: path.join(__dirname, 'sass'),
 		dest: path.join(__dirname, 'public/stylesheets'),
 		debug: process.env.NODE_ENV === 'development',
 		outputStyle: 'compressed',
@@ -36,10 +36,12 @@ app.use(
 app.use('/stylesheets', postcssMiddleware({
 	src: function(req) {
 		console.log(req.path);
-		
+
 		return path.join(__dirname, path.join('public/stylesheets', req.path));
 	},
-	plugins: [ autoprefixer({ cascade: false }) ]
+	plugins: [autoprefixer({
+		cascade: false
+	})]
 }));
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -60,30 +62,30 @@ app.use(function(err, req, res, next) {
 	res.locals.status = err.status || 500;
 	switch (res.locals.status) {
 		case 403:
-		res.locals.message = "Hey! Stop! You're not allowed here!";
-		break;
+			res.locals.message = "Hey! Stop! You're not allowed here!";
+			break;
 		case 404:
-		res.locals.message = "This is not the page you are looking for.";
-		break;
+			res.locals.message = "This is not the page you are looking for.";
+			break;
 		case 405:
-		res.locals.message = "You can't do it that way!";
-		break;
+			res.locals.message = "You can't do it that way!";
+			break;
 		case 408:
-		res.locals.message = "Come on. Hurry up.";
-		break;
+			res.locals.message = "Come on. Hurry up.";
+			break;
 		case 500:
-		res.locals.message = "My bad.";
-		break;
+			res.locals.message = "My bad.";
+			break;
 		case 502:
-		res.locals.message = "Something's broken.";
-		break;
+			res.locals.message = "Something's broken.";
+			break;
 		case 504:
-		res.locals.message = "Someone in the middle is asleep at work.";
-		break;
+			res.locals.message = "Someone in the middle is asleep at work.";
+			break;
 		default:
-		res.locals.message = "Well, that's a weird error.";
+			res.locals.message = "Well, that's a weird error.";
 	}
-	
+
 	// set locals, only providing error in development
 	res.locals.error = req.app.get('env') === 'development' ? err : null;
 

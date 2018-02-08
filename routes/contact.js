@@ -3,14 +3,19 @@ var router = express.Router();
 var path = require('path');
 var bodyParser = require('body-parser');
 var mailgunConf = require('config/mailgun');
-var mailgun = require('mailgun-js')({apiKey: mailgunConf.privateApiKey, domain: mailgunConf.domain});
+var mailgun = require('mailgun-js')({
+	apiKey: mailgunConf.privateApiKey,
+	domain: mailgunConf.domain
+});
 var recaptchaKeys = require('config/captcha');
 var verifyRecaptcha = require('captcha/gRecaptchaVerify');
 var validator = require('validator');
 
 const canonicalPath = '/contact/';
 
-const maxEmailLength = 254, maxNameLength = 70, maxMessageLength = 10000;
+const maxEmailLength = 254,
+	maxNameLength = 70,
+	maxMessageLength = 10000;
 
 var renderVars = {
 	gRecaptchaSiteKey: recaptchaKeys.siteKey,
@@ -23,23 +28,34 @@ router.get('/', function(req, res) {
 	var host = req.get('Host');
 	res.setHeader('Link', '<' + req.protocol + '://' + host + canonicalPath + '>; rel="canonical"');
 	res.render('contact', renderVars);
-});	
+});
 
-var parser = bodyParser.urlencoded({ extended: false });
+var parser = bodyParser.urlencoded({
+	extended: false
+});
 router.post('/', parser, function(req, res) {
 	var gRecaptchaResponse = req.body['g-recaptcha-response'];
 	verifyRecaptcha(gRecaptchaResponse,
-		function () { //valid
+		function() { //valid
 			//fix crlf counted as 2 characters TODO: do this better
 			req.body.message = req.body.message.replace(/\r\n/g, '\n');
 
-			if (!validator.isLength(req.body.email, {min: 1, max: maxEmailLength}) || !validator.isEmail(req.body.email)) {
+			if (!validator.isLength(req.body.email, {
+					min: 1,
+					max: maxEmailLength
+				}) || !validator.isEmail(req.body.email)) {
 				res.status(400).send('Invalid Email');
 				return;
-			} else if (!validator.isLength(req.body.name, {min: 1, max: maxNameLength})) {
+			} else if (!validator.isLength(req.body.name, {
+					min: 1,
+					max: maxNameLength
+				})) {
 				res.status(400).send('Name Too Long');
 				return;
-			} else if (!validator.isLength(req.body.message, {min: 1, max: maxMessageLength})) {
+			} else if (!validator.isLength(req.body.message, {
+					min: 1,
+					max: maxMessageLength
+				})) {
 				res.status(400).send('Message Too Long');
 				return;
 			}
@@ -51,7 +67,7 @@ router.post('/', parser, function(req, res) {
 				text: req.body.message
 			};
 
-			mailgun.messages().send(emailData, function (error, body) {
+			mailgun.messages().send(emailData, function(error, body) {
 				if (error) {
 					console.log(error); //TODO: real log
 					res.status(500).send('Failed to Send Message');
@@ -59,8 +75,9 @@ router.post('/', parser, function(req, res) {
 					res.status(200).send('Message Received');
 				}
 			});
-				
-		}, function() { //invalid
+
+		},
+		function() { //invalid
 			res.status(400).send('Captcha Validation Failed');
 		});
 });
