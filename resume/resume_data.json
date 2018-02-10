@@ -186,6 +186,12 @@
 		"description": "Applied Predictive Technologies (APT) is a SAAS company which seeks to allow business to systematically test changes on a subset of its businesses before deciding whether to implement everywhere. In this internship, I used the Agile approach to software development and worked mostly using C# and Microsoft SQL Server. I joined two teams: the Infrastructure team and an Analytics team. As part of the Infrastructure team, I lead the effort to implement a job scheduling platform. I designed and built every part of the system from the backend scheduling to the API to the client library and web interface. As part of the Analytics team, I implemented an improved calculation that was rolled out into APT's main product."
 	}],
 	"projects": [{
+			"name": "jacksorrell.com",
+			"start_date": "2017-12",
+			"end_date": "2018-02",
+			"description": "I designed the website you are currently visiting. Believing I needed a formal online presence and more experience in current web technologies, I decided to build this website. I taught myself Bootstrap, Pug, Sass, Express.js as well as brushed up on Javascript/NodeJS, HTML, CSS and Nginx configuration in the process."
+		},
+		{
 			"name": "C0 Language Compiler",
 			"start_date": "2015-08",
 			"end_date": "2015-12",
@@ -201,7 +207,7 @@
 			"name": "Tetris Friends AI",
 			"start_date": "2014-04",
 			"end_date": "2014-09",
-			"description": "Begun in a hackathon and completed individually, I designed an AI to play the game Tetris online at www.tetrisfriends.com. I used pcap to intercept TCP packets sent from the server containing a seed for the a random number generator that determined which pieces would be given in which order. By decompiling the local Java client, I reverse engineered the random number generator. I designed the AI to then determine possible future board states in a few rounds and use a heuristic to choose the optimal one. Moves for generating this board state were then converted into a series of virtual keypresses that were passed to the client program."
+			"description": "Begun in a hackathon and completed individually, I designed an AI to play the game Tetris online at www.tetrisfriends.com. I used pcap to intercept TCP packets sent from the server containing a seed for the a random number generator that determined which pieces would be given in which order. By decompiling the local Java client, I reverse engineered the random number generator. I designed the AI to then determine possible future board states in a few rounds and use a heuristic to choose the optimal one. Moves for generating this board state were then converted into a series of virtual keypresses that were passed to the client program. Source is available on Github."
 		}
 	],
 	"skills": {
@@ -209,13 +215,13 @@
 			"Linux": {
 				"level": 5
 			},
+			"Web": {
+				"level": 4
+			},
 			"Windows": {
 				"level": 3
 			},
 			"Android": {
-				"level": 2
-			},
-			"Web": {
 				"level": 3
 			}
 		},
@@ -226,17 +232,17 @@
 			"Functional Programming": {
 				"level": 5
 			},
-			"Concurrency": {
-				"level": 4
-			},
 			"Recursion": {
 				"level": 5
 			},
-			"Dynamic Programming": {
-				"level": 3
-			},
 			"Algorithms": {
 				"level": 5
+			},
+			"Concurrency": {
+				"level": 4
+			},
+			"Dynamic Programming": {
+				"level": 3
 			}
 		},
 		"Languages": {
@@ -244,7 +250,7 @@
 				"level": 5
 			},
 			"C++": {
-				"level": 5
+				"level": 4
 			},
 			"C#": {
 				"level": 4
@@ -253,7 +259,7 @@
 				"level": 4
 			},
 			"Haskell": {
-				"level": 5
+				"level": 4
 			},
 			"Python": {
 				"level": 4
@@ -266,20 +272,23 @@
 			}
 		},
 		"Tools": {
+			"Linux Command Line": {
+				"level": 5
+			},
+			"Atom": {
+				"level": 4
+			},
 			"Vim": {
 				"level": 4
 			},
 			"Git": {
 				"level": 4
 			},
-			"Visual Studio": {
-				"level": 3
-			},
-			"Linux Command Line": {
-				"level": 4
-			},
 			"Latex": {
 				"level": 4
+			},
+			"Visual Studio": {
+				"level": 3
 			},
 			"Intellij IDEA": {
 				"level": 3
