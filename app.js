@@ -17,10 +17,10 @@ app.set('view engine', 'pug');
 if (process.env.NODE_ENV === 'production')
 	app.set('trust proxy', 'loopback');
 
-app.use(favicon(path.join(__dirname, 'favicon/public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'favicon/public/', 'favicon.ico')));
 
 app.use(redirect({
-	'/': '/resume'
+	'/': '/resume/'
 }));
 
 app.use(
@@ -29,26 +29,26 @@ app.use(
 		dest: path.join(__dirname, 'public/stylesheets'),
 		debug: process.env.NODE_ENV === 'development',
 		outputStyle: 'compressed',
-		prefix: '/stylesheets'
+		prefix: '/stylesheets/'
 	})
 );
 
-app.use('/stylesheets', postcssMiddleware({
+app.use('/stylesheets/', postcssMiddleware({
 	src: function(req) {
 		console.log(req.path);
 
-		return path.join(__dirname, path.join('public/stylesheets', req.path));
+		return path.join(__dirname, path.join('public/stylesheets/', req.path));
 	},
 	plugins: [autoprefixer({
 		cascade: false
 	})]
 }));
 
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'favicon/public')));
+app.use(express.static(path.join(__dirname, 'public/')));
+app.use(express.static(path.join(__dirname, 'favicon/public/')));
 
-app.use('/resume', resume);
-app.use('/contact', contact);
+app.use('/resume/', resume);
+app.use('/contact/', contact);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
