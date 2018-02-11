@@ -1,45 +1,39 @@
 # www.jacksorrell.com
-My personal website at jacksorrell.com
+My personal website at https://www.jacksorrell.com
 
 ## Setup
-1. Clone repository or download branch
-2. Ensure npm in v5+ and node is v9+
-3. npm install
-4. Add config files
-```javascript
-// lib/config/captcha.js
+1. Clone repository or download branch.
+1. Ensure npm is v5+ and node is v8+.
+1. `npm install`
+1. Add config files `lib/config/captcha.js` and `lib/config/mailgun.js` using the examples.
+1. Start with (remember to set port)
+	* **Production:** `NODE_ENV="production" PORT=#### npm start`
+	* **Development:** `NODE_ENV="development" DEBUG="jacksorrell.com:*" PORT=#### npm start`
+	* **Systemd:**
 
-const personalKeys = {
-	siteKey: 'PUT_SITE_KEY_HERE',
-	secretKey: 'PUT_SECRET_KEY_HERE'
-}
+	```
+	[Unit]
+	Description=jacksorrell.com server
+	After=network.target
 
-const testingKeys = {
-	siteKey: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI',
-	secretKey: '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe'
-}
+	[Service]
+	User=example_user
+	Group=example_group
+	WorkingDirectory=/var/www/jacksorrell.com
+	ExecStart=/usr/bin/npm start
+	Restart=on-failure
+	Environment=NODE_ENV=production
+	Environment=PORT=####
 
-module.exports = process.env.NODE_ENV == 'development' ? testingKeys : personalKeys;
-```
-```javascript
-// lib/config/mailgun.js
-
-module.exports = {
-	privateApiKey: 'PUT_PRIVATE_API_KEY_HERE',
-	domain: 'PUT_DOMAIN_HERE',
-	toAddress: 'PUT_MAILTO_ADDRESS_HERE',
-	subject: 'Contact Form Message'
-}
-```
-5. Start with (remember to set port)
-**Production:** `NODE_ENV="production" PORT=#### npm start`
-**Development:** `NODE_ENV="development" DEBUG="jacksorrell.com:*" PORT=#### npm start`
-
+	[Install]
+	WantedBy=multi-user.target
+	```
 
 ## Design Choices
-1. Favicons from https://realfavicongenerator.net using font "The Wastes of Space".
-2. Mail on contact form sent via Mailgun and protected using Google's invisible recaptcha.
-
-
+* Original favicon created using font [The Wastes of Space](http://www.fontspace.com/chequered-ink/the-wastes-of-space).
+* Favicons from https://realfavicongenerator.net.
+* Use contact form to protect email from spambots.
+* Contact form sends email via Mailgun and is protected from bots by Google's invisible recaptcha.
+* Both `www.jacksorrell.com/resume` and `www.jacksorrell.com/resume/` are valid, but the latter is the canonical version and is defined by a http link header.
 
 *Updated February 2018*
