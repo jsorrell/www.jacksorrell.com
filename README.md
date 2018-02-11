@@ -11,23 +11,23 @@ My personal website at https://www.jacksorrell.com
 	* **Development:** `NODE_ENV="development" DEBUG="jacksorrell.com:*" PORT=#### npm start`
 	* **Systemd:**
 
-	```
-	[Unit]
-	Description=www.jacksorrell.com server
-	After=network.target
+		```
+		[Unit]
+		Description=www.jacksorrell.com server
+		After=network.target
 
-	[Service]
-	User=example_user
-	Group=example_group
-	WorkingDirectory=/var/www/www.jacksorrell.com
-	ExecStart=/usr/bin/npm start
-	Restart=on-failure
-	Environment=NODE_ENV=production
-	Environment=PORT=####
+		[Service]
+		User=example_user
+		Group=example_group
+		WorkingDirectory=/var/www/www.jacksorrell.com
+		ExecStart=/usr/bin/npm start
+		Restart=on-failure
+		Environment=NODE_ENV=production
+		Environment=PORT=####
 
-	[Install]
-	WantedBy=multi-user.target
-	```
+		[Install]
+		WantedBy=multi-user.target
+		```
 
 ## Design Choices
 * Original favicon created using font [The Wastes of Space](http://www.fontspace.com/chequered-ink/the-wastes-of-space).
