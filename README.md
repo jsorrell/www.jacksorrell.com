@@ -13,13 +13,13 @@ My personal website at https://www.jacksorrell.com
 
 	```
 	[Unit]
-	Description=jacksorrell.com server
+	Description=www.jacksorrell.com server
 	After=network.target
 
 	[Service]
 	User=example_user
 	Group=example_group
-	WorkingDirectory=/var/www/jacksorrell.com
+	WorkingDirectory=/var/www/www.jacksorrell.com
 	ExecStart=/usr/bin/npm start
 	Restart=on-failure
 	Environment=NODE_ENV=production
