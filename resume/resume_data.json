@@ -11,7 +11,7 @@
 			"state": "Kentucky",
 			"country": "USA"
 		},
-		"bio": "I am an all-round developer who is yet to specialize. I have a strong understanding of the principles underlying all realms of computer science, rather that simply knowing a specific language thoroughly. I am most interested in cryptography and systems development. I am an open-source enthusiast and see morality and privacy concerns as paramount.",
+		"bio": "I am an all-round developer who has yet to specialize. I have a strong understanding of the principles underlying all realms of computer science, rather that simply knowing all the intricacies of a single language. I prioritize robustness and correctness over implementation speed. I am an open-source enthusiast and see morality and privacy concerns as paramount.",
 		"image": "/images/myface-nobg.png"
 	},
 	"degrees": [{
@@ -184,12 +184,12 @@
 		"start_date": "2015-05",
 		"end_date": "2015-08",
 		"description": "Applied Predictive Technologies (APT) is a SAAS company which seeks to allow business to systematically test changes on a subset of its businesses before deciding whether to implement everywhere. In this internship, I used the Agile approach to software development and worked mostly using C# and Microsoft SQL Server. I joined two teams: the Infrastructure team and an Analytics team. As part of the Infrastructure team, I lead the effort to implement a job scheduling platform. I designed and built every part of the system from the backend scheduling to the API to the client library and web interface. As part of the Analytics team, I implemented an improved calculation that was rolled out into APT's main product."
-	}],
-	"projects": [{
+		}],
+		"projects": [{
 			"name": "jacksorrell.com",
 			"start_date": "2017-12",
 			"end_date": "2018-02",
-			"description": "I designed the website you are currently visiting. Believing I needed a formal online presence and more experience in current web technologies, I decided to build this website. I taught myself Bootstrap, Pug, Sass, Express.js as well as brushed up on Javascript/NodeJS, HTML, CSS and Nginx configuration in the process."
+			"description": "Believing I needed a formal online presence and more experience in current web technologies, I decided to build the website you are currently visiting. In the process, I taught myself Bootstrap, Pug, Sass, Express as well as brushed up on Javascript/NodeJS, HTML, CSS and Nginx. Source is available on GitHub."
 		},
 		{
 			"name": "C0 Language Compiler",
@@ -207,7 +207,7 @@
 			"name": "Tetris Friends AI",
 			"start_date": "2014-04",
 			"end_date": "2014-09",
-			"description": "Begun in a hackathon and completed individually, I designed an AI to play the game Tetris online at www.tetrisfriends.com. I used pcap to intercept TCP packets sent from the server containing a seed for the a random number generator that determined which pieces would be given in which order. By decompiling the local Java client, I reverse engineered the random number generator. I designed the AI to then determine possible future board states in a few rounds and use a heuristic to choose the optimal one. Moves for generating this board state were then converted into a series of virtual keypresses that were passed to the client program. Source is available on Github."
+			"description": "Begun in a hackathon and completed individually, I designed an AI to play the game Tetris online at www.tetrisfriends.com. I used pcap to intercept TCP packets sent from the server containing a seed for the a random number generator that determined which pieces would be given in which order. By decompiling the local Java client, I reverse engineered the random number generator. I designed the AI to then determine possible future board states in a few rounds and use a heuristic to choose the optimal one. Moves for generating this board state were then converted into a series of virtual keypresses that were passed to the client program. Source is available on GitHub."
 		}
 	],
 	"skills": {
