@@ -2,9 +2,10 @@
   "name": "www.jacksorrell.com",
   "version": "1.0.0",
   "license": "GPL-3.0",
+  "repository": "github:jsorrell/www.jacksorrell.com",
   "engines": {
     "node": ">=8",
-    "npm":  ">=5"
+    "npm": ">=5"
   },
   "scripts": {
     "start": "node --use-strict ./bin/www"
