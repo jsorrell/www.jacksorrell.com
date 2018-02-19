@@ -11,7 +11,7 @@
 			"state": "Kentucky",
 			"country": "USA"
 		},
-		"bio": "I am an all-round developer who has yet to specialize. I have a strong understanding of the principles underlying all realms of computer science, rather that simply knowing all the intricacies of a single language. I prioritize robustness and correctness over implementation speed. I am an open-source enthusiast and see morality and privacy concerns as paramount.",
+		"bio": "I am an all-round developer who has yet to specialize. I have a strong understanding of the principles underlying all realms of computer science, rather than simply knowing all the intricacies of a single language. I prioritize robustness and correctness over implementation speed. I am an open-source enthusiast and see morality and privacy concerns as paramount.",
 		"image": "/images/myface-nobg.png"
 	},
 	"degrees": [{
@@ -186,7 +186,7 @@
 		"description": "Applied Predictive Technologies (APT) is a SAAS company which seeks to allow business to systematically test changes on a subset of its businesses before deciding whether to implement everywhere. In this internship, I used the Agile approach to software development and worked mostly using C# and Microsoft SQL Server. I joined two teams: the Infrastructure team and an Analytics team. As part of the Infrastructure team, I lead the effort to implement a job scheduling platform. I designed and built every part of the system from the backend scheduling to the API to the client library and web interface. As part of the Analytics team, I implemented an improved calculation that was rolled out into APT's main product."
 		}],
 		"projects": [{
-			"name": "jacksorrell.com",
+			"name": "www.jacksorrell.com",
 			"start_date": "2017-12",
 			"end_date": "2018-02",
 			"description": "Believing I needed a formal online presence and more experience in current web technologies, I decided to build the website you are currently visiting. In the process, I taught myself Bootstrap, Pug, Sass, Express as well as brushed up on Javascript/NodeJS, HTML, CSS and Nginx. Source is available on GitHub."
