@@ -60,5 +60,6 @@ typings/
 *.swp
 
 public/css
+public/js
 
 lib/config/*

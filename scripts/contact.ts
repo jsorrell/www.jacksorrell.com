@@ -1,4 +1,6 @@
-function contactOnSubmit(token) {
+/// <reference types="grecaptcha" />
+/// <reference types="jquery" />
+function contactOnSubmit(_token: string) {
 	$.ajax({
 		data: $('#contact-form').serialize(),
 		type: 'POST',
@@ -6,10 +8,10 @@ function contactOnSubmit(token) {
 			$('#contact-submit .loading-spinner').removeClass('spinning');
 			$('#contact-submit').prop('disabled', false);
 		},
-		success: function(data, textStatus, jqXHR) {
+		success: function(_data, _textStatus, _jqXHR) {
 			$('#message-success-alert').show();
 		},
-		error: function(jqXHR, textStatus, errorThrown) {
+		error: function(_jqXHR, _textStatus, _errorThrown) {
 			$('#message-error-alert').show();
 		}
 	});
@@ -24,6 +26,6 @@ $('#contact-form').submit(function(e) {
 	grecaptcha.execute();
 });
 
-$('.close-alert').click(function(e) {
+$('.close-alert').click(function(_e) {
 	$(this).closest('.alert').hide();
 });
