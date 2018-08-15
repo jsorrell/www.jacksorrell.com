@@ -59,6 +59,6 @@ typings/
 
 *.swp
 
-public/stylesheets/*
+public/css
 
 lib/config/*

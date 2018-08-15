@@ -2,10 +2,7 @@ require('app-module-path').addPath(__dirname + '/lib');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
-var sassMiddleware = require('node-sass-middleware');
 var redirect = require('express-simple-redirect');
-var postcssMiddleware = require('postcss-middleware');
-var autoprefixer = require('autoprefixer');
 var resume = require('./routes/resume');
 var contact = require('./routes/contact');
 
@@ -21,27 +18,6 @@ app.use(favicon(path.join(__dirname, 'favicon/public/', 'favicon.ico')));
 
 app.use(redirect({
 	'/': '/resume/'
-}));
-
-app.use(
-	sassMiddleware({
-		src: path.join(__dirname, 'sass'),
-		dest: path.join(__dirname, 'public/stylesheets'),
-		debug: process.env.NODE_ENV === 'development',
-		outputStyle: 'compressed',
-		prefix: '/stylesheets/'
-	})
-);
-
-app.use('/stylesheets/', postcssMiddleware({
-	src: function(req) {
-		console.log(req.path);
-
-		return path.join(__dirname, path.join('public/stylesheets/', req.path));
-	},
-	plugins: [autoprefixer({
-		cascade: false
-	})]
 }));
 
 app.use(express.static(path.join(__dirname, 'public/')));
