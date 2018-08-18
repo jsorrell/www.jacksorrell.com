@@ -62,7 +62,7 @@ WantedBy=multi-user.target
 ## Design Choices
 -   Original favicon created using font [The Wastes of Space](http://www.fontspace.com/chequered-ink/the-wastes-of-space).
 
--   Favicons from <https://realfavicongenerator.net>.
+-   Favicons from [RealFaviconGenerator](https://realfavicongenerator.net).
 
 -   Use contact form to protect email from spambots.
 
