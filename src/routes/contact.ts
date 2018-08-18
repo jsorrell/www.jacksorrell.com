@@ -145,7 +145,7 @@ async function sendEmail (email: EmailMessage) {
 		from: `${email.name}<${email.email}>`,
 		to: process.env.MAILGUN_TO_ADDRESS as string,
 		subject: process.env.MAILGUN_SUBJECT as string,
-		text: email.message as string
+		text: email.message
 	};
 
 	logger.info('Sending email.');
