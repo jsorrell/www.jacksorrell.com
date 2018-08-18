@@ -30,6 +30,17 @@ export class ServerError extends Error {
 	}
 }
 
+const pushHeader = [
+	{ link: '/css/style.css', type: 'style' }
+].map((asset) => {
+	return `<${asset.link}>; as=${asset.type}; rel=preload`;
+}).reduce((acc, val) => {
+	return acc + ', ' + val;
+});
+
+/**
+ * Express middleware to handle errors. Put this middleware last.
+ */
 export function handler (err: ServerError, _req: express.Request, res: express.Response, _next: express.NextFunction) {
 	res.locals.status = err.status || Status.INTERNAL_SERVER_ERROR;
 	res.locals.message = getStatusMessage(res.locals.status);
@@ -38,6 +49,7 @@ export function handler (err: ServerError, _req: express.Request, res: express.R
 	res.locals.error = process.env.NODE_ENV === 'development' ? err : null;
 
 	// render the error page
+	res.setHeader('Link', pushHeader);
 	res.status(res.locals.status);
 	res.render('error');
 }
