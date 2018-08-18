@@ -59,7 +59,6 @@ typings/
 
 *.swp
 
-public/css
-public/js
+.sass-cache/
 
-lib/config/*
+dist/

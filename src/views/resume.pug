@@ -8,8 +8,9 @@ html(lang="en").resume
 		meta(name="description" content="The online resume of " + name)
 		meta(id="vp" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
 		include includes/favicon
+		include includes/jquery
 		include includes/bootstrap_popper
-		script(src="/js/resume.js", defer)
+		script(src="/js/resume.js", defer="defer")
 		link(href="/css/style.css", rel="stylesheet")
 		link(href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700%7CRoboto+Slab" rel="stylesheet")
 	body

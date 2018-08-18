@@ -1,0 +1,13 @@
+{
+	"defaultSeverity": "error",
+	"extends": [
+		"tslint-config-standard"
+	],
+	"allowJs": true,
+	"jsRules": true, // See https://github.com/palantir/tslint/pull/3641
+	"rules": {
+		"ter-indent": [true, "tab", { "SwitchCase": 1 }],
+		"semicolon": [true, "always", "ignore-bound-class-methods"]
+	},
+	"rulesDirectory": []
+}

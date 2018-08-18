@@ -1,10 +1,5 @@
 {
     "compilerOptions": {
-        "target": "ES5",
-        /* "declaration": true, */
-        /* "declarationMap": true, */
-        /* "sourceMap": true, */
-        "outDir": "../public/js/",
         "removeComments": true,
         "strict": true,
         "noImplicitAny": true,
@@ -14,10 +9,6 @@
         "noImplicitThis": true,
         "alwaysStrict": true,
         "noImplicitReturns": true,
-        "noFallthroughCasesInSwitch": true
-    },
-    "files": [
-		"resume.ts",
-        "contact.ts"
-    ]
+        "noFallthroughCasesInSwitch": true,
+    }
 }

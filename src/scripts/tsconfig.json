@@ -1,0 +1,14 @@
+{
+	"extends": "../../tsconfig_base.json",
+    "compilerOptions": {
+        "target": "ES5",
+        "outDir": "../../dist/public/js/",
+        "declaration": true,
+        "declarationMap": true,
+        "sourceMap": true
+    },
+    "include": [
+		"resume.ts",
+        "contact.ts"
+    ]
+}
