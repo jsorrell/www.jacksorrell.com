@@ -1,26 +1,27 @@
 'use strict';
 
 require('dotenv').config();
-var gulp = require('gulp');
 var autoprefixer = require('autoprefixer');
 var browserSync = require('browser-sync').create();
-const happiness = require('gulp-happiness');
-var minifycss = require('gulp-clean-css');
-var postcss = require('gulp-postcss');
-var gulpSass = require('gulp-sass');
-var spawn = require('child_process').spawn;
-var typescript = require('gulp-typescript');
-var tsify = require('tsify');
 var browserify = require('browserify');
-var uglify = require('gulp-uglify-es').default;
-var buffer = require('vinyl-buffer');
+var spawn = require('child_process').spawn;
+var gulp = require('gulp');
+const gulpClean = require('gulp-clean');
+var minifycss = require('gulp-clean-css');
+const happiness = require('gulp-happiness');
 var newer = require('gulp-newer');
+var postcss = require('gulp-postcss');
 var print = require('gulp-print').default;
-const gulpTslint = require('gulp-tslint').default;
-var tslint = require('tslint');
-const gulpWatchSass = require('gulp-watch-sass');
+var gulpSass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 var tap = require('gulp-tap');
+const gulpTslint = require('gulp-tslint').default;
+var typescript = require('gulp-typescript');
+var uglify = require('gulp-uglify-es').default;
+const gulpWatchSass = require('gulp-watch-sass');
+var tsify = require('tsify');
+var tslint = require('tslint');
+var buffer = require('vinyl-buffer');
 
 var serverTs = typescript.createProject('src/tsconfig.json');
 var clientTs = typescript.createProject('src/scripts/tsconfig.json');
@@ -170,5 +171,10 @@ function lintClientTs () {
 export const lintTs = gulp.series(lintServerTs, lintClientTs);
 
 export const lint = gulp.series(lintJs, lintTs);
+
+export function clean () {
+	return gulp.src('./dist', { read: false })
+		.pipe(gulpClean());
+}
 
 export default build;
