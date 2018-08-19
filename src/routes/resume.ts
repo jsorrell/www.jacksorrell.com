@@ -29,7 +29,7 @@ const pushHeader = [
 /* GET users listing. */
 export default router.get('/', function (req, res, _next) {
 	const host = req.get('Host');
-	res.setHeader('Link', `<${req.protocol}://${host + canonicalPath}>; rel="canonical, "` + pushHeader);
+	res.setHeader('Link', `<${req.protocol}://${host + canonicalPath}>; rel="canonical", ` + pushHeader);
 
 	res.locals.moment = require('moment');
 	res.render('resume', resumeData);

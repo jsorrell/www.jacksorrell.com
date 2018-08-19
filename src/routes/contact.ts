@@ -47,7 +47,7 @@ const pushHeader = [
  */
 router.get('/', function (req, res) {
 	const host = req.get('Host');
-	res.setHeader('Link', `<${req.protocol}://${host + canonicalPath}>; rel="canonical, "` + pushHeader);
+	res.setHeader('Link', `<${req.protocol}://${host + canonicalPath}>; rel="canonical", ` + pushHeader);
 	res.render('contact', renderVars);
 });
 
