@@ -9,117 +9,94 @@ html(lang="en").resume
 		meta(id="vp" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
 		include includes/favicon
 		include includes/jquery
-		include includes/bootstrap_popper
-		script(src="/js/resume.js", defer="defer")
 		link(href="/css/style.css", rel="stylesheet")
 		link(href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700%7CRoboto+Slab" rel="stylesheet")
 	body
-		div(class="container resume-container")
-			//- rtl to force profile to the right
-			div(dir="rtl" class="row no-gutters")
-				div(dir="ltr" class="profile-box" class="col-xl-3 col-lg-4 col-md-12")
-					div(class="profile-header-box")
-						img(class="profile-image" src=profile.image alt="Image of Jack" class="img-fluid")
-						.profile-name-wrapper
-							h1(class="profile-name text-uppercase")= profile.name.first + " " + profile.name.last
-						h2(class="profile-title")= profile.title
-					div(class="profile-details-box")
-						.links
-							ul
-								each link_detail, link_name in links
-									li(class="link")
-										a(href=link_detail.href)
-											img(src=link_detail.icon alt=link_name + " icon" class="link-icon")
-											span(class="text-capitalize")= link_name
-				div(dir="ltr" id="main-box" class="main-box col-xl-9 col-lg-8 col-md-12")
-					div(id="bio" class="section")
-						div(class="section-title")
-							img(src="/images/person.svg" alt="Person icon" class="section-title-icon")
-							h3= "ABOUT ME"
-						.section-row
-							p(class="row-description")= profile.bio
-					div(id="education" class="section")
-						div(class="section-title")
-							img(src="/images/beaker.svg" alt="Beaker icon" class="section-title-icon")
-							h3= "DEGREES"
+		#resume-container
+			#profile-box
+				.header
+					img(src=profile.image alt="Image of Jack").profile-image
+					hgroup
+						h1.profile-name= profile.name.first + " " + profile.name.last
+						h2.profile-title= profile.title
+				.details
+					.links
 						ul
-							each school, school_no in degrees
-								li(class="section-row section-header row no-gutters")
-									span(class="section-row-title section-row-tl col-lg-6 col-md-12")= school.degree_short + " in " + school.major
-									span(class="section-row-tr section-row-r col-lg-6 col-md-12")= moment(school.start_date).format("MMMM YYYY") + " - " + moment(school.end_date).format("MMMM YYYY")
-									.w-101
-									span(class="section-row-bl col-lg-6 col-md-12")= school.name
-									.section-row-br.section-row-r.col-lg-6.col-md-12
-										img(src="/images/map-marker.svg" alt="Location pin" class="location-pin")
-										span= school.location.city + ", " + school.location.state
-					div(id="courses" class="section")
-						div(class="section-title")
-							img(src="/images/paperclip.svg" alt="Paperclip icon" class="section-title-icon")
-							h3= "COURSES"
-						ul
-							each category_courses, course_category in courses
-								li(class="section-category section-row")
-									h4(class="section-row-title")= course_category
-									ul(class="section-category-items row no-gutters")
-										each course, course_no in category_courses
-											li(class="col-lg-6 col-sm-12")
-												a(tabindex="0" class="section-category-item" role="button" data-toggle="popover" data-placement="top" data-trigger="click" title=course.id + ": " + course.name data-content=course.description)
-													span= course.shortName
-													img(class="course-chevron-right" src="/images/caret-right.svg" alt="Right caret")
-					div(id="experiences" class="section")
-						div(class="section-title")
-							img(src="/images/briefcase.svg" alt="Briefcase icon" class="section-title-icon")
-							h3= "EXPERIENCES"
-						ul
-							each experience, experience_no in experiences
-								li(class="section-row")
-									a(class="section-header section-row-toggle row no-gutters" data-toggle="collapse" href="#experience-" + experience_no role="button")
-										.section-row-tl.col-lg-6.col-md-12
-											img(src="/images/chevron-bottom.svg" alt="Dropdown arrow" class="dropdown-arrow")
-											span(class="section-row-title")= experience.title
-										span(class="section-row-r col-lg-6 col-md-12")= moment(experience.start_date).format("MMMM YYYY") + " - " + moment(experience.end_date).format("MMMM YYYY")
-										.w-100
-										span(class="section-row-bl col-lg-6 col-md-12")= experience.company
-										div(class="section-row-br section-row-r col-lg-6 col-md-12")
-											img(src="/images/map-marker.svg" alt="Location pin" class="location-pin")
-											span= experience.location.city + ", " + experience.location.state
-									.collapse(id="experience-" + experience_no)
-										p(class="col-12 row-description")= experience.description
-					div(id="projects" class="section")
-						div(class="section-title")
-							img(src="/images/fork.svg" alt="Fork icon" class="section-title-icon")
-							h3= "PROJECTS"
-						ul
-							each project, project_no in projects
-								li(class="section-row")
-									a(class="section-header section-row-toggle row no-gutters" data-toggle="collapse" href="#project-" + project_no role="button")
-										.section-row-tl.col-lg-6.col-md-12
-											img(src="/images/chevron-bottom.svg" alt="Dropdown arrow" class="dropdown-arrow")
-											span(class="section-row-title")= project.name
-										span(class="section-row-r col-lg-6 col-md-12")= moment(project.start_date).format("MMMM YYYY") + " - " + moment(project.end_date).format("MMMM YYYY")
-									.collapse(id="project-" + project_no)
-										p(class="col-12 row-description")= project.description
-					div(id="skills" class="section")
-						div(class="section-title")
-							img(src="/images/terminal.svg" alt="Terminal icon" class="section-title-icon")
-							h3= "SKILLS"
-						ul
-							each skill_list, skill_category in skills
-								li(class="section-category section-row")
-									h4(class="section-row-title")= skill_category
-									ul(class="section-category-items row no-gutters")
-										each skill_detail, skill in skill_list
-											li(class="col-xl-6 col-md-12")
-												.section-category-item.skill
-													span(class="section-category-item-name")= skill
-													-
-														var stars = '';
-														for (var i = 0; i < skill_detail.level; i++)
-															stars += '★';
-														for (; i < 5; i++)
-															stars += '☆';
-													span(class="skill-level")= stars
+							each link_detail, link_name in links
+								li.link
+									a(href=link_detail.href)
+										img(src=link_detail.icon alt=link_name + " icon").icon
+										span.capitalize= link_name
+			#main-box
+				mixin sectionTitle(imgSrc, imgAlt, title)
+					.section-title
+						img(src=imgSrc alt=imgAlt).icon
+						h3= title
+				.section#bio
+					+sectionTitle("/images/person.svg", "Person icon", "ABOUT ME")
+					p.section-description= profile.bio
+				.section#education
+					+sectionTitle("/images/beaker.svg", "Beaker icon", "DEGREES")
+					ul
+						each school, school_no in degrees
+							li
+								.header
+									span.title= school.degree_short + " in " + school.major
+									span= moment(school.start_date).format("MMMM YYYY") + " - " + moment(school.end_date).format("MMMM YYYY")
+									span= school.name
+									span.location= school.location.city + ", " + school.location.state
+				.section#courses
+					+sectionTitle("/images/paperclip.svg", "Paperclip icon", "COURSES")
+					ul
+						each category_courses, course_category in courses
+							li.category
+								h4.title= course_category
+								ul
+									each course, course_no in category_courses
+										li.tooltip-container
+											span= course.shortName
+											.tooltip
+												.tooltip-box
+													h5.tooltip-title= `${course.id}: ${course.name}`
+													p.tooltip-body= course.description
+
+												//- span= course.shortName
+												//- img.course-caret-right(src="/images/caret-right.svg" alt="Right caret")
+				.section#experiences
+					+sectionTitle("/images/briefcase.svg", "Briefcase icon", "EXPERIENCES")
+					ul
+						each experience, experience_no in experiences
+							li
+								details
+									summary.header
+										span.title= experience.title
+										span= moment(experience.start_date).format("MMMM YYYY") + " - " + moment(experience.end_date).format("MMMM YYYY")
+										span= experience.company
+										span.location= experience.location.city + ", " + experience.location.state
+									p.section-row-description= experience.description
+				.section#projects
+					+sectionTitle("/images/fork.svg", "Fork icon", "PROJECTS")
+					ul
+						each project, project_no in projects
+							li
+								details
+									summary.header
+										span.title= project.name
+										span= moment(project.start_date).format("MMMM YYYY") + " - " + moment(project.end_date).format("MMMM YYYY")
+									p.section-row-description= project.description
+				.section#skills
+					+sectionTitle("/images/terminal.svg", "Terminal icon", "SKILLS")
+					ul
+						each skill_list, skill_category in skills
+							li
+								h4.title= skill_category
+								ul
+									each skill_detail, skill in skill_list
+										li
+											.skill
+												span.skill-name= skill
+												span.skill-level= '★'.repeat(skill_detail.level) + '☆'.repeat(5-skill_detail.level)
 		footer
 			a(href="https://www.useiconic.com/open") Icons from Open Iconic
 			span= " | "
-			span Updated February 2018
+			span Updated August 2018

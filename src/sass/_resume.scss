@@ -1,5 +1,10 @@
 html.resume {
 
+	$break-sm: 576px;
+	$break-md: 768px;
+	$break-lg: 992px;
+	$break-xl: 1200px;
+
 	$cap-height: 0.7065;
 	$x-height: 0.5315;
 
@@ -10,7 +15,7 @@ html.resume {
 		font-weight: 300;
 		padding: 3%;
 		min-width: 360px;
-		//- always show scrollbar so no horizontal shifts when expanding
+		// always show scrollbar so no horizontal shifts when expanding
 		overflow-y: scroll;
 
 		@media (min-width: 1200px) {
@@ -28,245 +33,359 @@ html.resume {
 		text-decoration: none;
 		cursor: pointer;
 		outline: 0;
-	}
-
-	a:hover {
-		color: inherit;
-		text-decoration: none;
+		&:hover {
+			color: inherit;
+			text-decoration: none;
+		}
 	}
 
 	p {
 		font-family: 'Roboto Slab', serif;
+		font-size: 13px;
 	}
 
 	footer {
 		margin-top: 30px;
 		text-align: center;
 		color: rgba(0,0,0,0.8);
+		a {
+			text-decoration: underline;
+		}
 	}
 
-	footer a {
-		text-decoration: underline;
-	}
-
-	.resume-container {
+	#resume-container {
 		max-width: 1080px;
 		box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.3);
 		margin: auto;
 		padding: 0;
+
+		display: flex;
+		flex-direction: row-reverse;
+		justify-content: space-between;
+
+		@media screen and (max-width: $break-lg) {
+			flex-wrap: wrap;
+		}
 	}
 
-	.profile-box {
+	#profile-box {
 		right: 0;
 		padding: 0;
 		color: white;
 		font-weight: 400;
-		background: $theme-color-2; //pantone color of the year 2017 (greenery)
-	}
+		background: $theme-color-2;
+		flex-grow: 0;
+		flex-shrink: 0;
+		box-sizing: border-box;
 
-	.profile-header-box {
-		text-align: center;
-		margin: 0;
-		padding: 10px;
-		background: $theme-color-1;
-	}
 
-	.profile-details-box {
-		overflow: hidden;
-		display: block;
-		text-align: center;
-	};
+		@media screen and (max-width: $break-lg) {
+			flex-basis: 100%;
+		}
 
-	.profile-details-container {
-		display: inline-block;
-		margin: 0 auto;
-		white-space: nowrap;
-		text-align: left;
+		@media screen and (min-width: $break-lg) and (max-width: $break-xl) {
+			flex-basis: (100%/3);
+		}
+
+		@media screen and (min-width: $break-xl) {
+			flex-basis: (100%/4);
+		}
+
+		.header {
+			text-align: center;
+			margin: 0;
+			padding: 10px;
+			background: $theme-color-1;
+			.profile-image {
+				height: 172px;
+				border-radius: 50%;
+				margin: 20px auto;
+				display: block;
+				border: 5px solid white;
+				background: #864C24;
+			}
+
+			.profile-name {
+				font-size: 32px;
+				margin: 0;
+				border: 5px solid white;
+				padding: 2px 15px;
+				display: inline-block;
+				letter-spacing: -0.05em;
+				text-transform: uppercase;
+			}
+
+			.profile-title {
+				font-size: 18px;
+				margin: 10px;
+				display: block;
+				font-weight: 400;
+			}
+		}
+
+		.details {
+			overflow: hidden;
+			display: block;
+			text-align: center;
+			.links {
+				padding: 10px;
+
+				& > ul {
+					display: inline-block;
+					text-align: center;
+					margin: 0;
+				}
+
+				.link {
+					margin: 40px 0px;
+					span {
+						text-transform: capitalize;
+					}
+
+					a {
+						display: block;
+						font-size: 20px;
+						color: inherit;
+						text-decoration: none;
+					}
+					.icon {
+						width: 56px;
+						margin: 5px auto;
+						display: block;
+					}
+				}
+			}
+		}
+
 	}
 
 	#main-box {
-		padding: 20px;
+		padding: 20px 30px;
 		background: white;
-	}
+		flex-grow: 0;
+		flex-shrink: 0;
+		box-sizing: border-box;
 
-	.profile-image {
-		height: 172px;
-		border-radius: 50%;
-		margin: 20px auto;
-		display: block;
-		border: 5px solid white;
-		background: #864C24;
-	}
+		@media screen and (max-width: $break-lg) {
+			flex-basis: 100%;
+		}
 
-	.section-header {
-		line-height: 1;
-	}
+		@media screen and (min-width: $break-lg) and (max-width: $break-xl){
+			flex-basis: (200%/3);
+		}
 
-	.section-header > * {
-		line-height: 1.5;
-	}
+		@media screen and (min-width: $break-xl) {
+			flex-basis: (300%/4);
+		}
 
-	.profile-name {
-		font-size: 32px;
-		margin: 0;
-		border: 5px solid white;
-		padding: 2px 15px;
-		display: inline-block;
-		letter-spacing: -0.05em;
-	}
+		.section {
+			margin: 30px 0;
+			padding: 0 10px;
 
-	.profile-name-wrapper {
-		margin: 10px 0;
-	}
+			summary {
+				list-style: none;
+				cursor: pointer;
+			}
 
-	.profile-title {
-		font-size: 18px;
-		margin: 10px;
-		display: block;
-		font-weight: 400;
-	}
+			summary::-webkit-details-marker {
+				display: none;
+			}
 
-	.profile-details-container>div {
-		padding: 0;
-		margin: 20px auto;
-		display: block;
-		width: auto;
-	}
+			details .title::before {
+				content: " ";
+				// Chevron
+				background: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M5.5 0l-3 3 5 5-5 5 3 3 8-8-8-8z' /></svg>");
+				margin-right: 10px;
+				background-size: 1em * $cap-height;
+				height: 1em * $cap-height;
+				width: 1em * $cap-height;
+				display: inline-block;
+				transition: transform 0.25s ease;
+				transform-origin: center;
+			}
 
-	.links {
-		padding: 10px;
-	}
+			details[open] .title::before {
+				transform: rotate(90deg);
+			}
 
-	.links > ul {
-		display: inline-block;
-		text-align: center;
-		margin: 0;
-	}
+			.section-row-description {
+				padding: 10px 0;
+			}
 
-	.link {
-		margin: 40px 0px;
-	}
+			.section-title {
+				display: block;
+				font-size: 40px;
+				line-height: 1.2;
+				margin: 10px 0;
 
-	.link > a {
-		display: block;
-		font-size: 20px;
-		color: inherit;
-		text-decoration: none;
-	}
+				h3 {
+					display: inline-block;
+					text-transform: uppercase;
+				}
 
-	.link-icon {
-		width: 56px;
-		margin: 5px auto;
-		display: block;
-	}
+				.icon {
+					display: inline-block;
+					height: 1em * $cap-height;
+					vertical-align: baseline;
+					margin-right: 10px;
+				}
+			}
 
-	.section-row {
-		font-size: 17px;
-		margin: 10px 0;
-		position: relative;
-		padding: 5px 10px;
-	}
+			// Section row
+			& > ul > li {
+				// line-height: 1;
+				font-size: 17px;
+				margin: 10px 0;
+				position: relative;
 
-	.section-row-title {
-		font-weight: 700;
-		font-size: inherit;
-	}
+				.header {
+					display: flex;
+					flex-flow: row wrap;
+					justify-content: space-between;
 
-	.section {
-		margin: 30px 0;
-		padding: 0 10px;
-	}
+					& > * {
+						box-sizing: border-box;
+						flex-grow: 0;
+						flex-shrink: 0;
+						@media screen and (max-width: $break-lg) {
+							flex-basis: 100%;
+						}
+						@media screen and (min-width: $break-lg) {
+							flex-basis: (100%/2);
+							&:nth-child(even) {
+								text-align: right;
+							}
+						}
+					}
+				}
 
-	.section-title > * {
-		display: inline-block;
-		margin: 0;
-	}
+				.title {
+					font-weight: 700;
+					font-size: inherit;
+				}
 
-	.section-title {
-		display: block;
-		padding: 0 10px;
-		font-size: 40px;
-		line-height: 1.2;
-	}
+				// Section category
+				& > ul {
+					display: flex;
+					flex-wrap: wrap;
+					justify-content: space-between;
 
-
-	.section-title h3 {
-		font-size: inherit;
-		line-height: inherit;
-	}
-
-	.section-title-icon {
-		display: inline-block;
-		height: 1em * $cap-height;
-		vertical-align: baseline;
-		margin-right: 10px;
-	}
-
-	.section-description {
-		font-size: 13px;
-		margin: 10px 0;
-	}
-
-	//lg and larger
-	@media (min-width: 992px) {
-		.section-row-r {
-			display: inline-block;
-			text-align: right;
+					& > li {
+						padding: 0 10px;
+						box-sizing: border-box;
+						flex-grow: 0;
+						flex-shrink: 0;
+						@media screen and (max-width: $break-lg) {
+							flex-basis: 100%;
+						}
+						@media screen and (min-width: $break-lg) {
+							flex-basis: (100%/2);
+						}
+					}
+				}
+			}
 		}
 	}
+
 
 	.location-pin {
 		height: 20px;
 		margin-right: 4px;
 		display: inline-block;
+		vertical-align: middle;
 	}
 
-	.school-details {
-		position: relative;
-	}
-
-	.row-description {
-		font-size: 13px;
-		margin: 0;
-		padding: 10px 0;
-	}
-
-	.section-category-item {
-		padding: 0 10px;
-	}
-
-	.skill-level {
-		position: absolute;
-		right: 10px;
-		transition: letter-spacing 0.3s;
-	}
-
-	.skill:hover .skill-level {
-		letter-spacing: 1px;
-	}
-
-	.section > {
-		margin: 0 10px;
-	}
-
-	.dropdown-arrow {
+	.location::before {
+		content: " ";
+		// Location pin
+		background-image: url('data:image/svg+xml; utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10.292,4.229c-1.487,0-2.691,1.205-2.691,2.691s1.205,2.691,2.691,2.691s2.69-1.205,2.69-2.691S11.779,4.229,10.292,4.229z M10.292,8.535c-0.892,0-1.615-0.723-1.615-1.615S9.4,5.306,10.292,5.306c0.891,0,1.614,0.722,1.614,1.614S11.184,8.535,10.292,8.535z M10.292,1C6.725,1,3.834,3.892,3.834,7.458c0,3.567,6.458,10.764,6.458,10.764s6.458-7.196,6.458-10.764C16.75,3.892,13.859,1,10.292,1z M4.91,7.525c0-3.009,2.41-5.449,5.382-5.449c2.971,0,5.381,2.44,5.381,5.449s-5.381,9.082-5.381,9.082S4.91,10.535,4.91,7.525z" /></svg>');
 		display: inline-block;
-		backface-visibility: visible;
-		margin-right: 5px;
-		transition: 0.25s linear;
-		display: inline-block;
-		height: 1em * $cap-height;
-		vertical-align: baseline;
+		background-size: 20px;
+		height: 20px;
+		width: 20px;
+		vertical-align: middle;
+		margin-right: 3px;
 	}
 
-	.dropdown-arrow-flipped {
-		transform: rotateX(180deg);
+	.skill {
+		display: flex;
+		flex-wrap: nowrap;
+		justify-content: space-between;
+
+		.skill-level {
+			text-align: right;
+			transition: letter-spacing 0.3s;
+		}
+
+		&:hover .skill-level {
+			letter-spacing: 1px;
+		}
 	}
 
-	.course-chevron-right {
+	.course-caret-right {
 		display: inline-block;
 		margin-left: 5px;
 		height: 1.25em * $x-height;
 		vertical-align: baseline;
+	}
+
+	.tooltip-container {
+		position: relative;
+
+		// Element with tooltip
+		& > span {
+			cursor: pointer;
+		}
+
+		$tooltip-up-offset: 10px;
+		$tooltip-right-offset: 30px;
+		$tooltip-background: #FFD470;
+		$tooltip-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+		$tooltip-title-background: $theme-color-1;
+		$tooltip-background: $theme-color-2;
+
+		.tooltip {
+			position: absolute;
+			z-index: 2;
+			display: none;
+			left: 30px;
+			bottom: calc(100% + 10px);
+			width: 100%;
+			overflow: visible;
+			.tooltip-box {
+				background-color: $tooltip-background;
+				border-radius: 10px;
+				overflow: hidden;
+				z-index: inherit;
+				box-shadow: $tooltip-box-shadow;
+				.tooltip-title {
+					text-align: center;
+					background-color: $tooltip-title-background;
+					font-weight: bold;
+				}
+
+				.tooltip-body {
+					font-size: 12px;
+					padding: 5px;
+				}
+			}
+
+			// Arrow at bottom of tooltip
+			&::after {
+				content: "▼";
+				font-size: 20px;
+				color: $tooltip-background;
+				z-index: 3;
+				position: absolute;
+				left: 15px;
+				top: calc(100% - 7px);
+				text-shadow: $tooltip-box-shadow;
+				line-height: 1;
+			}
+		}
+
+		:active + .tooltip {
+			display: block;
+		}
 	}
 }
