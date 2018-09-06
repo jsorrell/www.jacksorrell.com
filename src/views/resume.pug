@@ -1,4 +1,4 @@
-- var name = profile.name.first + " " + profile.name.last;
+- var name = resumeData.profile.name.first + " " + resumeData.profile.name.last;
 doctype
 html(lang="en").resume
 	head
@@ -8,7 +8,6 @@ html(lang="en").resume
 		meta(name="description" content="The online resume of " + name)
 		meta(id="vp" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
 		include includes/favicon
-		//- include includes/jquery
 		script(src="/js/contact.js" defer="defer")
 		link(href="/css/style.css", rel="stylesheet")
 		link(href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700%7CRoboto+Slab" rel="stylesheet")
@@ -16,17 +15,17 @@ html(lang="en").resume
 		#resume-container
 			#profile-box
 				.header
-					img(src=profile.image alt="Image of Jack").profile-image
+					img(src=resumeData.profile.image alt="Image of Jack; he looks rather human-like").profile-image
 					hgroup
-						h1.profile-name= profile.name.first + " " + profile.name.last
-						h2.profile-title= profile.title
+						h1.profile-name= resumeData.profile.name.first + " " + resumeData.profile.name.last
+						h2.profile-title= resumeData.profile.title
 					a(id="contact-button" class="contact-opener" href="/contact/")
 						svg(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8")
 							path(d="M0 0v1l4 2 4-2v-1h-8zm0 2v4h8v-4l-4 2-4-2z" transform="translate(0 1)")
 				.details
 					.links
 						ul
-							each link_detail, link_name in links
+							each link_detail, link_name in resumeData.links
 								li.link
 									a(href=link_detail.href)
 										img(src=link_detail.icon alt).icon
@@ -34,11 +33,11 @@ html(lang="en").resume
 			#main-box
 				.section#bio
 					h3 ABOUT ME
-					p.section-description= profile.bio
+					p.section-description= resumeData.profile.bio
 				.section#education
 					h3 DEGREES
 					ul
-						each school, school_no in degrees
+						each school, school_no in resumeData.degrees
 							li
 								.header
 									span.title= school.degree_short + " in " + school.major
@@ -48,7 +47,7 @@ html(lang="en").resume
 				.section#courses
 					h3 COURSES
 					ul
-						each category_courses, course_category in courses
+						each category_courses, course_category in resumeData.courses
 							li.category
 								h4.title= course_category
 								ul
@@ -62,7 +61,7 @@ html(lang="en").resume
 				.section#experiences
 					h3 EXPERIENCES
 					ul
-						each experience, experience_no in experiences
+						each experience, experience_no in resumeData.experiences
 							li
 								details
 									summary.header
@@ -74,7 +73,7 @@ html(lang="en").resume
 				.section#projects
 					h3 PROJECTS
 					ul
-						each project, project_no in projects
+						each project in resumeData.projects
 							li
 								details
 									summary.header
@@ -84,7 +83,7 @@ html(lang="en").resume
 				.section#skills
 					h3 SKILLS
 					ul
-						each skill_list, skill_category in skills
+						each skill_list, skill_category in resumeData.skills
 							li
 								h4.title= skill_category
 								ul

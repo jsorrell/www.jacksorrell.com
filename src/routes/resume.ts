@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { default as resumeData } from '../resume/resume_data';
+import { CONTACT } from '../constants';
 
 const router = Router();
 const canonicalPath = '/resume/';
@@ -32,5 +33,5 @@ export default router.get('/', function (req, res, _next) {
 	res.setHeader('Link', `<${req.protocol}://${host + canonicalPath}>; rel="canonical", ` + pushHeader);
 
 	res.locals.moment = require('moment');
-	res.render('resume', resumeData);
+	res.render('resume', { resumeData: resumeData, contactData: CONTACT });
 });

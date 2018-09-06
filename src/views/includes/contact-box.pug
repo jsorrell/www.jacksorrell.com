@@ -4,13 +4,13 @@
 		.form-row
 			.form-group
 				label(for="contact-form-name") Your Name
-				input#contact-form-name(type="text" name="name" maxlength=maxNameLength placeholder="John Doe" required)
+				input#contact-form-name(type="text" name="name" maxlength=contactData.maxNameLength placeholder="John Doe" required)
 			.form-group
 				label(for="contact-form-email") Your Email
-				input#contact-form-email(type="email" name="email" maxlength=maxEmailLength placeholder="name@example.com" required)
+				input#contact-form-email(type="email" name="email" maxlength=contactData.maxEmailLength placeholder="name@example.com" required)
 		.form-group.message
 			label(for="contact-form-message") Message
-			textarea#contact-form-message(name="message" maxlength=maxMessageLength placeholder="Your Message" required)
+			textarea#contact-form-message(name="message" maxlength=contactData.maxMessageLength placeholder="Your Message" required)
 		//- Honeypot for bots. This is hidden.
 		input.h0n3yp0t(type="text" name="website" value="" style="display: none;")
 		button#contact-submit-button

@@ -4,6 +4,7 @@ import * as bodyParser from 'body-parser';
 import mailgun = require('mailgun-js');
 import * as validator from 'validator';
 import { logger } from '../logger/logger';
+import { CONTACT } from '../constants';
 
 if (!(process.env.MAILGUN_API_KEY && process.env.MAILGUN_DOMAIN && process.env.MAILGUN_TO_ADDRESS && process.env.MAILGUN_SUBJECT)) {
 	console.error('Need MAILGUN_API_KEY, MAILGUN_DOMAIN, MAILGUN_TO_ADDRESS, and MAILGUN_SUBJECT set in environment.');
@@ -17,20 +18,9 @@ const mg = mailgun({
 
 const canonicalPath = '/contact/';
 
-const maxEmailLength = Number(process.env.CONTACT_MAX_EMAIL_ADDRESS_LENGTH) || 254;
-const maxNameLength = Number(process.env.CONTACT_MAX_NAME_LENGTH) || 70;
-const maxMessageLength = Number(process.env.CONTACT_MAX_MESSAGE_LENGTH) || 10000;
-
 if (!process.env.GRECAPTCHA_SITE_KEY) {
 	console.error('Need GRECAPTCHA_SITE_KEY set in environment.');
 }
-
-const renderVars = {
-	gRecaptchaSiteKey: process.env.GRECAPTCHA_SITE_KEY,
-	maxEmailLength: maxEmailLength,
-	maxNameLength: maxNameLength,
-	maxMessageLength: maxMessageLength
-};
 
 const pushHeader = [
 	{ link: '/css/style.css', type: 'style' },
@@ -47,7 +37,7 @@ const pushHeader = [
 router.get('/', function (req, res) {
 	const host = req.get('Host');
 	res.setHeader('Link', `<${req.protocol}://${host + canonicalPath}>; rel="canonical", ` + pushHeader);
-	res.render('contact', renderVars);
+	res.render('contact', { contactData: CONTACT });
 });
 
 const parser = bodyParser.urlencoded({
@@ -73,6 +63,13 @@ router.post('/', parser, function (req, res) {
 	let messageStatus = emailMessageInvalid(req.body);
 	if (messageStatus) {
 		res.status(400).send(messageStatus);
+		return;
+	}
+
+	// In development, do not send actual email.
+	if (process.env.NODE_ENV === 'development') {
+		logger.info('Email sending withheld in dev.');
+	 	res.status(200).send('Message Received');
 		return;
 	}
 
@@ -122,14 +119,14 @@ function isEmailMessage (body: any): body is EmailMessage {
  */
 function emailMessageInvalid (message: EmailMessage): string | false {
 	/* Name */
-	if (!validator.isLength(message.name, { min: 1, max: maxNameLength })) {
+	if (!validator.isLength(message.name, { min: 1, max: CONTACT.maxNameLength })) {
 		let resp = `Name length of ${message.name.length} is invalid.`;
 		logger.info(resp);
 		return resp;
 	}
 
 	/* Email */
-	if (!validator.isLength(message.email, { min: 1, max: maxEmailLength })) {
+	if (!validator.isLength(message.email, { min: 1, max: CONTACT.maxEmailLength })) {
 		let resp = `Email length of ${message.email.length} is invalid.`;
 		logger.info(resp);
 		return resp;
@@ -145,7 +142,7 @@ function emailMessageInvalid (message: EmailMessage): string | false {
 	// fix crlf counted as 2 characters TODO: do this better
 	message.message = message.message.replace(/\r\n/g, '\n');
 
-	if (!validator.isLength(message.message, { min: 1, max: maxMessageLength })) {
+	if (!validator.isLength(message.message, { min: 1, max: CONTACT.maxMessageLength })) {
 		let resp = `Message length of ${message.message.length} is invalid.`;
 		logger.info(resp);
 		return resp;
