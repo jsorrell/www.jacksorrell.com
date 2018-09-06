@@ -29,18 +29,14 @@ html(lang="en").resume
 							each link_detail, link_name in links
 								li.link
 									a(href=link_detail.href)
-										img(src=link_detail.icon alt=link_name + " icon").icon
+										img(src=link_detail.icon alt).icon
 										span.capitalize= link_name
 			#main-box
-				mixin sectionTitle(imgSrc, imgAlt, title)
-					.section-title
-						img(src=imgSrc alt=imgAlt).icon
-						h3= title
 				.section#bio
-					+sectionTitle("/images/person.svg", "Person icon", "ABOUT ME")
+					h3 ABOUT ME
 					p.section-description= profile.bio
 				.section#education
-					+sectionTitle("/images/beaker.svg", "Beaker icon", "DEGREES")
+					h3 DEGREES
 					ul
 						each school, school_no in degrees
 							li
@@ -50,7 +46,7 @@ html(lang="en").resume
 									span= school.name
 									span.location= school.location.city + ", " + school.location.state
 				.section#courses
-					+sectionTitle("/images/paperclip.svg", "Paperclip icon", "COURSES")
+					h3 COURSES
 					ul
 						each category_courses, course_category in courses
 							li.category
@@ -64,7 +60,7 @@ html(lang="en").resume
 													h5.tooltip-title= `${course.id}: ${course.name}`
 													p.tooltip-body= course.description
 				.section#experiences
-					+sectionTitle("/images/briefcase.svg", "Briefcase icon", "EXPERIENCES")
+					h3 EXPERIENCES
 					ul
 						each experience, experience_no in experiences
 							li
@@ -76,7 +72,7 @@ html(lang="en").resume
 										span.location= experience.location.city + ", " + experience.location.state
 									p.section-row-description= experience.description
 				.section#projects
-					+sectionTitle("/images/fork.svg", "Fork icon", "PROJECTS")
+					h3 PROJECTS
 					ul
 						each project, project_no in projects
 							li
@@ -86,7 +82,7 @@ html(lang="en").resume
 										span= moment(project.start_date).format("MMMM YYYY") + " - " + moment(project.end_date).format("MMMM YYYY")
 									p.section-row-description= project.description
 				.section#skills
-					+sectionTitle("/images/terminal.svg", "Terminal icon", "SKILLS")
+					h3 SKILLS
 					ul
 						each skill_list, skill_category in skills
 							li
