@@ -55,7 +55,7 @@ contactForm.addEventListener('submit', function (e) {
 });
 
 function displayError (message: string) {
-	console.error(message);
+	alert(message);
 }
 
 function resetForm (clear: boolean) {

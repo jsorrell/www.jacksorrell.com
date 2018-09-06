@@ -64,10 +64,18 @@ router.post('/', parser, function (req, res) {
 		return;
 	}
 	// Ensure body exists
-	if (!isValidBody(req.body)) {
-		res.status(400).send('Invalid message.');
+	if (!isEmailMessage(req.body)) {
+		res.status(400).send('Invalid submission.');
 		return;
 	}
+
+	// Ensure message valid
+	let messageStatus = emailMessageInvalid(req.body);
+	if (messageStatus) {
+		res.status(400).send(messageStatus);
+		return;
+	}
+
 	sendEmail(req.body).then((_resp) => {
 		logger.info('Email sent.');
 		res.status(200).send('Message Received');
@@ -84,11 +92,11 @@ interface EmailMessage {
 }
 
 /**
- * Check if the body sent is a valid email message.
+ * Check if the body sent is an email message.
  * @param  body the body sent.
- * @return      a boolean indicating if the message is valid.
+ * @return      a boolean whether the body is a message.
  */
-function isValidBody (body: any): body is EmailMessage {
+function isEmailMessage (body: any): body is EmailMessage {
 	if (!(body.name)) {
 		logger.info('No name in submission.');
 		return false;
@@ -104,33 +112,46 @@ function isValidBody (body: any): body is EmailMessage {
 		return false;
 	}
 
+	return true;
+}
+
+/**
+ * Check if the message sent is invalid.
+ * @param  message the EmailMessage sent.
+ * @return         the reason for invalidity or false if the message is valid.
+ */
+function emailMessageInvalid (message: EmailMessage): string | false {
 	/* Name */
-	if (!validator.isLength(body.name, { min: 1, max: maxNameLength })) {
-		logger.info(`Name length of ${body.name.length} invalid.`);
-		return false;
+	if (!validator.isLength(message.name, { min: 1, max: maxNameLength })) {
+		let resp = `Name length of ${message.name.length} is invalid.`;
+		logger.info(resp);
+		return resp;
 	}
 
 	/* Email */
-	if (!validator.isLength(body.email, { min: 1, max: maxEmailLength })) {
-		logger.info(`Email length of ${body.email.length} invalid.`);
-		return false;
+	if (!validator.isLength(message.email, { min: 1, max: maxEmailLength })) {
+		let resp = `Email length of ${message.email.length} is invalid.`;
+		logger.info(resp);
+		return resp;
 	}
 
-	if (!validator.isEmail(body.email)) {
-		logger.info(`Email ${body.email} not valid email.`);
-		return false;
+	if (!validator.isEmail(message.email)) {
+		let resp = `Email "${message.email}" is not a valid email.`;
+		logger.info(resp);
+		return resp;
 	}
 
 	/* Message */
 	// fix crlf counted as 2 characters TODO: do this better
-	body.message = body.message.replace(/\r\n/g, '\n');
+	message.message = message.message.replace(/\r\n/g, '\n');
 
-	if (!validator.isLength(body.message, { min: 1, max: maxMessageLength })) {
-		logger.info(`Message length of ${body.message.length} invalid.`);
-		return false;
+	if (!validator.isLength(message.message, { min: 1, max: maxMessageLength })) {
+		let resp = `Message length of ${message.message.length} is invalid.`;
+		logger.info(resp);
+		return resp;
 	}
 
-	return true;
+	return false;
 }
 
 /**
