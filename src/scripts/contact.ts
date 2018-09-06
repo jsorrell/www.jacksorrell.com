@@ -8,6 +8,7 @@ let background = document.getElementById('contact-background') as HTMLDivElement
 let spinners = document.getElementsByClassName('loading-spinner') as HTMLCollectionOf<HTMLObjectElement>;
 let openers = document.getElementsByClassName('contact-opener');
 
+/* On Submit */
 contactForm.addEventListener('submit', function (e) {
 	e.preventDefault();
 
@@ -28,8 +29,8 @@ contactForm.addEventListener('submit', function (e) {
 			contact.classList.add('sent');
 			sendingAnimation = true;
 			contactBox.addEventListener('animationend', function (_e) {
-				contact.classList.remove('sent', 'shown');
 				sendingAnimation = false;
+				hideContact();
 				resetForm(true);
 			});
 		} else {
@@ -54,7 +55,9 @@ contactForm.addEventListener('submit', function (e) {
 	request.send(data);
 });
 
+/* Display submission errors */
 function displayError (message: string) {
+	// TODO make this better
 	alert(message);
 }
 
@@ -76,6 +79,16 @@ for (let i = 0; i < openers.length; ++i) {
 	});
 }
 
-background.addEventListener('click', function (_e) {
+function hideContact () {
 	if (!sendingAnimation) contact.classList.remove('sent', 'shown');
-});
+}
+
+/* Hide contact on click outside of box or escape press */
+background.addEventListener('click', hideContact);
+document.onkeydown = function (e) {
+	e = e || window.event;
+	if (e.key === 'Escape' && contact.classList.contains('shown')) {
+		hideContact();
+		e.preventDefault();
+	}
+};
