@@ -292,10 +292,6 @@ export default {
 		}
 	},
 	links: {
-		contact: {
-			icon: '/images/feedback.svg',
-			href: '/contact/'
-		},
 		github: {
 			icon: '/images/octocat.svg',
 			href: 'https://github.com/jsorrell'

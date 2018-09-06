@@ -1,31 +1,260 @@
-html.contact {
-	body {
-		font-family: 'Roboto Condensed', sans-serif;
-		background: white;
-		font-weight: 300;
-		padding: 36px 3%;
-		min-width: 360px;
+$contact-height: 512px;
+$contact-max-width: 1152px;
+$contact-side-margins: 40px;
+$contact-position-breakpoint: $contact-max-width + 2 * $contact-side-margins;
+$envelope-flap-height: ($contact-height * 4 / 6);
+$sent-animation-time: 2s;
+$sent-animation-curve: linear;
+
+#contact {
+	position: fixed;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.1s;
+	&.shown {
+		visibility: visible;
+		opacity: 1;
 	}
 
-	.floating-container {
-		max-width: 1080px;
-		box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.3);
-		margin: auto;
-		padding: 36px;
-		background: #f5f5f5;
+	.envelope-part {
+		position: fixed;
+		left: 50%;
+		transform: translateX(-50%);
+		stroke: black;
+		stroke-width: 2;
+
+		@media screen and (max-width: $contact-position-breakpoint) {
+			width: calc(100% - #{(2 * $contact-side-margins)});
+		}
+
+		@media screen and (min-width: $contact-position-breakpoint) {
+			width: 100%;
+			max-width: $contact-max-width;
+		}
+	}
+
+	.envelope-body {
+		top: calc(100% + #{$envelope-flap-height});
+		height: $contact-height;
+	}
+
+	/****** Envelope Body ******/
+	&.sent .envelope-body {
+		animation: envelope-body $sent-animation-time $sent-animation-curve forwards;
+	}
+
+	@keyframes envelope-body {
+		30%,60% { top: 50%; transform: translate(-50%, -50%); left: 50%; }
+		100% { top: 50%; transform: translateY(-50%); left: 100%; }
+	}
+
+}
+
+/****** Flap *****/
+$envelope-inside-color: #c9c7c5;
+$envelope-outside-color: #2d72c4;
+#contact-envelope-flap {
+	fill: $envelope-inside-color;
+	top: 100%;
+	height: $envelope-flap-height;
+	z-index: 104; // Just behind contact
+	transform-origin: bottom center; // Rotate around bottom
+}
+
+#contact.sent #contact-envelope-flap {
+	animation: envelope-flap $sent-animation-time $sent-animation-curve forwards;
+}
+
+@keyframes envelope-flap {
+	$translateY: (-$envelope-flap-height - $contact-height / 2);
+	$translate: translate(-50%, $translateY);
+	30% { top: 50%; transform: $translate; }
+	45% { transform: $translate rotateX(90deg); fill: $envelope-inside-color; z-index: 104; }
+	46% { transform: $translate rotateX(90deg); fill: $envelope-outside-color; z-index: 106; }
+	60% { left: 50%; transform: $translate rotateX(180deg); }
+	100% { top: 50%; left: 100%; transform: translateY($translateY) rotateX(180deg); fill: $envelope-outside-color; z-index: 106; }
+}
+
+/* Envelope */
+#contact-envelope-back {
+	fill: $envelope-inside-color;
+	z-index: 102;
+}
+
+#contact-envelope-front {
+	fill: $envelope-outside-color;
+	z-index: 106;
+}
+
+
+/* Contact Box */
+#contact-box {
+	$highlight-color: #FF6A00;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	position: fixed;
+	z-index: 105;
+	height: $contact-height;
+	display: flex;
+	flex-direction: column;
+	padding: 36px;
+	background-color: #f5f5f5;
+	box-sizing: border-box;
+	box-shadow: 2px 2px 10px rgba(0,0,0,0.4);
+
+	@media screen and (max-width: $contact-position-breakpoint) {
+		width: calc(100% - #{(2 * $contact-side-margins)});
+	}
+
+	@media screen and (min-width: $contact-position-breakpoint) {
+		width: 100%;
+		max-width: $contact-max-width;
+	}
+
+	.title {
+		font-size: 40px;
+	}
+
+	label {
+		margin-bottom: 5px;
+		display: block;
+		font-size: 18px;
+	}
+
+	button, textarea, input {
+		box-sizing: border-box;
+		font-family: inherit;
+		font-size: 16px;
+		padding: 6px 12px;
+		display: block;
+		border: none;
+		outline: none;
+		background-color: transparent;
+	}
+
+	textarea, input {
+		background-color: white;
+		width: 100%;
+		box-sizing: border-box;
+		margin: 0;
+		transition: box-shadow 0.2s;
+		border: 1px solid #cccccc;
+		border-radius: 3px;
+		box-shadow: none;
+
+		&::placeholder {
+			color: black;
+			opacity: 0.4;
+		}
+
+		&:focus {
+			$shadow: 0 0 7px 3px;
+			&:valid {
+				box-shadow: $shadow rgba(42,186,16,0.5);
+			}
+			&:invalid {
+				box-shadow: $shadow rgba(249,0,4,0.5);
+			}
+		}
+	}
+
+	button {
+		color: white;
+		width: 100%;
+		padding: 10px 20px;
+		background-color: #0c92f3;
+		line-height: inherit;
+		transition: background-color 0.2s;
+		cursor: pointer;
+		border-radius: 3px;
+
+		&::-moz-focus-inner {
+			border: 0;
+		}
+
+		&:hover {
+			background-color: #075892;
+		}
+	}
+
+	.message {
+		flex-grow: 1;
 	}
 
 	.loading-spinner {
 		display: none;
-		margin-left: 10px;
-		height: 20px;
+		margin-left: 15px;
+		height: 1.3em;
+		vertical-align: middle;
+		color: white;
+
+		animation-name: rotate;
+		animation-duration: 0.7s;
+		animation-iteration-count: infinite;
+		animation-timing-function: linear;
+	}
+
+	@keyframes rotate {
+		from {transform: rotate(0deg);}
+		to {transform: rotate(360deg);}
 	}
 
 	.loading-spinner.spinning {
 		display: inline-block;
 	}
 
-	.alert {
-		margin-top: 20px;
+	.form-group {
+		margin: 10px 0;
 	}
+
+	.form-row {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+
+		& > * {
+			flex-grow: 0;
+			flex-shrink: 0;
+			@media screen and (max-width: $break-md) {
+				flex-basis: 100%;
+			}
+			@media screen and (min-width: $break-md) {
+				flex-basis: ((100% - 7%)/2);
+			}
+		}
+	}
+}
+
+// Contact box animation
+#contact.sent #contact-box {
+	animation: contact-leave $sent-animation-time $sent-animation-curve forwards;
+}
+
+@keyframes contact-leave {
+	30% { z-index: 105; }
+	31% { z-index: 103; }
+	60%, 100% { z-index: 103; visibility: hidden; }
+}
+
+#contact-form {
+	flex-grow: 1;
+	display: flex;
+	flex-flow: column nowrap;
+}
+
+
+#contact-form-message {
+	height: calc(100% - 50px);
+	resize: none;
+}
+
+#contact-background {
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: rgba(0,0,0,0.5);
+	height: 100%;
+	width: 100%;
+	z-index: 100;
 }

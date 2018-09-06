@@ -1,29 +1,81 @@
-$('#contact-form').on('submit', function (e) {
+let sendingAnimation = false;
+
+let contact = document.getElementById('contact') as HTMLDivElement;
+let contactBox = document.getElementById('contact-box') as HTMLDivElement;
+let contactForm = document.getElementById('contact-form') as HTMLFormElement;
+let submitButton = document.getElementById('contact-submit-button') as HTMLButtonElement;
+let background = document.getElementById('contact-background') as HTMLDivElement;
+let spinners = document.getElementsByClassName('loading-spinner') as HTMLCollectionOf<HTMLObjectElement>;
+let openers = document.getElementsByClassName('contact-opener');
+
+contactForm.addEventListener('submit', function (e) {
 	e.preventDefault();
-	$('#contact-submit .loading-spinner').addClass('spinning');
-	$('#contact-submit').prop('disabled', true);
-	$('.alert').hide(); // hide alerts
-	grecaptcha.reset();
-	grecaptcha.execute();
-});
 
-$('.close-alert').on('click', function (_e) {
-	$(this).closest('.alert').hide();
-});
+	submitButton.disabled = true;
 
-export function contactOnSubmit (_token: string) {
-	$.ajax({
-		data: $('#contact-form').serialize(),
-		type: 'POST',
-		complete: function () {
-			$('#contact-submit .loading-spinner').removeClass('spinning');
-			$('#contact-submit').prop('disabled', false);
-		},
-		success: function (_data, _textStatus, _jqXHR) {
-			$('#message-success-alert').show();
-		},
-		error: function (_jqXHR, _textStatus, _errorThrown) {
-			$('#message-error-alert').show();
+	// Show spinner
+	for (let i = 0; i < spinners.length; ++i) {
+		spinners.item(i).classList.add('spinning');
+	}
+
+	let request = new XMLHttpRequest();
+	request.open('POST', '/contact/?ajax=1', true);
+	request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
+	request.onload = function () {
+		if (200 <= this.status && this.status < 400) {
+			// Success (Message sent)
+			contact.classList.add('sent');
+			sendingAnimation = true;
+			contactBox.addEventListener('animationend', function (_e) {
+				contact.classList.remove('sent', 'shown');
+				sendingAnimation = false;
+				resetForm(true);
+			});
+		} else {
+			// Error
+			displayError(this.responseText);
+			resetForm(false);
 		}
+	};
+
+	request.onerror = function () {
+		// Connection Error
+		displayError('Connection Error');
+		resetForm(false);
+	};
+
+	// Generate data string
+	let elementsArr = [].slice.call(contactForm.elements);
+	let data = elementsArr.filter((el: Element) => { return el.hasAttribute('name') && !el.hasAttribute('disabled'); })
+	    .map((el: HTMLInputElement) => { return encodeURIComponent(el.getAttribute('name') as string) + '=' + encodeURIComponent(el.value); })
+		.join('&');
+
+	request.send(data);
+});
+
+function displayError (message: string) {
+	console.error(message);
+}
+
+function resetForm (clear: boolean) {
+	submitButton.disabled = false;
+	for (let i = 0; i < spinners.length; ++i) {
+		spinners.item(i).classList.remove('spinning');
+	}
+
+	if (clear) {
+		contactForm.reset();
+	}
+}
+
+for (let i = 0; i < openers.length; ++i) {
+	openers.item(i).addEventListener('click', function (e) {
+		e.preventDefault();
+		contact.classList.add('shown');
 	});
 }
+
+background.addEventListener('click', function (_e) {
+	if (!sendingAnimation) contact.classList.remove('sent', 'shown');
+});

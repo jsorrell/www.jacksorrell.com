@@ -8,7 +8,8 @@ html(lang="en").resume
 		meta(name="description" content="The online resume of " + name)
 		meta(id="vp" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
 		include includes/favicon
-		include includes/jquery
+		//- include includes/jquery
+		script(src="/js/contact.js" defer="defer")
 		link(href="/css/style.css", rel="stylesheet")
 		link(href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700%7CRoboto+Slab" rel="stylesheet")
 	body
@@ -19,6 +20,9 @@ html(lang="en").resume
 					hgroup
 						h1.profile-name= profile.name.first + " " + profile.name.last
 						h2.profile-title= profile.title
+					a(id="contact-button" class="contact-opener" href="/contact")
+						svg(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8")
+							path(d="M0 0v1l4 2 4-2v-1h-8zm0 2v4h8v-4l-4 2-4-2z" transform="translate(0 1)")
 				.details
 					.links
 						ul
@@ -59,9 +63,6 @@ html(lang="en").resume
 												.tooltip-box
 													h5.tooltip-title= `${course.id}: ${course.name}`
 													p.tooltip-body= course.description
-
-												//- span= course.shortName
-												//- img.course-caret-right(src="/images/caret-right.svg" alt="Right caret")
 				.section#experiences
 					+sectionTitle("/images/briefcase.svg", "Briefcase icon", "EXPERIENCES")
 					ul
@@ -100,3 +101,4 @@ html(lang="en").resume
 			a(href="https://www.useiconic.com/open") Icons from Open Iconic
 			span= " | "
 			span Updated August 2018
+		include includes/contact

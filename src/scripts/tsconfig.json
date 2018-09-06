@@ -8,7 +8,6 @@
         "sourceMap": true
     },
     "include": [
-		"resume.ts",
         "contact.ts"
     ]
 }

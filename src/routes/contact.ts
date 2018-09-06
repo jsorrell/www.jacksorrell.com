@@ -2,7 +2,6 @@ import * as express from 'express';
 const router = express.Router();
 import * as bodyParser from 'body-parser';
 import mailgun = require('mailgun-js');
-import verifyRecaptcha from '../captcha/gRecaptchaVerify';
 import * as validator from 'validator';
 import { logger } from '../logger/logger';
 
@@ -59,24 +58,23 @@ const parser = bodyParser.urlencoded({
  * Handle message submissions.
  */
 router.post('/', parser, function (req, res) {
-	const gRecaptchaResponse = req.body['g-recaptcha-response'];
-	verifyRecaptcha(gRecaptchaResponse,
-		function valid () {
-			// Ensure body exists
-			if (!isValidBody(req.body)) {
-				res.status(400).send('Invalid message.');
-				return;
-			}
-			sendEmail(req.body).then((_resp) => {
-				logger.info('Email sent.');
-				res.status(200).send('Message Received');
-			}).catch((err) => {
-				logger.warn('Message send failed:', err);
-				res.status(500).send('');
-			});
-		},
-		function invalid () { res.status(400).send('Captcha Validation Failed'); }
-	);
+	// Ensure honeypot not used
+	if (req.body.website) {
+		res.status(400).send('Go away bot!');
+		return;
+	}
+	// Ensure body exists
+	if (!isValidBody(req.body)) {
+		res.status(400).send('Invalid message.');
+		return;
+	}
+	sendEmail(req.body).then((_resp) => {
+		logger.info('Email sent.');
+		res.status(200).send('Message Received');
+	}).catch((err) => {
+		logger.warn('Message send failed:', err);
+		res.status(500).send('');
+	});
 });
 
 interface EmailMessage {

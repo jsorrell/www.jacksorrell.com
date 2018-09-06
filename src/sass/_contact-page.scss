@@ -1,0 +1,48 @@
+html.contact {
+	height: 100%;
+
+	body {
+		height: 100%;
+		font-family: 'Roboto Condensed', sans-serif;
+		font-weight: 300;
+		min-width: 360px;
+		overflow: hidden;
+		background-color: #7a7a7a;
+		color: black;
+	}
+
+	#contact-sent-banner {
+		color: white;
+		font-weight: 800;
+		height: 100px;
+		width: 100px;
+		position: fixed;
+		right: 50%;
+		bottom: 50%;
+		transform: translate(50%, 50%);
+		text-align: center;
+	}
+
+	/****** Checkmark ******/
+	.checkmark {
+		stroke: green;
+		stroke-width: 8;
+		stroke-miterlimit: 10;
+		stroke-dasharray: 1000;
+		stroke-dashoffset: 1000;
+	}
+
+	body.sent .checkmark {
+		animation: dash 1.5s linear forwards;
+		animation-delay: 1.5s;
+	}
+
+	@keyframes dash {
+		from {
+			stroke-dashoffset: 1000;
+		}
+		to {
+			stroke-dashoffset: 0;
+		}
+  	}
+}
