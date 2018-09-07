@@ -13,9 +13,9 @@ My personal website at <https://www.jacksorrell.com>
 1.  Create a `.env` file with desired [configuration](#configuration)
 (or use environment variables).
 
-1.  Build with `gulp`.
+1.  Build with `npx gulp`.
 
-1.  Start with `gulp run`.
+1.  Start with `npx gulp run`.
 
 ## Configuration
 All configuration is taken from environment variables.
@@ -25,9 +25,6 @@ A `.env` file can be used in root.
 `NODE_ENV`: The server mode. Either `production` or `development`. Required.
 
 `PORT`: The port for the server to listen on. Defaults to `3000`.
-
-`GRECAPTCHA_SITE_KEY` and `GRECAPTCHA_SECRET_KEY`:
-The site and secret keys for Google's ReCaptcha. Required.
 
 `MAILGUN_API_KEY`: The api key for Mailgun. Required.
 
@@ -67,10 +64,10 @@ WantedBy=multi-user.target
 -   Use contact form to protect email from spambots.
 
 -   Contact form sends email via Mailgun and is protected from bots
-by Google's invisible recaptcha.
+by a honeypot input.
 
 -   Both `www.jacksorrell.com/resume` and
 `www.jacksorrell.com/resume/` are valid,
 but the latter is the canonical version and is defined by a http link header.
 
-_Updated August 2018_
+_Updated September 2018_
