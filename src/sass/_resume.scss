@@ -330,24 +330,29 @@ html.resume {
 			cursor: pointer;
 		}
 
-		$tooltip-up-offset: 10px;
-		$tooltip-right-offset: 30px;
-		$tooltip-background: #FFD470;
-		$tooltip-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-		$tooltip-title-background: $theme-color-1;
-		$tooltip-background: $theme-color-2;
 
 		.tooltip {
+			$tooltip-up-offset: 10px;
+			$tooltip-right-offset: 30px;
+			$tooltip-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+			$tooltip-title-background: #ddd;
+			$tooltip-background: white;
+			$tooltip-border-color: black;
 			position: absolute;
 			z-index: 2;
-			display: none;
-			left: 30px;
-			bottom: calc(100% + 10px);
+			visibility: hidden;
+			opacity: 0;
+			transform: scale(0);
+			left: $tooltip-right-offset;
+			bottom: calc(100% + #{$tooltip-up-offset});
 			width: 100%;
 			overflow: visible;
+			transition: all 0.15s;
+			transition-delay: 0.1s;
 			.tooltip-box {
 				background-color: $tooltip-background;
 				border-radius: 10px;
+				border: 3px solid $tooltip-border-color;
 				overflow: hidden;
 				z-index: inherit;
 				box-shadow: $tooltip-box-shadow;
@@ -365,20 +370,24 @@ html.resume {
 
 			// Arrow at bottom of tooltip
 			&::after {
-				content: "▼";
-				font-size: 20px;
-				color: $tooltip-background;
+				content: " ";
+				background-image: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><polygon fill='#{$tooltip-border-color}' points='0 0, 8 0, 4 8' /></svg>");
+				background-repeat: no-repeat;
 				z-index: 3;
 				position: absolute;
 				left: 15px;
-				top: calc(100% - 7px);
-				text-shadow: $tooltip-box-shadow;
-				line-height: 1;
+				top: calc(100% - 1px);
+				width: 10px;
+				height: 10px;
+				filter: drop-shadow($tooltip-box-shadow);
 			}
 		}
 
-		:active + .tooltip {
-			display: block;
+		:hover + .tooltip {
+			visibility: visible;
+			opacity: 1;
+			transform: scale(1);
+			transition-delay: 0.3s;
 		}
 	}
 
