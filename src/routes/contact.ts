@@ -23,8 +23,7 @@ if (!process.env.GRECAPTCHA_SITE_KEY) {
 }
 
 const pushHeader = [
-	{ link: '/css/style.css', type: 'style' },
-	{ link: '/js/contact.js', type: 'script' }
+	{ link: '/css/style.css', type: 'style' }
 ].map((asset) => {
 	return `<${asset.link}>; as=${asset.type}; rel=preload`;
 }).reduce((acc, val) => {

@@ -6,18 +6,14 @@ const router = Router();
 const canonicalPath = '/resume/';
 const pushHeader = [
 	{ link: '/css/style.css', type: 'style' },
-	{ link: '/js/resume.js', type: 'script' },
+	{ link: '/js/contact.js', type: 'script' },
 	{ link: '/images/person.svg', type: 'image' },
 	{ link: '/images/beaker.svg', type: 'image' },
 	{ link: '/images/paperclip.svg', type: 'image' },
-	{ link: '/images/caret-right.svg', type: 'image' },
 	{ link: '/images/briefcase.svg', type: 'image' },
-	{ link: '/images/chevron-bottom.svg', type: 'image' },
-	{ link: '/images/map-marker.svg', type: 'image' },
 	{ link: '/images/fork.svg', type: 'image' },
 	{ link: '/images/terminal.svg', type: 'image' },
-	{ link: '/images/myface-nobg.png', type: 'image' },
-	{ link: '/images/feedback.svg', type: 'image' },
+	// { link: '/images/myface-nobg.png', type: 'image' },
 	{ link: '/images/octocat.svg', type: 'image' },
 	{ link: '/images/Twitter_Social_Icon_Circle_Color.svg', type: 'image' },
 	{ link: '/images/keybase_logo_official.svg', type: 'image' }
