@@ -25,15 +25,27 @@ var tsify = require('tsify');
 var tslint = require('tslint');
 var buffer = require('vinyl-buffer');
 
-// TODO: parse port as argument? or read from file?
-const serverPort = 3000;
+const yaml = require('js-yaml');
+const fs = require('fs');
+const argv = require('yargs').argv;
+
+var serverPort = argv.port;
+
+if (serverPort === undefined) {
+	var configFile = (argv.config === undefined) ? 'config.yaml' : argv.config;
+	try {
+		serverPort = yaml.safeLoad(fs.readFileSync(configFile, 'utf8')).server.port;
+	} catch (e) {
+		serverPort = 3000;
+	}
+}
+
+var bsPort = (argv.bsport === undefined) ? serverPort + 1 : Number(argv.bsport);
 
 const sass = { src: path.join(__dirname, 'client/sass/'), dest: path.join(__dirname, 'assets/public/css/') };
 const goHtml = { src: path.join(__dirname, 'client/views/'), dest: path.join(__dirname, 'assets/templates/') };
 const ts = { src: path.join(__dirname, 'client/scripts/'), dest: path.join(__dirname, 'assets/public/js/') };
 const favicon = { src: path.join(__dirname, 'client/favicon/public/'), dest: path.join(__dirname, 'assets/public/fav/') };
-
-// const serverBinary = path.join(process.env.GOPATH, 'bin', 'www.jacksorrell.com');
 
 var clientTs = typescript.createProject(path.join(ts.src, 'tsconfig.json'));
 
@@ -94,7 +106,10 @@ export const build = gulp.parallel(compileSass, compileTs, copyFavicons, copyVie
 function bsInit (done) {
 	browserSync.init({
 		proxy: 'localhost:' + serverPort,
-		port: serverPort + 1,
+		port: bsPort,
+		ui: {
+			port: bsPort + 1
+		},
 		open: false
 	});
 	done();
