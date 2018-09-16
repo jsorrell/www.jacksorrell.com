@@ -1,6 +1,7 @@
 'use strict';
 
-require('dotenv').config();
+var path = require('path');
+
 var autoprefixer = require('autoprefixer');
 var browserSync = require('browser-sync').create();
 var browserify = require('browserify');
@@ -9,6 +10,7 @@ var gulp = require('gulp');
 const gulpClean = require('gulp-clean');
 var minifycss = require('gulp-clean-css');
 const happiness = require('gulp-happiness');
+const htmlmin = require('gulp-htmlmin');
 var newer = require('gulp-newer');
 var postcss = require('gulp-postcss');
 var print = require('gulp-print').default;
@@ -23,10 +25,21 @@ var tsify = require('tsify');
 var tslint = require('tslint');
 var buffer = require('vinyl-buffer');
 
-var serverTs = typescript.createProject('src/tsconfig.json');
-var clientTs = typescript.createProject('src/scripts/tsconfig.json');
+// TODO: parse port as argument? or read from file?
+const serverPort = 3000;
 
-function compileSass (stream) {
+const sass = { src: path.join(__dirname, 'client/sass/'), dest: path.join(__dirname, 'assets/public/css/') };
+const goHtml = { src: path.join(__dirname, 'client/views/'), dest: path.join(__dirname, 'assets/templates/') };
+const ts = { src: path.join(__dirname, 'client/scripts/'), dest: path.join(__dirname, 'assets/public/js/') };
+const favicon = { src: path.join(__dirname, 'client/favicon/public/'), dest: path.join(__dirname, 'assets/public/fav/') };
+
+// const serverBinary = path.join(process.env.GOPATH, 'bin', 'www.jacksorrell.com');
+
+var clientTs = typescript.createProject(path.join(ts.src, 'tsconfig.json'));
+
+export function compileSass (stream) {
+	if (!stream || !stream.pipe) stream = gulp.src(path.join(sass.src, '**/*.scss'));
+
 	return stream
 	.pipe(sourcemaps.init())
 	.pipe(gulpSass().on('error', gulpSass.logError))
@@ -36,18 +49,19 @@ function compileSass (stream) {
 	.pipe(minifycss())
 	.pipe(print(filepath => `built: ${filepath}`))
 	.pipe(sourcemaps.write('.'))
-	.pipe(gulp.dest('dist/public/css/'));
+	.pipe(gulp.dest(sass.dest));
 }
 
-export function sass () {
-	return compileSass(gulp.src('src/sass/style.scss'));
-}
-
-function compileClientTs () {
+export function compileTs () {
 	return clientTs.src()
 	.pipe(tap(function (file) {
+		file.path = file.path.slice(0, -3) + '.js';
+	}))
+	.pipe(newer(ts.dest))
+	.pipe(tap(function (file) {
+		file.path = file.path.slice(0, -3) + '.ts';
 		file.contents = browserify(file.path, {debug: true})
-			.plugin(tsify, {project: 'src/scripts/tsconfig.json'})
+			.plugin(tsify, {project: path.join(ts.src, 'tsconfig.json')})
 			.bundle();
 		file.path = file.path.slice(0, -3) + '.js';
 	}))
@@ -56,71 +70,31 @@ function compileClientTs () {
 	.pipe(uglify())
 	.pipe(print(filepath => `built: ${filepath}`))
 	.pipe(sourcemaps.write('.'))
-	.pipe(gulp.dest('dist/public/js/'));
+	.pipe(gulp.dest(ts.dest));
 }
 
-function compileServerTs () {
-	return serverTs.src()
-		.pipe(newer({dest: 'dist/', ext: '.js'}))
-		.pipe(sourcemaps.init())
-		.pipe(serverTs())
-		.js.pipe(buffer())
-		.pipe(uglify())
-		.pipe(print(filepath => `built: ${filepath}`))
-		.pipe(sourcemaps.write('.'))
-		.pipe(gulp.dest('dist/'));
-}
-
-export const ts = gulp.parallel(compileClientTs, compileServerTs);
-
-function copyAssets () {
-	return gulp.src('src/public/**')
-		.pipe(newer('dist/public/'))
+// TODO generate favicons
+export function copyFavicons () {
+	return gulp.src(path.join(favicon.src, '**'))
+		.pipe(newer(favicon.dest))
 		.pipe(print(filepath => `copied: ${filepath}`))
-		.pipe(gulp.dest('dist/public/'));
+		.pipe(gulp.dest(favicon.dest));
 }
 
-function copyFavicons () {
-	return gulp.src('src/favicon/public/**')
-		.pipe(newer('dist/public/'))
+export function copyViews () {
+	return gulp.src(path.join(goHtml.src, '**/*.gohtml'))
+		.pipe(newer(goHtml.dest))
+		.pipe(htmlmin({ collapseWhitespace: true }))
 		.pipe(print(filepath => `copied: ${filepath}`))
-		.pipe(gulp.dest('dist/public/'));
+		.pipe(gulp.dest(goHtml.dest));
 }
 
-function copyViews () {
-	return gulp.src('src/views/**/*.pug')
-		.pipe(newer('dist/views/'))
-		.pipe(print(filepath => `copied: ${filepath}`))
-		.pipe(gulp.dest('dist/views/'));
-}
-
-export const build = gulp.parallel(sass, ts, copyAssets, copyFavicons, copyViews);
-
-function spawnServer () {
-	return spawn('node', ['dist/app.js'], {
-		env: process.env,
-		stdio: 'inherit'
-	});
-}
-
-function startServer (done) {
-	spawnServer();
-	done();
-}
-
-export function runServer (done) {
-	const child = spawnServer();
-	child.on('close', (code) => {
-		done(`Server stopped with code ${code}.`);
-	});
-}
-
-export const bRun = gulp.series(build, runServer);
+export const build = gulp.parallel(compileSass, compileTs, copyFavicons, copyViews);
 
 function bsInit (done) {
 	browserSync.init({
-		proxy: 'localhost:' + Number(process.env.PORT),
-		port: Number(process.env.PORT) + 1,
+		proxy: 'localhost:' + serverPort,
+		port: serverPort + 1,
 		open: false
 	});
 	done();
@@ -131,24 +105,24 @@ function reloadBs (done) {
 	done();
 }
 
-function watch () {
-	gulp.watch('src/scripts/**/*.ts', gulp.series(ts, reloadBs));
-	gulp.watch('src/views/**/*.pug', gulp.series(copyViews, reloadBs));
-	compileSass(gulpWatchSass('src/sass/**/*.scss')).pipe(browserSync.stream());
+export function watch () {
+	gulp.watch(path.join(ts.src, '**/*.ts'), gulp.series(compileTs, reloadBs));
+	gulp.watch(path.join(goHtml.src, '**/*.gohtml'), gulp.series(copyViews, reloadBs));
+	compileSass(gulpWatchSass(path.join(sass.src, '**/*.scss'))).pipe(browserSync.stream());
 }
 
-export const dev = gulp.series(build, startServer, bsInit, watch);
+export const dev = gulp.series(build, bsInit, watch);
 
 export function lintJs () {
-	return gulp.src(['**/*.js', '!node_modules/**', '!dist/**'])
+	return gulp.src(['**/*.js', '!node_modules/**', '!' + path.join(ts.dest, '**')])
 		.pipe(happiness())
 		.pipe(happiness.format())
 		.pipe(happiness.failAfterError());
 }
 
-function lintServerTs () {
-	const program = tslint.Linter.createProgram('./src/tsconfig.json');
-	return gulp.src(['./src/**/*.ts', '!src/scripts/**'])
+export function lintTs () {
+	const program = tslint.Linter.createProgram(path.join(ts.src, 'tsconfig.json'));
+	return gulp.src([path.join(ts.src, '**/*.ts')])
 		.pipe(gulpTslint({
 			formatter: 'verbose',
 			program: program,
@@ -157,24 +131,34 @@ function lintServerTs () {
 		.pipe(gulpTslint.report());
 }
 
-function lintClientTs () {
-	const program = tslint.Linter.createProgram('./src/scripts/tsconfig.json');
-	return gulp.src(['./src/scripts/**/*.ts'])
-		.pipe(gulpTslint({
-			formatter: 'verbose',
-			program: program,
-			configuration: './tslint.json'
-		}))
-		.pipe(gulpTslint.report());
+export function lintGo () {
+	return spawn('goimports', ['-w', '.'], {
+		stdio: 'inherit'
+	});
 }
 
-export const lintTs = gulp.series(lintServerTs, lintClientTs);
+export const lint = gulp.series(lintJs, lintTs, lintGo);
 
-export const lint = gulp.series(lintJs, lintTs);
-
-export function clean () {
-	return gulp.src('./dist', { read: false })
+export function cleanTemplates () {
+	return gulp.src(goHtml.dest, { read: false })
 		.pipe(gulpClean());
 }
+
+export function cleanCss () {
+	return gulp.src(sass.dest, { read: false })
+		.pipe(gulpClean());
+}
+
+export function cleanJs () {
+	return gulp.src(ts.dest, { read: false })
+		.pipe(gulpClean());
+}
+
+export function cleanFavicons () {
+	return gulp.src(favicon.dest, { read: false })
+		.pipe(gulpClean());
+}
+
+export const clean = gulp.parallel(cleanTemplates, cleanCss, cleanJs, cleanFavicons);
 
 export default build;

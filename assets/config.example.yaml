@@ -1,0 +1,24 @@
+# The commented out fields are reqired
+
+# General
+dev: false
+logLevel: warn # Valid Levels: panic, fatal, error, warn, warning, info, debug
+
+# Server
+server:
+  port: 3000
+
+# Contact Form
+contact:
+  mailgun:
+    # publicValidationKey: pubkey-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    # privateAPIKey: key-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  email:
+    # domain: mg.example.com
+    # toAddress: contact@example.com
+    subject: Contact Form Message
+  # Maximum input lengths
+  maxLengths:
+    name: 70
+    email: 254
+    message: 10000

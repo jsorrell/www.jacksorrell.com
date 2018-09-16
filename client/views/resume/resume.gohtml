@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html class="resume" lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Resume | {{.ResumeData.Profile.Name.First}} {{.ResumeData.Profile.Name.Last}}</title>
+		<meta name="author" content=name>
+		<meta name="description" content="The online resume of {{.ResumeData.Profile.Name.First}} {{.ResumeData.Profile.Name.Last}}">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		{{template "favicon"}}
+		<script src="/js/contact.js" defer></script>
+		<link href="/css/style.css" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700%7CRoboto+Slab" rel="stylesheet">
+	</head>
+	<body>
+		<div id="resume-container">
+			<div id="profile-box">
+				<div class="header">
+					<img class="profile-image" src={{.ResumeData.Profile.Image}} alt="Image of Jack; he looks rather human-like">
+					<hgroup>
+						<h1 class="profile-name">{{.ResumeData.Profile.Name.First}} {{.ResumeData.Profile.Name.Last}}</h1>
+						<h2 class="profile-title">{{.ResumeData.Profile.Title}}</h2>
+					</hgroup>
+					<a id="contact-button" class="contact-opener" href="/contact/">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8">
+							<path d="M0 0v1l4 2 4-2v-1h-8zm0 2v4h8v-4l-4 2-4-2z" transform="translate(0 1)" />
+						</svg>
+					</a>
+				</div>
+				<div class="details">
+					<div class="links">
+						<ul>
+							{{range .ResumeData.Links}}
+								<li class="link">
+									<a href={{.Href}}>
+										<img class="icon" src={{.Icon}} alt="">
+										<span class="capitalize">{{.Name}}</span>
+									</a>
+								</li>
+							{{end}}
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div id="main-box">
+				<div id="bio" class="section">
+					<h3>ABOUT ME</h3>
+					<p class="section-description">{{.ResumeData.Profile.Bio}}</p>
+				</div>
+				<div id="education" class="section">
+					<h3>DEGREES</h3>
+					<ul>
+						{{range .ResumeData.Degrees}}
+							<li>
+								<div class="header">
+									<span class="title">{{.DegreeShort}} in {{.Major}}</span>
+									<span>{{.StartDate.Month}} {{.StartDate.Year}} - {{.EndDate.Month}} {{.EndDate.Year}}</span>
+									<span>{{.Name}}</span>
+									<span class="location">{{.Location.State}}, {{.Location.City}}</span>
+								</div>
+							</li>
+						{{end}}
+					</ul>
+				</div>
+				<div id="courses" class="section">
+					<h3>COURSES</h3>
+					<ul>
+						{{range .ResumeData.CourseCategories}}
+							<li class="category">
+								<h4 class="title">{{.Category}}</h4>
+								<ul>
+									{{range .Courses}}
+										<li class="tooltip-container">
+											<span>{{.ShortName}}</span>
+											<div class="tooltip">
+												<div class="tooltip-box">
+													<h5 class="tooltip-title">{{.ID}}: {{.Name}}</h5>
+													<p class="tooltip-body">{{.Description}}</p>
+												</div>
+											</div>
+										</li>
+									{{end}}
+								</ul>
+							</li>
+						{{end}}
+					</ul>
+				</div>
+				<div id="experiences" class="section">
+					<h3>EXPERIENCES</h3>
+					<ul>
+						{{range .ResumeData.Experiences}}
+							<li>
+								<details>
+									<summary class="header">
+										<span class="title">{{.Title}}</span>
+										<span>{{.StartDate.Month}} {{.StartDate.Year}} - {{.EndDate.Month}} {{.EndDate.Year}}</span>
+										<span>{{.Company}}</span>
+										<span class="location">{{.Location.City}}, {{.Location.State}}</span>
+									</summary>
+									<p class="section-row-description">{{.Description}}</p>
+								</details>
+							</li>
+						{{end}}
+					</ul>
+				</div>
+				<div id="projects" class="section">
+					<h3>PROJECTS</h3>
+					<ul>
+						{{range .ResumeData.Projects}}
+							<li>
+								<details>
+									<summary class="header">
+										<span class="title">{{.Name}}</span>
+										<span>{{.StartDate.Month}} {{.StartDate.Year}} - {{.EndDate.Month}} {{.EndDate.Year}}</span>
+									</summary>
+									<p class="section-row-description">{{.Description}}</p>
+								</details>
+							</li>
+						{{end}}
+					</ul>
+				</div>
+				<div id="skills" class="section">
+					<h3>SKILLS</h3>
+					<ul>
+						{{range .ResumeData.SkillCategories}}
+							<li>
+								<h4 class="title">{{.Category}}</h4>
+								<ul>
+									{{range .Skills}}
+										<li>
+											<div class="skill">
+												<span class="skill-name">{{.Name}}</span>
+												<span class="skill-level">{{resumeGenerateStars .Level}}</span>
+											</div>
+										</li>
+									{{end}}
+								</ul>
+							</li>
+						{{end}}
+					</ul>
+				</div>
+			</div>
+		</div>
+		<footer>
+			<a href="https://www.useiconic.com/open">Icons from Open Iconic</a>
+			<span> | </span>
+			<span>Updated September 2018</span>
+		</footer>
+		{{template "floatingContact"}}
+	</body>
+</html>

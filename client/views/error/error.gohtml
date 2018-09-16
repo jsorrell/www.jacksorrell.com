@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html class="error" lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Error {{.StatusCode}}</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+		<link rel='stylesheet' href='/css/style.css'>
+	</head>
+	<body class="error">
+		<div class="error-container-container">
+			<div class="error-container">
+				<h1 class="status-code">{{.StatusCode}}</h1>
+				<h2 class="status-message">{{.ErrorMessage}}</h2>
+				<hr>
+				{{if eq .StatusCode 404}}
+					<h3>You may want to head back to the homepage.</h3>
+				{{else}}
+					<h3>Go back to the previous page and try again.</h3>
+				{{end}}
+				<h3>If you think something is broken, please report a problem.</h3>
+				<div class="button-container">
+					{{if eq .StatusCode 404}}
+						<a href="/">Go To Homepage</a>
+					{{else}}
+						<a title="Click to go back" href="{{.BackLink}}" onclick="history.back();return false;">Go Back</a>
+					{{end}}
+					<a href="/contact">Report a Problem</a>
+				</div>
+			</div>
+			{{/*Stack trace*/}}
+			{{if ne .StackTrace ""}}
+				<div class="stack-trace">
+					<pre>{{.StackTrace}}</pre>
+				</div>
+			{{end}}
+		</div>
+	</body>
+</html>
