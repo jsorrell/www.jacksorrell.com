@@ -14,7 +14,7 @@ func main() {
 		PackageName:  "data",
 		BuildTags:    "!dev",
 		VariableName: "Assets",
-		Filename: "data/assets_vfsdata.go",
+		Filename:     "data/assets_vfsdata.go",
 	})
 	if err != nil {
 		log.Fatalln(err)

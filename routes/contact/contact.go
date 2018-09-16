@@ -1,10 +1,10 @@
 package contact
 
 import (
+	"bytes"
 	"fmt"
 	"net/http"
 	"strings"
-	"bytes"
 
 	"unicode/utf8"
 

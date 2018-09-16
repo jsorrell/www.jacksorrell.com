@@ -3,8 +3,8 @@ package data
 import (
 	"io"
 	"io/ioutil"
-	"path/filepath"
 	"net/http"
+	"path/filepath"
 )
 
 var WebPublic = &WebDir{"public/"}

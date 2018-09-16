@@ -4,10 +4,10 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/jsorrell/www.jacksorrell.com/routes/contact"
-	"github.com/jsorrell/www.jacksorrell.com/routes/resume"
 	"github.com/jsorrell/www.jacksorrell.com/data"
 	weblogger "github.com/jsorrell/www.jacksorrell.com/log"
+	"github.com/jsorrell/www.jacksorrell.com/routes/contact"
+	"github.com/jsorrell/www.jacksorrell.com/routes/resume"
 	weberror "github.com/jsorrell/www.jacksorrell.com/web/error"
 	"github.com/urfave/negroni"
 )

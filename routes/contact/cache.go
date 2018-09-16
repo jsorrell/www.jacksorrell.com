@@ -3,10 +3,11 @@
 package contact
 
 import (
-	"io"
-	"github.com/jsorrell/www.jacksorrell.com/templates"
-	"github.com/jsorrell/www.jacksorrell.com/log"
 	"bytes"
+	"io"
+
+	"github.com/jsorrell/www.jacksorrell.com/log"
+	"github.com/jsorrell/www.jacksorrell.com/templates"
 )
 
 var _contactPageHTML []byte
