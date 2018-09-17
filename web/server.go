@@ -30,7 +30,7 @@ func NewServer() *Server {
 
 	router := mux.NewRouter().StrictSlash(true)
 	router.NotFoundHandler = &weberror.NotFoundHandler{ErrorHandler: weberror.HTML}
-	router.MethodNotAllowedHandler = &weberror.NotFoundHandler{ErrorHandler: weberror.HTML}
+	router.MethodNotAllowedHandler = &weberror.MethodNotAllowedHandler{ErrorHandler: weberror.HTML}
 
 	// Middleware
 	s.Use(recovery)

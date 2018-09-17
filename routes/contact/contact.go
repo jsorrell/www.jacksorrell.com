@@ -1,10 +1,11 @@
 package contact
 
 import (
-	"bytes"
 	"fmt"
 	"net/http"
 	"strings"
+	"bytes"
+	"sync"
 
 	"unicode/utf8"
 
@@ -16,22 +17,41 @@ import (
 	"gopkg.in/mailgun/mailgun-go.v1"
 )
 
+var bufPool *sync.Pool
+
+func init() {
+	bufPool = &sync.Pool{
+		New: func() interface{} {
+			return bytes.NewBuffer(make([]byte, 0, 5000))
+		},
+	}
+}
+
 // RegisterRoutesTo registers routes to router
 func RegisterRoutesTo(router *mux.Router) {
 	sub := router.Path("/contact/").Subrouter()
-	sub.Methods("GET HEAD").HandlerFunc(showContact)
+	sub.Methods("GET", "HEAD").HandlerFunc(showContact)
 	sub.Methods("POST").HandlerFunc(handleContactFormSubmission)
 }
 
 func showContact(res http.ResponseWriter, req *http.Request) {
-	buf := bytes.NewBuffer(make([]byte, 0, 5000))
+	buf := bufPool.Get().(*bytes.Buffer)
 
 	err := writeContactPage(buf)
 	if err != nil {
 		weberror.HTML.Error(res, req, http.StatusInternalServerError, "Internal Server Error", err.Error())
 	}
 
+	if req.Method == "HEAD" {
+		buf.Reset()
+		bufPool.Put(buf)
+		res.WriteHeader(200)
+		return
+	}
+
 	_, err = res.Write(buf.Bytes())
+	buf.Reset()
+	bufPool.Put(buf)
 	if err != nil {
 		log.Info(err)
 	}

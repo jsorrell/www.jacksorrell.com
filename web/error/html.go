@@ -56,7 +56,13 @@ func (p *HTMLErrorHandler) sendError(w http.ResponseWriter, req *http.Request, s
 	}
 
 	w.WriteHeader(statusCode)
-	tmpl.ExecuteTemplate(w, "error", map[string]interface{}{"StatusCode": statusCode, "ErrorMessage": statusMessage, "BackLink": req.Referer(), "StackTrace": stacktrace})
+	if req.Method == "HEAD" {
+		return
+	}
+	err = tmpl.ExecuteTemplate(w, "error", map[string]interface{}{"StatusCode": statusCode, "ErrorMessage": statusMessage, "BackLink": req.Referer(), "StackTrace": stacktrace})
+	if err != nil {
+		log.Error(err)
+	}
 }
 
 func (p *HTMLErrorHandler) error(w http.ResponseWriter, req *http.Request, statusCode int, statusMessage string, logMessage string, dev *devInfo) {
