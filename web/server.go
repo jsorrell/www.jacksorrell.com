@@ -5,7 +5,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/jsorrell/www.jacksorrell.com/data"
-	weblogger "github.com/jsorrell/www.jacksorrell.com/log"
+	"github.com/jsorrell/www.jacksorrell.com/log"
 	"github.com/jsorrell/www.jacksorrell.com/routes/contact"
 	"github.com/jsorrell/www.jacksorrell.com/routes/resume"
 	weberror "github.com/jsorrell/www.jacksorrell.com/web/error"
@@ -16,7 +16,7 @@ import (
 var (
 	recovery  = &weberror.Recoverer{ErrorHandler: weberror.HTML}
 	static    = negroni.NewStatic(data.WebPublic)
-	webLogger = weblogger.StandardHTTPRequestLogger()
+	webLogger = log.StandardHTTPRequestLogger()
 )
 
 // Server a server
@@ -37,6 +37,8 @@ func NewServer() *Server {
 	s.Use(static)
 	s.Use(webLogger)
 
+	router.Path("/favicon.ico").Methods("GET").HandlerFunc(serveFavicon)
+
 	// Controllers
 	resume.RegisterRoutesTo(router)
 	contact.RegisterRoutesTo(router)
@@ -49,4 +51,23 @@ func NewServer() *Server {
 	s.UseHandler(router)
 
 	return &s
+}
+
+// TODO move this somewhere else
+func serveFavicon(rw http.ResponseWriter, r *http.Request) {
+	file := "fav/favicon.ico"
+	f, err := data.WebPublic.Open(file)
+	if err != nil {
+		log.Error("fav/favicon.ico missing")
+		return
+	}
+	defer f.Close()
+
+	fi, err := f.Stat()
+	if err != nil {
+		log.Error("can't read fav/favicon.ico")
+		return
+	}
+
+	http.ServeContent(rw, r, file, fi.ModTime(), f)
 }
