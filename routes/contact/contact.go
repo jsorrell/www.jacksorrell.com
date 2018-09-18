@@ -9,7 +9,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/goware/emailx"
-	"github.com/jsorrell/www.jacksorrell.com/configloader"
+	"github.com/jsorrell/www.jacksorrell.com/config"
 	"github.com/jsorrell/www.jacksorrell.com/templates"
 	weberror "github.com/jsorrell/www.jacksorrell.com/web/error"
 	"gopkg.in/mailgun/mailgun-go.v1"
@@ -30,7 +30,7 @@ func handleContactFormSubmission(res http.ResponseWriter, req *http.Request) {
 	} else {
 		errorHandler = weberror.HTML
 	}
-	maxLengths := configloader.Config.Contact.MaxLengths
+	maxLengths := config.Contact.MaxLengths
 	req.Body = http.MaxBytesReader(res, req.Body, int64(maxLengths.Name+maxLengths.Email+maxLengths.Message+1000))
 
 	if errorMessage, statusCode := validateFormSubmission(req); errorMessage != "" {
@@ -64,7 +64,7 @@ func validateFormSubmission(req *http.Request) (string, int) {
 			return "Missing " + strings.ToTitle(fieldName), http.StatusBadRequest
 		}
 
-		maxLength, erro := configloader.ContactMaxLength(fieldName)
+		maxLength, erro := config.ContactMaxLength(fieldName)
 		if erro != nil {
 			return "Internal Server Error", http.StatusInternalServerError
 		}
@@ -89,16 +89,16 @@ func getFieldValue(req *http.Request, field string) string {
 
 func sendMailgunEmail(name, email, message string) error {
 	mg := mailgun.NewMailgun(
-		configloader.Config.Contact.Email.Domain,
-		configloader.Config.Contact.Mailgun.PrivateAPIKey,
-		configloader.Config.Contact.Mailgun.PublicValidationKey,
+		config.Contact.Email.Domain,
+		config.Contact.Mailgun.PrivateAPIKey,
+		config.Contact.Mailgun.PublicValidationKey,
 	)
 
 	m := mg.NewMessage(
 		fmt.Sprintf("%s<%s>", name, email),
-		configloader.Config.Contact.Email.Subject,
+		config.Contact.Email.Subject,
 		message,
-		configloader.Config.Contact.Email.ToAddress,
+		config.Contact.Email.ToAddress,
 	)
 	_, _, err := mg.Send(m)
 

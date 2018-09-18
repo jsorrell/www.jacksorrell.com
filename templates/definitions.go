@@ -4,7 +4,7 @@ import (
 	"html/template"
 	"strings"
 
-	"github.com/jsorrell/www.jacksorrell.com/configloader"
+	"github.com/jsorrell/www.jacksorrell.com/config"
 	"github.com/jsorrell/www.jacksorrell.com/log"
 	resumeData "github.com/jsorrell/www.jacksorrell.com/routes/resume/data"
 	tmpl "github.com/jsorrell/www.jacksorrell.com/templates/templateexecuter"
@@ -13,7 +13,7 @@ import (
 var webGroup = tmpl.NewTemplateGroup(
 	"www",
 	template.FuncMap{
-		"contactMaxLength": configloader.ContactMaxLength,
+		"contactMaxLength": config.ContactMaxLength,
 		"resumeGenerateStars": func(stars int) string {
 			if stars < 0 {
 				stars = 0

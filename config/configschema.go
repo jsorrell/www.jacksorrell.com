@@ -1,4 +1,4 @@
-package configloader
+package config
 
 // Configuration the type of Config
 type configurationSchema struct {
