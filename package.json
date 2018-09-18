@@ -19,6 +19,7 @@
     "babel-register": "^6.26.0",
     "browser-sync": "^2.24.7",
     "browserify": "^16.2.2",
+    "favicons": "^5.1.1",
     "gulp": "^4.0.0",
     "gulp-clean": "^0.4.0",
     "gulp-clean-css": "^3.10.0",
