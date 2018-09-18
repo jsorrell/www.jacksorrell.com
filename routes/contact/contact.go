@@ -4,57 +4,22 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
-	"bytes"
-	"sync"
 
 	"unicode/utf8"
 
 	"github.com/gorilla/mux"
 	"github.com/goware/emailx"
 	"github.com/jsorrell/www.jacksorrell.com/configloader"
-	"github.com/jsorrell/www.jacksorrell.com/log"
+	"github.com/jsorrell/www.jacksorrell.com/templates"
 	weberror "github.com/jsorrell/www.jacksorrell.com/web/error"
 	"gopkg.in/mailgun/mailgun-go.v1"
 )
 
-var bufPool *sync.Pool
-
-func init() {
-	bufPool = &sync.Pool{
-		New: func() interface{} {
-			return bytes.NewBuffer(make([]byte, 0, 5000))
-		},
-	}
-}
-
 // RegisterRoutesTo registers routes to router
 func RegisterRoutesTo(router *mux.Router) {
 	sub := router.Path("/contact/").Subrouter()
-	sub.Methods("GET", "HEAD").HandlerFunc(showContact)
+	sub.Methods("GET", "HEAD").Handler(templates.Contact)
 	sub.Methods("POST").HandlerFunc(handleContactFormSubmission)
-}
-
-func showContact(res http.ResponseWriter, req *http.Request) {
-	buf := bufPool.Get().(*bytes.Buffer)
-
-	err := writeContactPage(buf)
-	if err != nil {
-		weberror.HTML.Error(res, req, http.StatusInternalServerError, "Internal Server Error", err.Error())
-	}
-
-	if req.Method == "HEAD" {
-		buf.Reset()
-		bufPool.Put(buf)
-		res.WriteHeader(200)
-		return
-	}
-
-	_, err = res.Write(buf.Bytes())
-	buf.Reset()
-	bufPool.Put(buf)
-	if err != nil {
-		log.Info(err)
-	}
 }
 
 func handleContactFormSubmission(res http.ResponseWriter, req *http.Request) {

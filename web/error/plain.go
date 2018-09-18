@@ -47,7 +47,10 @@ func (p *PlainErrorHandler) sendError(w http.ResponseWriter, req *http.Request, 
 		return
 	}
 
-	w.Write([]byte(statusMessage))
+	_, err := w.Write([]byte(statusMessage))
+	if err != nil {
+		log.Info(err)
+	}
 }
 
 func (p *PlainErrorHandler) error(w http.ResponseWriter, req *http.Request, statusCode int, statusMessage string, logMessage string, dev *devInfo) {

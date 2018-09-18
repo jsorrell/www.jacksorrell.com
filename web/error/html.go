@@ -2,6 +2,7 @@ package error
 
 import (
 	"fmt"
+	"io"
 	"net/http"
 
 	"github.com/jsorrell/www.jacksorrell.com/configloader"
@@ -44,28 +45,36 @@ func CreateHTML() *HTMLErrorHandler {
 }
 
 func (p *HTMLErrorHandler) sendError(w http.ResponseWriter, req *http.Request, statusCode int, statusMessage string, dev *devInfo) {
-
 	stacktrace := ""
 	if dev != nil {
 		stacktrace = string(dev.stacktrace)
 	}
-	tmpl, err := templates.GetTemplate("www")
-	if err != nil {
-		Plain.InternalServerError(w, req, err)
-		return
-	}
-
-	w.WriteHeader(statusCode)
-	if req.Method == "HEAD" {
-		return
-	}
-	err = tmpl.ExecuteTemplate(w, "error", map[string]interface{}{"StatusCode": statusCode, "ErrorMessage": statusMessage, "BackLink": req.Referer(), "StackTrace": stacktrace})
-	if err != nil {
-		log.Error(err)
-	}
+	func() {
+		defer func() {
+			// Error in html error handler -- fallback to plain error handler
+			if err := recover(); err != nil {
+				dev := getDevInfo(3) // FIXME get right offset
+				Plain.panic(w, req, err, dev)
+			}
+		}()
+		r := templates.Error.GetReadCloser(map[string]interface{}{
+			"StatusCode":   statusCode,
+			"ErrorMessage": statusMessage,
+			"BackLink":     req.Referer(),
+			"StackTrace":   stacktrace,
+		})
+		defer r.Close()
+		w.WriteHeader(statusCode)
+		if req.Method != "HEAD" {
+			_, err := io.Copy(w, r)
+			if err != nil {
+				log.Info(err)
+			}
+		}
+	}()
 }
 
-func (p *HTMLErrorHandler) error(w http.ResponseWriter, req *http.Request, statusCode int, statusMessage string, logMessage string, dev *devInfo) {
+func (p *HTMLErrorHandler) error(w http.ResponseWriter, req *http.Request, statusCode int, statusMessage, logMessage string, dev *devInfo) {
 	p.sendError(w, req, statusCode, statusMessage, dev)
 	if 400 <= statusCode && statusCode < 500 { // Client Error
 		p.logger.LogInfo(req, statusCode, logMessage, dev)
@@ -74,7 +83,7 @@ func (p *HTMLErrorHandler) error(w http.ResponseWriter, req *http.Request, statu
 	}
 }
 
-func (p *HTMLErrorHandler) Error(w http.ResponseWriter, req *http.Request, statusCode int, statusMessage string, logMessage string) {
+func (p *HTMLErrorHandler) Error(w http.ResponseWriter, req *http.Request, statusCode int, statusMessage, logMessage string) {
 	var dev *devInfo
 	if p.dev {
 		dev = getDevInfo(1)

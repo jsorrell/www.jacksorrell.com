@@ -1,4 +1,4 @@
-package resume
+package data
 
 import (
 	"io/ioutil"
@@ -14,7 +14,7 @@ type month struct {
 	Year  string `yaml:"year"`
 }
 
-type resumeData struct {
+type ResumeData struct {
 	Profile struct {
 		Name struct {
 			First string `yaml:"first"`
@@ -90,7 +90,7 @@ type resumeData struct {
 	} `yaml:"links"`
 }
 
-func parseResumeData() (*resumeData, error) {
+func ParseResumeData() (*ResumeData, error) {
 	resumeDataYaml, err := data.Assets.Open("resume_data.yaml")
 	if err != nil {
 		return nil, err
@@ -103,7 +103,7 @@ func parseResumeData() (*resumeData, error) {
 		return nil, err
 	}
 
-	var data resumeData
+	var data ResumeData
 	err = yaml.Unmarshal(resumeDataBytes, &data)
 	if err != nil {
 		return nil, err
