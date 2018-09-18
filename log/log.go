@@ -46,7 +46,7 @@ func formatDuration(d time.Duration) string {
 	case l-decimals < durLen || len(durStr)-decimals-1 == durLen:
 		durStr = durStr[:durLen]
 	case l-decimals == durLen:
-		durStr = " " + durStr[:durLen-1]
+		durStr = durStr[:durLen-1] + "."
 	default:
 		durStr = strings.Repeat("9", durLen)
 	}
