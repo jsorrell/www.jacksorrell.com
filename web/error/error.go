@@ -13,7 +13,6 @@ type ErrorHandler interface {
 	Error(w http.ResponseWriter, req *http.Request, statusCode int, statusMessage string, logMessage string)
 	InternalServerError(w http.ResponseWriter, req *http.Request, err error)
 	panic(w http.ResponseWriter, req *http.Request, err interface{}, dev *devInfo)
-	isDev() bool
 }
 
 /***************/
@@ -61,10 +60,7 @@ type Recoverer struct {
 func (h *Recoverer) ServeHTTP(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
 	defer func() {
 		if err := recover(); err != nil {
-			var dev *devInfo
-			if h.isDev() {
-				dev = getDevInfo(3)
-			}
+			dev := getDevInfo(3)
 			h.panic(w, r, err, dev)
 		}
 	}()

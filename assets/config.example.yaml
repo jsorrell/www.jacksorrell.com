@@ -1,7 +1,6 @@
 # The commented out fields are reqired
 
 # General
-dev: false
 logLevel: warn # Valid Levels: panic, fatal, error, warn, warning, info, debug
 
 # Server

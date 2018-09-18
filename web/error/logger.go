@@ -33,7 +33,7 @@ func getDisplayFile(file string) string {
 func (l *httpErrorLogger) getEntry(req *http.Request, statusCode int, dev *devInfo) *logrus.Entry {
 	logger := l.Logger.WithField("status", log.ColoredStatus(statusCode))
 	if dev != nil {
-		return logger.WithField("cause", fmt.Sprintf("%s:%d", getDisplayFile(dev.file), dev.line))
+		logger = logger.WithField("cause", fmt.Sprintf("%s:%d", getDisplayFile(dev.file), dev.line))
 	}
 
 	return logger
@@ -48,7 +48,10 @@ func (l *httpErrorLogger) LogError(req *http.Request, statusCode int, logMessage
 }
 
 func (l *httpErrorLogger) LogPanic(req *http.Request, statusCode int, logMessage string, dev *devInfo) {
-	entry := l.getEntry(req, statusCode, dev).WithField("stacktrace", string(dev.stacktrace))
+	entry := l.getEntry(req, statusCode, dev)
+	if dev != nil {
+		entry = entry.WithField("stacktrace", dev.stacktrace)
+	}
 	func() {
 		defer func() {
 			recover()

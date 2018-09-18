@@ -14,7 +14,6 @@ import (
 
 // Configuration configuration object
 type Configuration struct {
-	Dev    bool
 	Server struct {
 		Port uint16
 	}
@@ -79,7 +78,6 @@ func init() {
 }
 
 func (config *Configuration) genConfiguration(yamlFile configurationSchema) error {
-	config.Dev = yamlFile.Dev
 	/* Defaults */
 	if yamlFile.Server.Port == 0 {
 		yamlFile.Server.Port = 3000

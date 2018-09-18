@@ -2,7 +2,6 @@ package configloader
 
 // Configuration the type of Config
 type configurationSchema struct {
-	Dev      bool   `yaml:"dev"`
 	LogLevel string `yaml:"logLevel"`
 	Server   struct {
 		Port uint16 `yaml:"port"`
