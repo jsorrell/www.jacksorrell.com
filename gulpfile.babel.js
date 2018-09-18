@@ -48,7 +48,7 @@ const faviconConfiguration = {
 	scope: '/',
 	start_url: '/',
 	version: '1.0',
-	logging: true,
+	logging: false,
 	icons: {
 		android: true,
 		appleIcon: true,
