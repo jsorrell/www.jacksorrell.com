@@ -54,11 +54,12 @@ type DynamicTemplate struct {
 	group        *TemplateGroup
 	templateName string
 	contentType  string
+	pushes       []ServerPush
 }
 
 func (g *TemplateGroup) NewDynamicTemplate(templateName, fileName string) *DynamicTemplate {
 	g.defs._dev_addTemplateDef(templateName, fileName)
-	return &DynamicTemplate{g, templateName, DefaultContentType}
+	return &DynamicTemplate{g, templateName, DefaultContentType, []ServerPush{}}
 }
 
 func (tmpl *DynamicTemplate) GetReader(args interface{}) ReadSeekerCloser {
@@ -93,11 +94,12 @@ type StaticTemplate struct {
 	templateName string
 	createArgs   func() interface{}
 	contentType  string
+	pushes       []ServerPush
 }
 
 func (g *TemplateGroup) NewStaticTemplate(templateName, fileName string, createArgs func() interface{}) *StaticTemplate {
 	g.defs._dev_addTemplateDef(templateName, fileName)
-	return &StaticTemplate{g, templateName, createArgs, DefaultContentType}
+	return &StaticTemplate{g, templateName, createArgs, DefaultContentType, []ServerPush{}}
 }
 
 func (tmpl *StaticTemplate) GetReader() (ReadSeekerCloser, string) {

@@ -26,7 +26,9 @@ var webGroup = tmpl.NewTemplateGroup(
 	},
 )
 
-var Contact = webGroup.NewStaticTemplate("contactPage", "contact/contact-page.gohtml", nil)
+var Contact = webGroup.NewStaticTemplate("contactPage", "contact/contact-page.gohtml", nil).AddServerPushes(
+	tmpl.ServerPush{Path: "/css/style.css", As: "style"},
+)
 
 var Resume = webGroup.NewStaticTemplate("resume", "resume/resume.gohtml", func() interface{} {
 	resData, err := resumeData.ParseResumeData()
@@ -35,9 +37,25 @@ var Resume = webGroup.NewStaticTemplate("resume", "resume/resume.gohtml", func()
 	}
 
 	return map[string]interface{}{"ResumeData": resData}
-})
+}).AddServerPushes(
+	tmpl.ServerPush{Path: "/css/style.css", As: "style"},
+	tmpl.ServerPush{Path: "/js/contact.js", As: "script"},
+	tmpl.ServerPush{Path: "/img/beaker.svg", As: "image"},
+	tmpl.ServerPush{Path: "/img/briefcase.svg", As: "image"},
+	tmpl.ServerPush{Path: "/img/fork.svg", As: "image"},
+	tmpl.ServerPush{Path: "/img/location-pin.svg", As: "image"},
+	tmpl.ServerPush{Path: "/img/myface-nobg.png", As: "image"},
+	tmpl.ServerPush{Path: "/img/octocat.svg", As: "image"},
+	tmpl.ServerPush{Path: "/img/paperclip.svg", As: "image"},
+	tmpl.ServerPush{Path: "/img/person.svg", As: "image"},
+	tmpl.ServerPush{Path: "/img/terminal.svg", As: "image"},
+	tmpl.ServerPush{Path: "/img/Twitter_Social_Icon_Circle_Color.svg", As: "image"},
+	tmpl.ServerPush{Path: "/img/keybase_logo_official.svg", As: "image"},
+)
 
-var Error = webGroup.NewDynamicTemplate("error", "error/error.gohtml")
+var Error = webGroup.NewDynamicTemplate("error", "error/error.gohtml").AddServerPushes(
+	tmpl.ServerPush{Path: "/css/style.css", As: "style"},
+)
 
 func init() {
 	webGroup.NewIncludedTemplate("contactBox", "contact/contact-box.gohtml")
