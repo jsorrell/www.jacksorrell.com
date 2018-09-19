@@ -21,11 +21,11 @@ type ErrorHandler interface {
 
 // NotFoundHandler a handler of Not Found errors that implements http.Handler
 type NotFoundHandler struct {
-	ErrorHandler
+	h ErrorHandler
 }
 
 func (h *NotFoundHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	h.Error(w, r, http.StatusNotFound, "Not Found", fmt.Sprintf("Resource %s not found", r.URL.Path))
+	h.h.Error(w, r, http.StatusNotFound, "Not Found", fmt.Sprintf("Resource %s not found", r.URL.Path))
 }
 
 func (p *HTMLErrorHandler) GetNotFoundHandler() *NotFoundHandler {
@@ -38,12 +38,13 @@ func (p *HTMLErrorHandler) GetNotFoundHandler() *NotFoundHandler {
 
 // MethodNotAllowedHandler a handler of Method Not Allowed errors that implements http.Handler
 type MethodNotAllowedHandler struct {
-	ErrorHandler
+	h ErrorHandler
 }
 
 func (h *MethodNotAllowedHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	h.Error(w, r, http.StatusMethodNotAllowed, "Method Not Allowed", fmt.Sprintf("Method %s not allowed for %s", r.Method, r.URL.Path))
+	h.h.Error(w, r, http.StatusMethodNotAllowed, "Method Not Allowed", fmt.Sprintf("Method %s not allowed for %s", r.Method, r.URL.Path))
 }
+
 func (p *HTMLErrorHandler) GetMethodNotAllowedHandler() *MethodNotAllowedHandler {
 	return &MethodNotAllowedHandler{p}
 }
@@ -54,15 +55,19 @@ func (p *HTMLErrorHandler) GetMethodNotAllowedHandler() *MethodNotAllowedHandler
 
 // Recoverer middleware that recovers from panics that occur in future handlers. Implements negroni.Handler
 type Recoverer struct {
-	ErrorHandler
+	h ErrorHandler
 }
 
-func (h *Recoverer) ServeHTTP(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
+func (rec *Recoverer) ServeHTTP(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
 	defer func() {
 		if err := recover(); err != nil {
 			dev := getDevInfo(3)
-			h.panic(w, r, err, dev)
+			rec.h.panic(w, r, err, dev)
 		}
 	}()
 	next(w, r)
+}
+
+func (p *HTMLErrorHandler) GetRecoverer() *Recoverer {
+	return &Recoverer{p}
 }

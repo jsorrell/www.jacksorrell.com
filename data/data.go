@@ -8,6 +8,7 @@ import (
 )
 
 var WebPublic = &WebDir{"public/"}
+var Favicons = &WebDir{"public/fav/"}
 var Templates = &WebDir{"templates/"}
 
 type WebDir struct {

@@ -14,9 +14,9 @@ import (
 
 type Logger *logrus.Logger
 
-// HTTPLogger the logger for http requests that implements negroni.Logger
+// HTTPRequestLogger the logger for http requests that implements negroni.Logger
 type HTTPRequestLogger struct {
-	*logrus.Logger
+	logger *logrus.Logger
 }
 
 func (l *HTTPRequestLogger) ServeHTTP(rw http.ResponseWriter, req *http.Request, next http.HandlerFunc) {
@@ -26,7 +26,7 @@ func (l *HTTPRequestLogger) ServeHTTP(rw http.ResponseWriter, req *http.Request,
 
 	res := rw.(negroni.ResponseWriter)
 
-	l.WithFields(logrus.Fields{
+	l.logger.WithFields(logrus.Fields{
 		"dur":    formatDuration(time.Since(start)),
 		"status": ColoredStatus(res.Status()),
 	}).Debug(fmt.Sprintf("%s %s", req.Method, req.URL.Path))

@@ -2,8 +2,8 @@ package resume
 
 import (
 	"bytes"
-	"sync"
 	"net/http"
+	"sync"
 
 	"github.com/gorilla/mux"
 	"github.com/jsorrell/www.jacksorrell.com/templates"
