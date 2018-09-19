@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/jsorrell/www.jacksorrell.com/log"
-	"github.com/jsorrell/www.jacksorrell.com/templates"
+	tmpldefs "github.com/jsorrell/www.jacksorrell.com/templates/defs"
 	"github.com/sirupsen/logrus"
 )
 
@@ -53,7 +53,7 @@ func (p *HTMLErrorHandler) sendError(w http.ResponseWriter, req *http.Request, s
 				Plain.panic(w, req, err, dev)
 			}
 		}()
-		r := templates.Error.GetReader(map[string]interface{}{
+		r := tmpldefs.Error.GetReader(map[string]interface{}{
 			"StatusCode":   statusCode,
 			"ErrorMessage": statusMessage,
 			"BackLink":     req.Referer(),

@@ -1,11 +1,13 @@
 // +build dev
 
-package templateexecuter
+package templates
 
 import (
 	"html/template"
 
 	"github.com/jsorrell/www.jacksorrell.com/log"
+	myio "github.com/jsorrell/www.jacksorrell.com/utils/io"
+	"github.com/jsorrell/www.jacksorrell.com/web/pages"
 
 	"io"
 )
@@ -53,24 +55,22 @@ func (g *TemplateGroup) Init() {
 type DynamicTemplate struct {
 	group        *TemplateGroup
 	templateName string
-	contentType  string
-	pushes       []ServerPush
 }
 
 func (g *TemplateGroup) NewDynamicTemplate(templateName, fileName string) *DynamicTemplate {
 	g.defs._dev_addTemplateDef(templateName, fileName)
-	return &DynamicTemplate{g, templateName, DefaultContentType, []ServerPush{}}
+	return &DynamicTemplate{g, templateName}
 }
 
-func (tmpl *DynamicTemplate) GetReader(args interface{}) ReadSeekerCloser {
+func (tmpl *DynamicTemplate) GetReader(args interface{}) myio.ReadSeekerCloser {
 	tmpl.group.checkInit()
-	buf := bufPool.Get().(pooledBuffer)
+	buf := bufPool.Get()
 	err := tmpl._dev_execute(buf, args)
 	if err != nil {
 		buf.Close()
 		log.Panic(err)
 	}
-	return buf.getReader()
+	return buf.GetReader()
 }
 
 func (tmpl *DynamicTemplate) Execute(w io.Writer, args interface{}) {
@@ -93,24 +93,23 @@ type StaticTemplate struct {
 	group        *TemplateGroup
 	templateName string
 	createArgs   func() interface{}
-	contentType  string
-	pushes       []ServerPush
 }
 
 func (g *TemplateGroup) NewStaticTemplate(templateName, fileName string, createArgs func() interface{}) *StaticTemplate {
 	g.defs._dev_addTemplateDef(templateName, fileName)
-	return &StaticTemplate{g, templateName, createArgs, DefaultContentType, []ServerPush{}}
+	return &StaticTemplate{g, templateName, createArgs}
 }
 
-func (tmpl *StaticTemplate) GetReader() (ReadSeekerCloser, string) {
+func (tmpl *StaticTemplate) GetReader() (myio.ReadSeekerCloser, string) {
 	tmpl.group.checkInit()
-	buf := bufPool.Get().(pooledBuffer)
+
+	buf := bufPool.Get()
 	err := tmpl._dev_execute(buf)
 	if err != nil {
 		buf.Close()
 		log.Panic(err)
 	}
-	return buf.getReader(), genEtag(buf.Bytes())
+	return buf.GetReader(), pages.GenEtag(buf.Bytes())
 }
 
 func (tmpl *StaticTemplate) Execute(w io.Writer) {

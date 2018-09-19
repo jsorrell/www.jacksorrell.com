@@ -1,14 +1,15 @@
 // +build !dev
 
-package templateexecuter
+package templates
 
 import (
 	"bytes"
 	"html/template"
+	"io"
 
 	"github.com/jsorrell/www.jacksorrell.com/log"
-
-	"io"
+	myio "github.com/jsorrell/www.jacksorrell.com/utils/io"
+	"github.com/jsorrell/www.jacksorrell.com/web/pages"
 )
 
 type _prod_staticTemplateInfo struct {
@@ -57,24 +58,22 @@ func (g *TemplateGroup) Init() {
 type DynamicTemplate struct {
 	group        *TemplateGroup
 	templateName string
-	contentType  string
-	pushes       []ServerPush
 }
 
 func (g *TemplateGroup) NewDynamicTemplate(templateName, fileName string) *DynamicTemplate {
 	if err := addTemplate(&g.t, templateName, fileName); err != nil {
 		log.Fatal(err)
 	}
-	return &DynamicTemplate{g, templateName, DefaultContentType, []ServerPush{}}
+	return &DynamicTemplate{g, templateName}
 }
 
-func (tmpl *DynamicTemplate) GetReader(args interface{}) ReadSeekerCloser {
+func (tmpl *DynamicTemplate) GetReader(args interface{}) myio.ReadSeekerCloser {
 	tmpl.group.checkInit()
-	buf := bufPool.Get().(pooledBuffer)
+	buf := bufPool.Get()
 	if err := tmpl.group.t.ExecuteTemplate(buf, tmpl.templateName, args); err != nil {
 		log.Panic(err)
 	}
-	return buf.getReader()
+	return buf.GetReader()
 }
 
 func (tmpl *DynamicTemplate) Execute(w io.Writer, args interface{}) {
@@ -88,22 +87,20 @@ type StaticTemplate struct {
 	group            *TemplateGroup
 	compiledTemplate []byte
 	etag             string
-	contentType      string
-	pushes           []ServerPush
 }
 
 func (g *TemplateGroup) NewStaticTemplate(templateName, fileName string, createArgs func() interface{}) *StaticTemplate {
 	if err := addTemplate(&g.t, templateName, fileName); err != nil {
 		log.Fatal(err)
 	}
-	tmpl := &StaticTemplate{g, []byte{}, "", DefaultContentType, []ServerPush{}}
+	tmpl := &StaticTemplate{g, []byte{}, ""}
 	g.statics = append(g.statics, _prod_staticTemplateInfo{tmpl, templateName, createArgs})
 	return tmpl
 }
 
-func (tmpl *StaticTemplate) GetReader() (ReadSeekerCloser, string) {
+func (tmpl *StaticTemplate) GetReader() (myio.ReadSeekerCloser, string) {
 	tmpl.group.checkInit()
-	return ByteReadSeekerCloser{bytes.NewReader(tmpl.compiledTemplate)}, tmpl.etag
+	return myio.RSCloseWrapper{ReadSeeker: bytes.NewReader(tmpl.compiledTemplate)}, tmpl.etag
 }
 
 func (tmpl *StaticTemplate) Execute(w io.Writer) {
@@ -118,5 +115,5 @@ func (tmpl *StaticTemplate) GetEtag() string {
 }
 
 func (tmpl *StaticTemplate) genEtag() {
-	tmpl.etag = genEtag(tmpl.compiledTemplate)
+	tmpl.etag = pages.GenEtag(tmpl.compiledTemplate)
 }
