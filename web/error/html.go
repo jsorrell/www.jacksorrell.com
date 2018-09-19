@@ -61,7 +61,7 @@ func (p *HTMLErrorHandler) sendError(w http.ResponseWriter, req *http.Request, s
 		})
 		defer r.Close()
 		w.WriteHeader(statusCode)
-		if req.Method != "HEAD" {
+		if req.Method != http.MethodHead {
 			_, err := io.Copy(w, r)
 			if err != nil {
 				log.Info(err)

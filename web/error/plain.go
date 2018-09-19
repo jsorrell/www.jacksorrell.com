@@ -39,7 +39,7 @@ func (p *PlainErrorHandler) sendError(w http.ResponseWriter, req *http.Request, 
 		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 	}
 
-	if req.Method == "HEAD" {
+	if req.Method == http.MethodHead {
 		return
 	}
 

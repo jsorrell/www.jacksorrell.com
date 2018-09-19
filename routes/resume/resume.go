@@ -3,6 +3,7 @@ package resume
 import (
 	"bytes"
 	"sync"
+	"net/http"
 
 	"github.com/gorilla/mux"
 	"github.com/jsorrell/www.jacksorrell.com/templates"
@@ -20,5 +21,5 @@ func init() {
 
 // RegisterRoutesTo registers routes to router
 func RegisterRoutesTo(router *mux.Router) {
-	router.Path("/resume/").Methods("GET", "HEAD").Handler(templates.Resume)
+	router.Path("/resume/").Methods(http.MethodGet, http.MethodHead).Handler(templates.Resume)
 }

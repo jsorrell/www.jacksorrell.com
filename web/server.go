@@ -37,7 +37,7 @@ func NewServer() *Server {
 	s.Use(static)
 	s.Use(webLogger)
 
-	router.Path("/favicon.ico").Methods("GET").HandlerFunc(serveFavicon)
+	router.Path("/favicon.ico").Methods(http.MethodGet, http.MethodHead).HandlerFunc(serveFavicon)
 
 	// Controllers
 	resume.RegisterRoutesTo(router)

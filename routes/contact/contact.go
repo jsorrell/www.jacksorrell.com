@@ -18,8 +18,8 @@ import (
 // RegisterRoutesTo registers routes to router
 func RegisterRoutesTo(router *mux.Router) {
 	sub := router.Path("/contact/").Subrouter()
-	sub.Methods("GET", "HEAD").Handler(templates.Contact)
-	sub.Methods("POST").HandlerFunc(handleContactFormSubmission)
+	sub.Methods(http.MethodGet, http.MethodHead).Handler(templates.Contact)
+	sub.Methods(http.MethodPost).HandlerFunc(handleContactFormSubmission)
 }
 
 func handleContactFormSubmission(res http.ResponseWriter, req *http.Request) {
