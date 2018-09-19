@@ -41,7 +41,7 @@ func (g *TemplateGroup) Init() {
 	}
 	g.inited = true
 	for _, static := range g.statics {
-		buf := bytes.NewBuffer(make([]byte, 0, 5000))
+		buf := bytes.NewBuffer(make([]byte, 0, 5000)) // This stores data, so don't reuse this buf
 		var args interface{}
 		if static.createArgs != nil {
 			args = static.createArgs()
@@ -50,28 +50,30 @@ func (g *TemplateGroup) Init() {
 			log.Fatal(err)
 		}
 		static.tmpl.compiledTemplate = buf.Bytes()
+		static.tmpl.genEtag()
 	}
 }
 
 type DynamicTemplate struct {
 	group        *TemplateGroup
 	templateName string
+	contentType  string
 }
 
 func (g *TemplateGroup) NewDynamicTemplate(templateName, fileName string) *DynamicTemplate {
 	if err := addTemplate(&g.t, templateName, fileName); err != nil {
 		log.Fatal(err)
 	}
-	return &DynamicTemplate{g, templateName}
+	return &DynamicTemplate{g, templateName, DefaultContentType}
 }
 
-func (tmpl *DynamicTemplate) GetReadCloser(args interface{}) io.ReadCloser {
+func (tmpl *DynamicTemplate) GetReader(args interface{}) ReadSeekerCloser {
 	tmpl.group.checkInit()
-	buf := bufPool.Get().(ReadCloser)
+	buf := bufPool.Get().(pooledBuffer)
 	if err := tmpl.group.t.ExecuteTemplate(buf, tmpl.templateName, args); err != nil {
 		log.Panic(err)
 	}
-	return buf
+	return buf.getReader()
 }
 
 func (tmpl *DynamicTemplate) Execute(w io.Writer, args interface{}) {
@@ -84,28 +86,22 @@ func (tmpl *DynamicTemplate) Execute(w io.Writer, args interface{}) {
 type StaticTemplate struct {
 	group            *TemplateGroup
 	compiledTemplate []byte
+	etag             string
+	contentType      string
 }
 
 func (g *TemplateGroup) NewStaticTemplate(templateName, fileName string, createArgs func() interface{}) *StaticTemplate {
 	if err := addTemplate(&g.t, templateName, fileName); err != nil {
 		log.Fatal(err)
 	}
-	tmpl := &StaticTemplate{g, []byte{}}
+	tmpl := &StaticTemplate{g, []byte{}, "", DefaultContentType}
 	g.statics = append(g.statics, _prod_staticTemplateInfo{tmpl, templateName, createArgs})
 	return tmpl
 }
 
-type ByteReadCloser struct {
-	io.Reader
-}
-
-func (ByteReadCloser) Close() error {
-	return nil
-}
-
-func (tmpl *StaticTemplate) GetReadCloser() io.ReadCloser {
+func (tmpl *StaticTemplate) GetReader() (ReadSeekerCloser, string) {
 	tmpl.group.checkInit()
-	return ByteReadCloser{bytes.NewReader(tmpl.compiledTemplate)}
+	return ByteReadSeekerCloser{bytes.NewReader(tmpl.compiledTemplate)}, tmpl.etag
 }
 
 func (tmpl *StaticTemplate) Execute(w io.Writer) {
@@ -113,4 +109,12 @@ func (tmpl *StaticTemplate) Execute(w io.Writer) {
 	if _, err := w.Write(tmpl.compiledTemplate); err != nil {
 		log.Panic(err)
 	}
+}
+
+func (tmpl *StaticTemplate) GetEtag() string {
+	return tmpl.etag
+}
+
+func (tmpl *StaticTemplate) genEtag() {
+	tmpl.etag = genEtag(tmpl.compiledTemplate)
 }

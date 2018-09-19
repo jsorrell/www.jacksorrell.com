@@ -53,22 +53,23 @@ func (g *TemplateGroup) Init() {
 type DynamicTemplate struct {
 	group        *TemplateGroup
 	templateName string
+	contentType  string
 }
 
 func (g *TemplateGroup) NewDynamicTemplate(templateName, fileName string) *DynamicTemplate {
 	g.defs._dev_addTemplateDef(templateName, fileName)
-	return &DynamicTemplate{g, templateName}
+	return &DynamicTemplate{g, templateName, DefaultContentType}
 }
 
-func (tmpl *DynamicTemplate) GetReadCloser(args interface{}) io.ReadCloser {
+func (tmpl *DynamicTemplate) GetReader(args interface{}) ReadSeekerCloser {
 	tmpl.group.checkInit()
-	buf := bufPool.Get().(ReadCloser)
+	buf := bufPool.Get().(pooledBuffer)
 	err := tmpl._dev_execute(buf, args)
 	if err != nil {
 		buf.Close()
 		log.Panic(err)
 	}
-	return buf
+	return buf.getReader()
 }
 
 func (tmpl *DynamicTemplate) Execute(w io.Writer, args interface{}) {
@@ -91,22 +92,23 @@ type StaticTemplate struct {
 	group        *TemplateGroup
 	templateName string
 	createArgs   func() interface{}
+	contentType  string
 }
 
 func (g *TemplateGroup) NewStaticTemplate(templateName, fileName string, createArgs func() interface{}) *StaticTemplate {
 	g.defs._dev_addTemplateDef(templateName, fileName)
-	return &StaticTemplate{g, templateName, createArgs}
+	return &StaticTemplate{g, templateName, createArgs, DefaultContentType}
 }
 
-func (tmpl *StaticTemplate) GetReadCloser() io.ReadCloser {
+func (tmpl *StaticTemplate) GetReader() (ReadSeekerCloser, string) {
 	tmpl.group.checkInit()
-	buf := bufPool.Get().(ReadCloser)
+	buf := bufPool.Get().(pooledBuffer)
 	err := tmpl._dev_execute(buf)
 	if err != nil {
 		buf.Close()
 		log.Panic(err)
 	}
-	return buf
+	return buf.getReader(), genEtag(buf.Bytes())
 }
 
 func (tmpl *StaticTemplate) Execute(w io.Writer) {

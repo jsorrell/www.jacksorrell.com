@@ -53,7 +53,7 @@ func (p *HTMLErrorHandler) sendError(w http.ResponseWriter, req *http.Request, s
 				Plain.panic(w, req, err, dev)
 			}
 		}()
-		r := templates.Error.GetReadCloser(map[string]interface{}{
+		r := templates.Error.GetReader(map[string]interface{}{
 			"StatusCode":   statusCode,
 			"ErrorMessage": statusMessage,
 			"BackLink":     req.Referer(),
