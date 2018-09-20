@@ -5,8 +5,9 @@ package main
 import (
 	"log"
 
-	"github.com/jsorrell/www.jacksorrell.com/data"
 	"github.com/shurcooL/vfsgen"
+
+	"github.com/jsorrell/www.jacksorrell.com/data"
 )
 
 func main() {

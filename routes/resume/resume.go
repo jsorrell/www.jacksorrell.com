@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+
 	tmpldef "github.com/jsorrell/www.jacksorrell.com/templates/defs"
 	"github.com/jsorrell/www.jacksorrell.com/web/pages"
 )
@@ -24,7 +25,7 @@ var resumePage = pages.NewStaticPage(tmpldef.Resume,
 	pages.ServerPush("/img/keybase_logo_official.svg"),
 )
 
-// RegisterRoutesTo registers routes to router
+// RegisterRoutesTo registers routes to router.
 func RegisterRoutesTo(router *mux.Router) {
 	router.Path("/resume/").Methods(http.MethodGet, http.MethodHead).Handler(resumePage)
 }

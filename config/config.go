@@ -4,10 +4,12 @@ import (
 	"errors"
 )
 
+// Server contains all the general Server related configuration in the app.
 var Server struct {
 	Port uint16
 }
 
+// Contact contains all the Contact-Page related configuration in the app.
 var Contact struct {
 	Mailgun struct {
 		PublicValidationKey string
@@ -25,7 +27,7 @@ var Contact struct {
 	}
 }
 
-// ContactMaxLength get the max length of a contact field from the field name
+// ContactMaxLength gets the max length of a contact field from the field name.
 func ContactMaxLength(field string) (uint, error) {
 	switch field {
 	case "name":

@@ -6,10 +6,11 @@ import (
 	"os"
 	"reflect"
 
-	"github.com/jsorrell/www.jacksorrell.com/utils/copy"
 	log "github.com/sirupsen/logrus"
 	"gopkg.in/alecthomas/kingpin.v2"
 	"gopkg.in/yaml.v2"
+
+	myio "github.com/jsorrell/www.jacksorrell.com/utils/io"
 )
 
 func init() {
@@ -36,7 +37,7 @@ func init() {
 	switch kingpin.MustParse(app.Parse(os.Args[1:])) {
 	case genConfig.FullCommand():
 		if _, err := os.Stat(*genConfigFileName); os.IsNotExist(err) {
-			err = copy.WriteAssetToDisk("config.example.yaml", *genConfigFileName)
+			err = myio.WriteAssetToDisk("config.example.yaml", *genConfigFileName)
 			if err != nil {
 				panic(err)
 			}

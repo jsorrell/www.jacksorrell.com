@@ -1,30 +1,25 @@
 package data
 
 import (
-	"io"
-	"io/ioutil"
 	"net/http"
 	"path/filepath"
 )
 
-var WebPublic = &WebDir{"public/"}
-var Favicons = &WebDir{"public/fav/"}
-var Templates = &WebDir{"templates/"}
-
+// WebDir fulfills http.FileSystem, with assets taken from Assets
 type WebDir struct {
 	base string
 }
 
+// WebPublic is the WebDir containing all public assets.
+var WebPublic = &WebDir{"public/"}
+
+// Favicons is the WebDir containing favicons.
+var Favicons = &WebDir{"public/fav/"}
+
+// Templates is the WebDir containing all the app's templates.
+var Templates = &WebDir{"templates/"}
+
+// Open returns the file descriptor of the file with the name given.
 func (d *WebDir) Open(name string) (http.File, error) {
 	return Assets.Open(filepath.Join(d.base, name))
-}
-
-func ReadFileToString(templateFile io.Reader) (string, error) {
-	bytes, err := ioutil.ReadAll(templateFile)
-
-	if err != nil {
-		return "", err
-	}
-
-	return string(bytes), nil
 }

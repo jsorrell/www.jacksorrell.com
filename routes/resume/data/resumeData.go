@@ -14,6 +14,7 @@ type month struct {
 	Year  string `yaml:"year"`
 }
 
+// ResumeData contains all data in resume.yaml used to build /resume/.
 type ResumeData struct {
 	Profile struct {
 		Name struct {
@@ -90,6 +91,7 @@ type ResumeData struct {
 	} `yaml:"links"`
 }
 
+// ParseResumeData parses resume.yaml and returns the data.
 func ParseResumeData() (*ResumeData, error) {
 	resumeDataYaml, err := data.Assets.Open("resume_data.yaml")
 	if err != nil {

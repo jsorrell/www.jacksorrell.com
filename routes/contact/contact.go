@@ -4,21 +4,21 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
-
 	"unicode/utf8"
 
 	"github.com/gorilla/mux"
 	"github.com/goware/emailx"
+	"gopkg.in/mailgun/mailgun-go.v1"
+
 	"github.com/jsorrell/www.jacksorrell.com/config"
 	tmpldefs "github.com/jsorrell/www.jacksorrell.com/templates/defs"
 	weberror "github.com/jsorrell/www.jacksorrell.com/web/error"
 	"github.com/jsorrell/www.jacksorrell.com/web/pages"
-	"gopkg.in/mailgun/mailgun-go.v1"
 )
 
 var contact = pages.NewStaticPage(tmpldefs.Contact, pages.PushStyle)
 
-// RegisterRoutesTo registers routes to router
+// RegisterRoutesTo registers routes to router.
 func RegisterRoutesTo(router *mux.Router) {
 	sub := router.Path("/contact/").Subrouter()
 	sub.Methods(http.MethodGet, http.MethodHead).Handler(contact)
