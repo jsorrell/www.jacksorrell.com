@@ -27,7 +27,7 @@ func RegisterRoutesTo(router *mux.Router) {
 
 func handleContactFormSubmission(res http.ResponseWriter, req *http.Request) {
 	ajax := req.URL.Query().Get("ajax") == "1"
-	var errorHandler weberror.ErrorHandler
+	var errorHandler *weberror.Handler
 	if ajax {
 		errorHandler = weberror.Plain
 	} else {

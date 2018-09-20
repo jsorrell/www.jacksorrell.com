@@ -2,6 +2,7 @@ package templates
 
 import (
 	"html/template"
+	"io/ioutil"
 
 	"github.com/jsorrell/www.jacksorrell.com/data"
 	"github.com/jsorrell/www.jacksorrell.com/log"
@@ -32,5 +33,11 @@ func readTemplateString(filename string) (string, error) {
 		return "", err
 	}
 	defer templateFile.Close()
-	return data.ReadFileToString(templateFile)
+
+	d, err := ioutil.ReadAll(templateFile)
+	if err != nil {
+		return "", err
+	}
+
+	return string(d), nil
 }

@@ -14,10 +14,10 @@ import (
 
 const timestampFormat = "2006-01-02 15:04:05"
 
-// TextFormatter formats logs into text
+// TextFormatter formats logs into text.
 type TextFormatter struct{}
 
-// Format renders a single log entry
+// Format renders a single log entry.
 // TODO format stacktrace fields specially
 func (f *TextFormatter) Format(entry *logrus.Entry) ([]byte, error) {
 	stacktrace, hasStack := entry.Data["stacktrace"]
@@ -141,7 +141,7 @@ func (f *TextFormatter) needsQuoting(text string) bool {
 	return false
 }
 
-// ColoredField pass as field to colorize the output to the given color
+// ColoredField allows passage as field to colorize the output to the given color.
 type ColoredField struct {
 	color *color.Color
 	field interface{}

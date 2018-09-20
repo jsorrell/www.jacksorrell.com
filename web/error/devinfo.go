@@ -1,6 +1,6 @@
 package error
 
-type devInfo struct {
+type DevInfo struct {
 	stacktrace []byte
 	file       string
 	line       int

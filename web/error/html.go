@@ -1,46 +1,20 @@
 package error
 
 import (
-	"fmt"
 	"io"
 	"net/http"
 
 	"github.com/jsorrell/www.jacksorrell.com/log"
 	tmpldefs "github.com/jsorrell/www.jacksorrell.com/templates/defs"
-	"github.com/sirupsen/logrus"
 )
 
 /* Handlers */
 
-// HTMLErrorHandler a html error handler
-type HTMLErrorHandler struct {
-	logger *httpErrorLogger
-}
+// HTMLErrorPageGenerator generates a HTML error page using the error template.
+type HTMLErrorPageGenerator struct{}
 
-/* Builders */
-
-type HTMLErrorHandlerBuilder struct {
-	Logger *logrus.Logger
-}
-
-/* Create Functions */
-
-func NewHTML() *HTMLErrorHandlerBuilder {
-	return &HTMLErrorHandlerBuilder{log.StandardLogger()}
-}
-
-func (b *HTMLErrorHandlerBuilder) Create() *HTMLErrorHandler {
-	logger := &httpErrorLogger{Logger: b.Logger}
-	return &HTMLErrorHandler{
-		logger: logger,
-	}
-}
-
-func CreateHTML() *HTMLErrorHandler {
-	return NewHTML().Create()
-}
-
-func (p *HTMLErrorHandler) sendError(w http.ResponseWriter, req *http.Request, statusCode int, statusMessage string, dev *devInfo) {
+// SendError responds to the request with a page to display the error.
+func (HTMLErrorPageGenerator) SendError(w http.ResponseWriter, req *http.Request, statusCode int, statusMessage string, dev *DevInfo) {
 	stacktrace := ""
 	if dev != nil {
 		stacktrace = string(dev.stacktrace)
@@ -60,6 +34,8 @@ func (p *HTMLErrorHandler) sendError(w http.ResponseWriter, req *http.Request, s
 			"StackTrace":   stacktrace,
 		})
 		defer r.Close()
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		w.Header().Set("X-Content-Type-Options", "nosniff")
 		w.WriteHeader(statusCode)
 		if req.Method != http.MethodHead {
 			_, err := io.Copy(w, r)
@@ -68,28 +44,4 @@ func (p *HTMLErrorHandler) sendError(w http.ResponseWriter, req *http.Request, s
 			}
 		}
 	}()
-}
-
-func (p *HTMLErrorHandler) error(w http.ResponseWriter, req *http.Request, statusCode int, statusMessage, logMessage string, dev *devInfo) {
-	p.sendError(w, req, statusCode, statusMessage, dev)
-	if 400 <= statusCode && statusCode < 500 { // Client Error
-		p.logger.LogInfo(req, statusCode, logMessage, dev)
-	} else {
-		p.logger.LogError(req, statusCode, logMessage, dev)
-	}
-}
-
-func (p *HTMLErrorHandler) Error(w http.ResponseWriter, req *http.Request, statusCode int, statusMessage, logMessage string) {
-	dev := getDevInfo(1)
-	p.error(w, req, statusCode, statusMessage, logMessage, dev)
-}
-
-func (p *HTMLErrorHandler) InternalServerError(w http.ResponseWriter, req *http.Request, err error) {
-	dev := getDevInfo(1)
-	p.error(w, req, http.StatusInternalServerError, "Internal Server Error", err.Error(), dev)
-}
-
-func (p *HTMLErrorHandler) panic(w http.ResponseWriter, req *http.Request, err interface{}, dev *devInfo) {
-	p.sendError(w, req, http.StatusInternalServerError, "Internal Server Error", dev)
-	p.logger.LogPanic(req, http.StatusInternalServerError, fmt.Sprintf("%v", err), dev)
 }

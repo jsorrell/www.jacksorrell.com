@@ -5,8 +5,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/jsorrell/www.jacksorrell.com/data"
 	"github.com/urfave/negroni"
+
+	"github.com/jsorrell/www.jacksorrell.com/data"
 )
 
 // Static the type of server's static file handler
@@ -36,12 +37,12 @@ func (Static) ServeHTTP(rw http.ResponseWriter, r *http.Request, next http.Handl
 	}
 }
 
-// GetStatic returns the server's static file handler
+// GetStatic returns the server's static file handler.
 func GetStatic() Static {
 	return Static{}
 }
 
-// Set cache times for static files by extensions here
+// getCacheTime defines the cache times for static files by extensions here.
 func getCacheTime(filename string) string {
 	switch filepath.Ext(filename) {
 	case ".js":

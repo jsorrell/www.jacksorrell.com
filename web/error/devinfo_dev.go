@@ -8,7 +8,7 @@ import (
 )
 
 //go:noinline
-func getDevInfo(offset int) *devInfo {
+func getDevInfo(offset int) *DevInfo {
 	stacktrace := debug.Stack()
 	_, file, line, ok := runtime.Caller(offset + 1)
 	if !ok {
@@ -16,5 +16,5 @@ func getDevInfo(offset int) *devInfo {
 		line = 0
 	}
 
-	return &devInfo{stacktrace, file, line}
+	return &DevInfo{stacktrace, file, line}
 }

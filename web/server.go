@@ -19,7 +19,7 @@ func NewServer() *Server {
 		// Recovery first; Logger after Static so we do not log static file lookups.
 		weberror.HTML.GetRecoverer(),
 		static.GetStatic(),
-		log.StandardHTTPRequestLogger(),
+		log.GetStandardHTTPRequestLogger(),
 	)}
 	s.UseHandler(createRouter())
 	return &s

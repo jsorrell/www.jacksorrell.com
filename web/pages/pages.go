@@ -38,6 +38,7 @@ type PageOption func(*pageBase)
 func ContentType(ct string) PageOption {
 	return func(p *pageBase) {
 		p.headers["Content-Type"] = ct
+		p.headers["X-Content-Type-Options"] = "nosniff"
 	}
 }
 

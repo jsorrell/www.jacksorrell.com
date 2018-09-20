@@ -2,6 +2,6 @@
 
 package error
 
-func getDevInfo(offset int) *devInfo {
+func getDevInfo(offset int) *DevInfo {
 	return nil
 }

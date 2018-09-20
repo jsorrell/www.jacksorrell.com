@@ -9,21 +9,21 @@ import (
 
 /* Copies the logrus interface */
 
-var std = logrus.New()
-
-func init() {
-	std.SetFormatter(&TextFormatter{})
-	std.SetLevel(logrus.DebugLevel) // Overridden in configLoader init, but logs everything until then
-	std.SetOutput(os.Stdout)
+var std = &Logger{
+	Logger: logrus.Logger{
+		Out:       os.Stdout,
+		Formatter: &TextFormatter{},
+		Level:     logrus.DebugLevel, // Overridden in configLoader init, but logs everything until then
+	},
 }
 
-// StandardLogger gets the default logger for the program.
-func StandardLogger() Logger {
+// GetStandardLogger gets the default logger for the program.
+func GetStandardLogger() *Logger {
 	return std
 }
 
-// StandardHTTPRequestLogger gets the HTTPRequestLogger based on the standard logger.
-func StandardHTTPRequestLogger() *HTTPRequestLogger {
+// GetStandardHTTPRequestLogger gets the HTTPRequestLogger based on the standard logger.
+func GetStandardHTTPRequestLogger() *HTTPRequestLogger {
 	return &HTTPRequestLogger{std}
 }
 

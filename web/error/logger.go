@@ -7,15 +7,20 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/jsorrell/www.jacksorrell.com/log"
 	"github.com/sirupsen/logrus"
+
+	"github.com/jsorrell/www.jacksorrell.com/log"
 )
 
-type httpErrorLogger struct {
-	Logger *logrus.Logger
-	Dev    bool
+// HTTPErrorLogger formats and logs HTTP errors to the given log.
+type HTTPErrorLogger struct {
+	logger *log.Logger
 }
 
+// getDisplayFile formats a filename to:
+// If in www.jacksorrell.com/ -> the absolute path below www.jacksorrell.com
+// If in $GOPATH/src/ -> the absolute path below src.
+// Otherwise, just the filename.
 func getDisplayFile(file string) string {
 	if splits := strings.Split(file, "www.jacksorrell.com/"); len(splits) > 1 {
 		return splits[len(splits)-1]
@@ -30,8 +35,8 @@ func getDisplayFile(file string) string {
 	return filepath.Base(file)
 }
 
-func (l *httpErrorLogger) getEntry(req *http.Request, statusCode int, dev *devInfo) *logrus.Entry {
-	logger := l.Logger.WithField("status", log.ColoredStatus(statusCode))
+func (l *HTTPErrorLogger) getEntry(req *http.Request, statusCode int, dev *DevInfo) *logrus.Entry {
+	logger := l.logger.WithField("status", log.ColoredStatus(statusCode))
 	if dev != nil {
 		logger = logger.WithField("cause", fmt.Sprintf("%s:%d", getDisplayFile(dev.file), dev.line))
 	}
@@ -39,15 +44,19 @@ func (l *httpErrorLogger) getEntry(req *http.Request, statusCode int, dev *devIn
 	return logger
 }
 
-func (l *httpErrorLogger) LogInfo(req *http.Request, statusCode int, logMessage string, dev *devInfo) {
+// Info logs at INFO level.
+func (l *HTTPErrorLogger) Info(req *http.Request, statusCode int, logMessage string, dev *DevInfo) {
 	l.getEntry(req, statusCode, dev).Info(logMessage)
 }
 
-func (l *httpErrorLogger) LogError(req *http.Request, statusCode int, logMessage string, dev *devInfo) {
+// Error logs at ERROR level.
+func (l *HTTPErrorLogger) Error(req *http.Request, statusCode int, logMessage string, dev *DevInfo) {
 	l.getEntry(req, statusCode, dev).Error(logMessage)
 }
 
-func (l *httpErrorLogger) LogPanic(req *http.Request, statusCode int, logMessage string, dev *devInfo) {
+// Panic logs at PANIC level.
+// Ignores any panics the logger calls.
+func (l *HTTPErrorLogger) Panic(req *http.Request, statusCode int, logMessage string, dev *DevInfo) {
 	entry := l.getEntry(req, statusCode, dev)
 	if dev != nil {
 		entry = entry.WithField("stacktrace", dev.stacktrace)
