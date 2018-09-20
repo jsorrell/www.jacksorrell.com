@@ -26,8 +26,10 @@ var webGroup = tmpl.NewTemplateGroup(
 	},
 )
 
+// Contact is the template for the contact page.
 var Contact = webGroup.NewStaticTemplate("contactPage", "contact/contact-page.gohtml", nil)
 
+// Resume is the template for the resume page.
 var Resume = webGroup.NewStaticTemplate("resume", "resume/resume.gohtml", func() interface{} {
 	resData, err := resumeData.ParseResumeData()
 	if err != nil {
@@ -37,6 +39,7 @@ var Resume = webGroup.NewStaticTemplate("resume", "resume/resume.gohtml", func()
 	return map[string]interface{}{"ResumeData": resData}
 })
 
+// Error is the template for the HTML error page.
 var Error = webGroup.NewDynamicTemplate("error", "error/error.gohtml")
 
 func init() {
