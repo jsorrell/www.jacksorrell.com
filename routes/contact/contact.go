@@ -56,6 +56,10 @@ func validateFormSubmission(req *http.Request) (string, int) {
 		return "Invalid Message", http.StatusBadRequest
 	}
 
+	if req.PostFormValue("website") != "" {
+		return "Go away bot!", http.StatusBadRequest
+	}
+
 	values := map[string]string{
 		"name":    getFieldValue(req, "name"),
 		"email":   getFieldValue(req, "email"),
