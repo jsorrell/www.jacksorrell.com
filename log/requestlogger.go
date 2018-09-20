@@ -16,7 +16,7 @@ type HTTPRequestLogger struct {
 	logger *Logger
 }
 
-func (l *HTTPRequestLogger) ServeHTTP(rw http.ResponseWriter, req *http.Request, next http.HandlerFunc) {
+func (l HTTPRequestLogger) ServeHTTP(rw http.ResponseWriter, req *http.Request, next http.HandlerFunc) {
 	start := time.Now()
 
 	next(rw, req)

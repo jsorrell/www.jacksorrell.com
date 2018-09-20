@@ -6,10 +6,11 @@ import (
 	"os"
 	"reflect"
 
-	log "github.com/sirupsen/logrus"
+	logrus "github.com/sirupsen/logrus"
 	"gopkg.in/alecthomas/kingpin.v2"
 	"gopkg.in/yaml.v2"
 
+	log "github.com/jsorrell/www.jacksorrell.com/log"
 	myio "github.com/jsorrell/www.jacksorrell.com/utils/io"
 )
 
@@ -59,7 +60,7 @@ func init() {
 
 		// Log Level
 		*logLevel = pickFirstDefault("warn", *logLevel, yamlFile.LogLevel).(string)
-		logLevelVal, err := log.ParseLevel(*logLevel)
+		logLevelVal, err := logrus.ParseLevel(*logLevel)
 		kingpin.FatalIfError(err, "Invald log level %s.\n", *logLevel)
 		log.SetLevel(logLevelVal)
 	}

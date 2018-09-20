@@ -23,8 +23,8 @@ func GetStandardLogger() *Logger {
 }
 
 // GetStandardHTTPRequestLogger gets the HTTPRequestLogger based on the standard logger.
-func GetStandardHTTPRequestLogger() *HTTPRequestLogger {
-	return &HTTPRequestLogger{std}
+func GetStandardHTTPRequestLogger() HTTPRequestLogger {
+	return HTTPRequestLogger{GetStandardLogger()}
 }
 
 // SetLevel sets the standard logger level.
