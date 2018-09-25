@@ -74,7 +74,6 @@ func NoCache(p *pageBase) {
 func PublicCache(maxAge int) PageOption {
 	return func(p *pageBase) {
 		p.headers["Cache-Control"] = fmt.Sprintf("max-age=%d, public", maxAge)
-		p.headers["Vary"] = "Accept-Encoding"
 	}
 }
 
