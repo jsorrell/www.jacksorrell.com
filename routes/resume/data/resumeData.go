@@ -28,8 +28,7 @@ type ResumeData struct {
 			State   string `yaml:"state"`
 			Country string `yaml:"country"`
 		} `yaml:"residence"`
-		Bio   string `yaml:"bio"`
-		Image string `yaml:"image"`
+		Bio string `yaml:"bio"`
 	} `yaml:"profile"`
 
 	Degrees []struct {

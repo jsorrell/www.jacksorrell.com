@@ -7,6 +7,7 @@ var browserSync = require('browser-sync').create();
 var browserify = require('browserify');
 var spawn = require('child_process').spawn;
 var favicons = require('favicons').stream;
+const flatMap = require('flat-map').default;
 var gulp = require('gulp');
 const gulpClean = require('gulp-clean');
 var minifycss = require('gulp-clean-css');
@@ -16,6 +17,7 @@ var newer = require('gulp-newer');
 var postcss = require('gulp-postcss');
 var print = require('gulp-print').default;
 var gulpSass = require('gulp-sass');
+const scaleImages = require('gulp-scale-images');
 var sourcemaps = require('gulp-sourcemaps');
 var tap = require('gulp-tap');
 const gulpTslint = require('gulp-tslint').default;
@@ -81,6 +83,7 @@ const sass = { src: path.join(__dirname, 'client/sass/'), dest: path.join(__dirn
 const goHtml = { src: path.join(__dirname, 'client/views/'), dest: path.join(__dirname, 'assets/templates/') };
 const ts = { src: path.join(__dirname, 'client/scripts/'), dest: path.join(__dirname, 'assets/public/js/') };
 const favicon = { src: path.join(__dirname, 'client/favicon/favicon.svg'), htmlFile: 'assets/templates/includes/favicon.gohtml', favPrefix: 'assets/public/fav/' };
+const images = { src: path.join(__dirname, 'client/images/'), dest: 'assets/public/img/' };
 
 var clientTs = typescript.createProject(path.join(ts.src, 'tsconfig.json'));
 
@@ -137,6 +140,34 @@ export function genFavicons (done) {
 		.pipe(gulp.dest(__dirname));
 }
 
+export const copyImages = gulp.parallel(copyRasterImages, copySVGs);
+
+export function copyRasterImages () {
+	return gulp.src([path.join(images.src, '**/*'), '!' + path.join(images.src, '**/*.svg')])
+		.pipe(flatMap(function (file, cb) {
+			switch (file.relative) {
+				case 'myface-nobg.png':
+					const normal = file.clone();
+					normal.scale = { maxWidth: 172, maxHeight: 172, format: 'png' };
+					const double = file.clone();
+					double.scale = { maxWidth: 344, maxHeight: 344, format: 'png' };
+					return cb(null, [normal, double]);
+				default:
+					return cb(new Error('No size defined for ' + file.relative));
+			}
+		}))
+		.pipe(scaleImages())
+		.pipe(print(filepath => `scaled: ${filepath}`))
+		.pipe(gulp.dest(images.dest));
+}
+
+export function copySVGs () {
+	return gulp.src(path.join(images.src, '**/*.svg'))
+		.pipe(newer(images.dest))
+		.pipe(print(filepath => `copied: ${filepath}`))
+		.pipe(gulp.dest(images.dest));
+}
+
 export function copyViews () {
 	return gulp.src(path.join(goHtml.src, '**/*.gohtml'))
 		.pipe(newer(goHtml.dest))
@@ -145,7 +176,7 @@ export function copyViews () {
 		.pipe(gulp.dest(goHtml.dest));
 }
 
-export const build = gulp.parallel(compileSass, compileTs, genFavicons, copyViews);
+export const build = gulp.parallel(compileSass, compileTs, genFavicons, copyViews, copyImages);
 
 function bsInit (done) {
 	browserSync.init({
@@ -218,6 +249,11 @@ export function cleanFavicons () {
 		.pipe(gulpClean());
 }
 
-export const clean = gulp.parallel(cleanTemplates, cleanCss, cleanJs, cleanFavicons);
+export function cleanImages () {
+	return gulp.src(images.dest, { read: false, allowEmpty: true })
+		.pipe(gulpClean());
+}
+
+export const clean = gulp.parallel(cleanTemplates, cleanCss, cleanJs, cleanFavicons, cleanImages);
 
 export default build;

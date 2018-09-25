@@ -7,15 +7,18 @@
 		<meta name="description" content="The online resume of {{.ResumeData.Profile.Name.First}} {{.ResumeData.Profile.Name.Last}}">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		{{template "favicon"}}
-		<script src="/js/contact.js" defer></script>
 		<link href="/css/style.css" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700%7CRoboto+Slab" rel="stylesheet">
+		<script src="/js/contact.js" defer></script>
 	</head>
 	<body>
 		<div id="resume-container">
 			<div id="profile-box">
 				<div class="header">
-					<img class="profile-image" src={{.ResumeData.Profile.Image}} alt="Image of Jack; he looks rather human-like">
+					<picture>
+						<source srcset="/img/myface-nobg.344w-344h.png" media="(-webkit-min-device-pixel-ratio: 1.25),(min--moz-device-pixel-ratio: 1.25),(-o-min-device-pixel-ratio: 1.25),(min-device-pixel-ratio: 1.25),(min-resolution: 200dpi),(min-resolution: 1.25dppx)">
+						<img class="profile-image" src="/img/myface-nobg.172w-172h.png" alt="Image of Jack; he looks rather human-like">
+					</picture>
 					<hgroup>
 						<h1 class="profile-name">{{.ResumeData.Profile.Name.First}} {{.ResumeData.Profile.Name.Last}}</h1>
 						<h2 class="profile-title">{{.ResumeData.Profile.Title}}</h2>
