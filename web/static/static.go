@@ -28,11 +28,13 @@ func (Static) ServeHTTP(rw http.ResponseWriter, r *http.Request, next http.Handl
 		upath = "/" + upath
 	}
 
+	rw.Header().Set("Cache-Control", "max-age="+getCacheTime(upath)+", public")
+	rw.Header().Set("Vary", "Accept-Encoding")
+
 	if !strings.ContainsRune(upath[1:], '/') {
 		// Files in root redirected to favicon folder
 		faviconStatic.ServeHTTP(rw, r, next)
 	} else {
-
 		publicStatic.ServeHTTP(rw, r, next)
 	}
 }
