@@ -16,7 +16,7 @@ contactForm.addEventListener('submit', function (e) {
 
 	// Show spinner
 	for (let i = 0; i < spinners.length; ++i) {
-		spinners.item(i).classList.add('spinning');
+		(spinners.item(i) as HTMLObjectElement).classList.add('spinning');
 	}
 
 	let request = new XMLHttpRequest();
@@ -64,7 +64,7 @@ function displayError (message: string) {
 function resetForm (clear: boolean) {
 	submitButton.disabled = false;
 	for (let i = 0; i < spinners.length; ++i) {
-		spinners.item(i).classList.remove('spinning');
+		(spinners.item(i) as HTMLObjectElement).classList.remove('spinning');
 	}
 
 	if (clear) {
@@ -73,7 +73,7 @@ function resetForm (clear: boolean) {
 }
 
 for (let i = 0; i < openers.length; ++i) {
-	openers.item(i).addEventListener('click', function (e) {
+	(openers.item(i) as HTMLObjectElement).addEventListener('click', function (e) {
 		e.preventDefault();
 		contact.classList.add('shown');
 	});
