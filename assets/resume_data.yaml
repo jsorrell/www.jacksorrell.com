@@ -2,14 +2,13 @@ profile:
   name:
     first: Jack
     last: Sorrell
-  title: Software Engineer
+  title: Software Developer
   birthdate: 1993-12-22
   residence:
     city: Versailles
     state: Kentucky
     country: USA
-  bio: I am an all-round developer who has yet to specialize. I have a strong understanding of the principles underlying all realms of computer science, rather than simply knowing all the intricacies of a single language. I prioritize robustness and correctness over implementation speed. I am an open-source enthusiast and see morality and privacy concerns as paramount.
-
+  bio: I am an all-round software developer with an affinity to low-level systems. I am a quick learner and have a strong understanding of the principles underlying most realms of computer software. I am self-driven and stubbornly perseverant; give me a problem and I will learn what I need to in order to find a solution. I am a free software enthusiast and see user privacy as paramount.
 degrees:
 - name: Carnegie Mellon University
   startDate:
@@ -170,9 +169,17 @@ projects:
     month: December
     year: "2017"
   endDate:
-    month: February
+    year: Present
+  description: Believing I needed a formal online presence and more experience in current web technologies, I decided to build the website you are currently visiting. In the process, I taught myself Bootstrap, Pug, Sass, Gulp.js, Typescript, Caddy, and YAML as well as brushed up on Javascript/NodeJS, Go, HTML5, CSS3, and Nginx. I used bleeding-edge web technologies including HTTP/2 with Server Push, TLSv1.3, and CSS3 animations. Source is available on GitHub.
+
+- name: Fiber Optics Mod
+  startDate:
+    month: May
     year: "2018"
-  description: Believing I needed a formal online presence and more experience in current web technologies, I decided to build the website you are currently visiting. In the process, I taught myself Bootstrap, Pug, Sass, Express as well as brushed up on Javascript/NodeJS, HTML, CSS and Nginx. Source is available on GitHub.
+  endDate:
+    month: June
+    year: "2018"
+  description: I created a Mod for piping around items within Minecraft, using the MinecraftForge Modding API. This Mod allows for the transfer of items, fluid, energy, and signals around the game. The Mod was build to be extensible, so that it can be extended by other mods to add additional features. I used concepts of client/server synchronization, textures, GUIs, graph search, and routing logic during development. Source is available on GitHub.
 
 - name: C0 Language Compiler
   startDate:
@@ -181,7 +188,7 @@ projects:
   endDate:
     month: December
     year: "2015"
-  description: As part of my Compiler Design course at Carnegie Mellon University, I developed a compiler for a C-like programming language taught in early computer science courses. I designed and implemented every part of the compiler from lexing to assembly generation. I used SSA form for the intermediate representation and implemented many optimizations including constant propogation and folding, dead-code elimination, tail-call optimization, function-inlining, and register coalescing. Source is available upon request.
+  description: As part of my Compiler Design course at Carnegie Mellon University, I developed a compiler for a safe C-like programming language taught in early computer science courses. I designed and implemented every part of the compiler from lexing to assembly generation. I used SSA form for the intermediate representation and implemented many optimizations including constant propogation and folding, dead-code elimination, tail-call optimization, function-inlining, and register coalescing. Source is available upon request.
 
 - name: OS Kernel
   startDate:
@@ -199,7 +206,7 @@ projects:
   endDate:
     month: September
     year: "2014"
-  description: Begun in a hackathon and completed individually, I designed an AI to play the game Tetris online at www.tetrisfriends.com. I used pcap to intercept TCP packets sent from the server containing a seed for the a random number generator that determined which pieces would be given in which order. By decompiling the local Java client, I reverse engineered the random number generator. I designed the AI to then determine possible future board states in a few rounds and use a heuristic to choose the optimal one. Moves for generating this board state were then converted into a series of virtual keypresses that were passed to the client program. Source is available on GitHub.
+  description: Begun in a hackathon and completed individually, I designed an AI to play the game Tetris online at www.tetrisfriends.com. I used pcap to intercept TCP packets sent from the server containing a seed for the a random number generator that determined which pieces would be given in which order. By decompiling the local Java applet, I reverse engineered the random number generator. I designed the AI to then determine possible future board states in a few rounds and use a heuristic to choose the optimal one. Moves for generating this board state were then converted into a series of virtual keypresses that were passed to the applet. Source is available on GitHub.
 
 skillCategories:
 - category: Platforms
@@ -215,15 +222,17 @@ skillCategories:
 
 - category: Development Concepts
   skills:
-  - name: Object Oriented Design
+  - name: Object Oriented Programming
     level: 5
   - name: Functional Programming
     level: 5
   - name: Recursion
     level: 5
-  - name: Algorithms
+  - name: Algorithms / Complexity
     level: 5
   - name: Concurrency
+    level: 4
+  - name: Security
     level: 4
   - name: Dynamic Programming
     level: 3
@@ -232,37 +241,49 @@ skillCategories:
   skills:
   - name: C
     level: 5
-  - name: C++
+  - name: Go
+    level: 5
+  - name: HTML5
     level: 4
-  - name: 'C#'
+  - name: CSS3
+    level: 4
+  - name: C++
     level: 4
   - name: Javascript
     level: 4
-  - name: Haskell
+  - name: Node.js
     level: 4
-  - name: Python
+  - name: Standard ML
+    level: 4
+  - name: Haskell
     level: 4
   - name: Java
     level: 4
-  - name: Go
-    level: 4
+  - name: Bash
+    level: 3
+  - name: Typescript
+    level: 3
+  - name: 'C#'
+    level: 2
+  - name: Python
+    level: 2
 
 - category: Tools
   skills:
-  - name: Linux Command Line
+  - name: Linux Shell
     level: 5
   - name: Atom
-    level: 4
+    level: 5
   - name: Vim
     level: 4
   - name: Git
     level: 4
   - name: Latex
     level: 4
+  - name: IntelliJ IDEA
+    level: 3
   - name: Visual Studio
-    level: 3
-  - name: Intellij IDEA
-    level: 3
+    level: 2
 
 links:
 - name: Github
@@ -274,3 +295,5 @@ links:
 - name: Keybase
   icon: /img/keybase_logo_official.svg
   href: https://keybase.io/jsorrell
+
+updatedDate: November 2018

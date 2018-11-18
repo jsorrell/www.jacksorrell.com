@@ -88,6 +88,8 @@ type ResumeData struct {
 		Icon string `yaml:"icon"`
 		Href string `yaml:"href"`
 	} `yaml:"links"`
+
+	UpdatedDate string `yaml:"updatedDate"`
 }
 
 // ParseResumeData parses resume.yaml and returns the data.
