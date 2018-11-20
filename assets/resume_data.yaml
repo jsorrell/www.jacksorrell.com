@@ -243,6 +243,8 @@ skillCategories:
     level: 5
   - name: Go
     level: 5
+  - name: Rust
+    level: 4
   - name: HTML5
     level: 4
   - name: CSS3
