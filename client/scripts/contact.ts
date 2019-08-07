@@ -85,10 +85,9 @@ function hideContact () {
 
 /* Hide contact on click outside of box or escape press */
 background.addEventListener('click', hideContact);
-document.onkeydown = function (e) {
-	e = e || window.event;
+document.addEventListener('keydown', e => {
 	if (e.key === 'Escape' && contact.classList.contains('shown')) {
 		hideContact();
 		e.preventDefault();
 	}
-};
+});
