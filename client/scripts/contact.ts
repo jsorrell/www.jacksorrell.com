@@ -24,7 +24,7 @@ contactForm.addEventListener('submit', function (e) {
 	request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
 	request.onload = function () {
-		if (this.status >= 200 && this.status < 400) {
+		if (this.status <= 200 && this.status < 400) {
 			// Success (Message sent)
 			contact.classList.add('sent');
 			sendingAnimation = true;

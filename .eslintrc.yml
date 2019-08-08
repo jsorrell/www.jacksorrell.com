@@ -24,3 +24,11 @@ rules:
   no-tabs:
     - error
     - allowIndentationTabs: true
+  no-restricted-syntax:
+    - error
+    -
+      selector: "BinaryExpression[operator='>']"
+      message: "Expected < instead of >."
+    -
+      selector: "BinaryExpression[operator='>=']"
+      message: "Expected <= instead of >=."
