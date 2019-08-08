@@ -11,8 +11,8 @@ const flatMap = require('flat-map').default;
 var gulp = require('gulp');
 const gulpClean = require('gulp-clean');
 var minifycss = require('gulp-clean-css');
-const happiness = require('gulp-happiness');
-const htmlmin = require('gulp-htmlmin');
+var eslint = require('gulp-eslint');
+var htmlmin = require('gulp-htmlmin');
 var newer = require('gulp-newer');
 var postcss = require('gulp-postcss');
 var print = require('gulp-print').default;
@@ -91,43 +91,43 @@ export function compileSass (stream) {
 	if (!stream || !stream.pipe) stream = gulp.src(path.join(sass.src, '**/*.scss'));
 
 	return stream
-	.pipe(sourcemaps.init())
-	.pipe(gulpSass().on('error', gulpSass.logError))
-	.pipe(postcss([autoprefixer({
-		cascade: false
-	})]))
-	.pipe(minifycss())
-	.pipe(print(filepath => `built: ${filepath}`))
-	.pipe(sourcemaps.write('.'))
-	.pipe(gulp.dest(sass.dest));
+		.pipe(sourcemaps.init())
+		.pipe(gulpSass().on('error', gulpSass.logError))
+		.pipe(postcss([autoprefixer({
+			cascade: false
+		})]))
+		.pipe(minifycss())
+		.pipe(print(filepath => `built: ${filepath}`))
+		.pipe(sourcemaps.write('.'))
+		.pipe(gulp.dest(sass.dest));
 }
 
 export function compileTs () {
 	return clientTs.src()
-	.pipe(tap(function (file) {
-		file.path = file.path.slice(0, -3) + '.js';
-	}))
-	.pipe(newer(ts.dest))
-	.pipe(tap(function (file) {
-		file.path = file.path.slice(0, -3) + '.ts';
-		file.contents = browserify(file.path, {debug: true})
-			.plugin(tsify, {project: path.join(ts.src, 'tsconfig.json')})
-			.bundle();
-		file.path = file.path.slice(0, -3) + '.js';
-	}))
-	.pipe(buffer())
-	.pipe(sourcemaps.init({ loadMaps: true }))
-	.pipe(uglify())
-	.pipe(print(filepath => `built: ${filepath}`))
-	.pipe(sourcemaps.write('.'))
-	.pipe(gulp.dest(ts.dest));
+		.pipe(tap(function (file) {
+			file.path = file.path.slice(0, -3) + '.js';
+		}))
+		.pipe(newer(ts.dest))
+		.pipe(tap(function (file) {
+			file.path = file.path.slice(0, -3) + '.ts';
+			file.contents = browserify(file.path, { debug: true })
+				.plugin(tsify, { project: path.join(ts.src, 'tsconfig.json') })
+				.bundle();
+			file.path = file.path.slice(0, -3) + '.js';
+		}))
+		.pipe(buffer())
+		.pipe(sourcemaps.init({ loadMaps: true }))
+		.pipe(uglify())
+		.pipe(print(filepath => `built: ${filepath}`))
+		.pipe(sourcemaps.write('.'))
+		.pipe(gulp.dest(ts.dest));
 }
 
 export function genFavicons (done) {
 	return gulp.src(favicon.src)
 		.pipe(newer({ map: function (_) {
 			return path.join(favicon.favPrefix, 'favicon.ico');
-		}}))
+		} }))
 		.pipe(favicons(faviconConfiguration))
 		.pipe(tap(function (file, t) {
 			if (path.extname(file.path) === '.html') {
@@ -146,14 +146,14 @@ export function copyRasterImages () {
 	return gulp.src([path.join(images.src, '**/*'), '!' + path.join(images.src, '**/*.svg')])
 		.pipe(flatMap(function (file, cb) {
 			switch (file.relative) {
-				case 'myface-nobg.png':
-					const normal = file.clone();
-					normal.scale = { maxWidth: 172, maxHeight: 172, format: 'png' };
-					const double = file.clone();
-					double.scale = { maxWidth: 344, maxHeight: 344, format: 'png' };
-					return cb(null, [normal, double]);
-				default:
-					return cb(new Error('No size defined for ' + file.relative));
+			case 'myface-nobg.png':
+				const normal = file.clone();
+				normal.scale = { maxWidth: 172, maxHeight: 172, format: 'png' };
+				const double = file.clone();
+				double.scale = { maxWidth: 344, maxHeight: 344, format: 'png' };
+				return cb(null, [normal, double]);
+			default:
+				return cb(new Error('No size defined for ' + file.relative));
 			}
 		}))
 		.pipe(scaleImages())
@@ -205,9 +205,9 @@ export const dev = gulp.series(build, bsInit, watch);
 
 export function lintJs () {
 	return gulp.src(['**/*.js', '!node_modules/**', '!' + path.join(ts.dest, '**')])
-		.pipe(happiness())
-		.pipe(happiness.format())
-		.pipe(happiness.failAfterError());
+		.pipe(eslint())
+		.pipe(eslint.format())
+		.pipe(eslint.failAfterError());
 }
 
 export function lintTs () {
