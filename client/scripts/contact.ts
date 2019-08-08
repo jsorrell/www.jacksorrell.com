@@ -1,12 +1,12 @@
 let sendingAnimation = false;
 
-let contact = document.getElementById('contact') as HTMLDivElement;
-let contactBox = document.getElementById('contact-box') as HTMLDivElement;
-let contactForm = document.getElementById('contact-form') as HTMLFormElement;
-let submitButton = document.getElementById('contact-submit-button') as HTMLButtonElement;
-let background = document.getElementById('contact-background') as HTMLDivElement;
-let spinners = document.getElementsByClassName('loading-spinner') as HTMLCollectionOf<HTMLObjectElement>;
-let openers = document.getElementsByClassName('contact-opener');
+const contact = document.getElementById('contact') as HTMLDivElement;
+const contactBox = document.getElementById('contact-box') as HTMLDivElement;
+const contactForm = document.getElementById('contact-form') as HTMLFormElement;
+const submitButton = document.getElementById('contact-submit-button') as HTMLButtonElement;
+const background = document.getElementById('contact-background') as HTMLDivElement;
+const spinners = document.getElementsByClassName('loading-spinner') as HTMLCollectionOf<HTMLObjectElement>;
+const openers = document.getElementsByClassName('contact-opener');
 
 /* On Submit */
 contactForm.addEventListener('submit', function (e) {
@@ -19,12 +19,12 @@ contactForm.addEventListener('submit', function (e) {
 		(spinners.item(i) as HTMLObjectElement).classList.add('spinning');
 	}
 
-	let request = new XMLHttpRequest();
+	const request = new XMLHttpRequest();
 	request.open('POST', '/contact/?ajax=1', true);
 	request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
 	request.onload = function () {
-		if (200 <= this.status && this.status < 400) {
+		if (this.status >= 200 && this.status < 400) {
 			// Success (Message sent)
 			contact.classList.add('sent');
 			sendingAnimation = true;
@@ -47,9 +47,9 @@ contactForm.addEventListener('submit', function (e) {
 	};
 
 	// Generate data string
-	let elementsArr = [].slice.call(contactForm.elements);
-	let data = elementsArr.filter((el: Element) => { return el.hasAttribute('name') && !el.hasAttribute('disabled'); })
-	    .map((el: HTMLInputElement) => { return encodeURIComponent(el.getAttribute('name') as string) + '=' + encodeURIComponent(el.value); })
+	const elementsArr = [].slice.call(contactForm.elements);
+	const data = elementsArr.filter((el: Element) => { return el.hasAttribute('name') && !el.hasAttribute('disabled'); })
+		.map((el: HTMLInputElement) => { return encodeURIComponent(el.getAttribute('name') as string) + '=' + encodeURIComponent(el.value); })
 		.join('&');
 
 	request.send(data);

@@ -4,11 +4,15 @@ env:
   node: true
 extends:
   - standard
+parser: "@typescript-eslint/parser"
+plugins:
+  - "@typescript-eslint"
 globals:
   Atomics: readonly
   SharedArrayBuffer: readonly
 parserOptions:
-  ecmaVersion: 2018
+  project: client/scripts/tsconfig.json
+  ecmaVersion: 2019
   sourceType: module
 rules:
   indent:

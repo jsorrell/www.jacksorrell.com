@@ -20,12 +20,10 @@ var gulpSass = require('gulp-sass');
 const scaleImages = require('gulp-scale-images');
 var sourcemaps = require('gulp-sourcemaps');
 var tap = require('gulp-tap');
-const gulpTslint = require('gulp-tslint').default;
 var typescript = require('gulp-typescript');
 var uglify = require('gulp-uglify-es').default;
 const gulpWatchSass = require('gulp-watch-sass');
 var tsify = require('tsify');
-var tslint = require('tslint');
 var buffer = require('vinyl-buffer');
 
 const yaml = require('js-yaml');
@@ -204,21 +202,10 @@ export function watch () {
 export const dev = gulp.series(build, bsInit, watch);
 
 export function lintJs () {
-	return gulp.src(['**/*.js', '!node_modules/**', '!' + path.join(ts.dest, '**')])
+	return gulp.src(['**/*.{js,ts}', '!node_modules/**', '!' + path.join(ts.dest, '**')])
 		.pipe(eslint())
 		.pipe(eslint.format())
 		.pipe(eslint.failAfterError());
-}
-
-export function lintTs () {
-	const program = tslint.Linter.createProgram(path.join(ts.src, 'tsconfig.json'));
-	return gulp.src([path.join(ts.src, '**/*.ts')])
-		.pipe(gulpTslint({
-			formatter: 'verbose',
-			program: program,
-			configuration: './tslint.json'
-		}))
-		.pipe(gulpTslint.report());
 }
 
 export function lintGo () {
@@ -227,7 +214,7 @@ export function lintGo () {
 	});
 }
 
-export const lint = gulp.series(lintJs, lintTs, lintGo);
+export const lint = gulp.series(lintJs, lintGo);
 
 export function cleanTemplates () {
 	return gulp.src(goHtml.dest, { read: false, allowEmpty: true })
