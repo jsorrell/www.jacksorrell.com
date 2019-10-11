@@ -8,7 +8,7 @@ profile:
     city: Versailles
     state: Kentucky
     country: USA
-  bio: I am an all-round software developer with an affinity for low-level back ends. I am a quick learner and have a strong understanding of the principles underlying most realms of computer software. I am self-driven and stubbornly perseverant; give me a problem and I will learn what I need to in order to find a solution. I am a free software enthusiast and see user privacy as paramount.
+  bio: I am a recent graduate from a top-tier computer science university seeking employment in an entry-level software development position after a gap period. I am a quick learner and have autodidactic knowledge of numerous areas of computer software. I am self-driven and stubbornly perseverant; give me a problem and I will learn what I need to in order to find a solution. I am a F/OSS enthusiast.
 degrees:
 - name: Carnegie Mellon University
   startDate:
@@ -162,8 +162,21 @@ experiences:
   endDate:
     month: August
     year: "2015"
-  description: "Applied Predictive Technologies (APT) is a SAAS company which seeks to allow business to systematically test changes on a subset of its businesses before deciding whether to implement everywhere. In this internship, I used the Agile approach to software development and worked mostly using C# and Microsoft SQL Server. I joined two teams: the Infrastructure team and an Analytics team. As part of the Infrastructure team, I lead the effort to implement a job scheduling platform. I designed and built every part of the system from the backend scheduling to the API to the client library and web interface. As part of the Analytics team, I implemented an improved calculation that was rolled out into APT's main product."
+  description: "Applied Predictive Technologies (APT) is a SAAS company which seeks to allow business to systematically test changes on a subset of its businesses before deciding whether to implement everywhere. In this internship, I used the Agile approach to software development and worked mostly using C# and Microsoft SQL Server.
+
+  In the first half of the internship, I worked on the Infrastructure team. On this team, I was tasked with developing an internal queue infrastructure where other parts of the company could schedule tasks to run. I first consulted the target users about their needs for the queue. Using this information, I designed and built a continuously running service that ran the tasks at scheduled times or on specific events and created a series of web endpoints to schedule and query jobs. Finally, I implemented a C# API as well as a a web-based user interface and dashboard to interact with the endpoints.
+
+  In the second half, I worked on a product analytics team. I was in charge of implementing a new statistical error calculation for the flagship product, Test and Learn. In addition to writing code to perform the mathematical calculation, my task involved modifying the database schema, testing the calculation with previous data, and communicating to the front-end team exactly what the calculation means and where they can find it."
 projects:
+- name: Block O' Water Mod
+  startDate:
+    month: August
+    year: "2019"
+  endDate:
+    month: August
+    year: "2019"
+  description: I created a mod that adds a block that generates water in Minecraft, using the MinecraftForge Modding API. This mod was built to do one thing and do it well. It is highly configurable so modpack developers can use it in numerous ways. Source is available on GitHub.
+
 - name: www.jacksorrell.com
   startDate:
     month: December
@@ -179,7 +192,7 @@ projects:
   endDate:
     month: June
     year: "2018"
-  description: I created a Mod for piping around items within Minecraft, using the MinecraftForge Modding API. This Mod allows for the transfer of items, fluid, energy, and signals around the game. The Mod was build to be extensible, so that it can be extended by other mods to add additional features. I used concepts of client/server synchronization, textures, GUIs, graph search, and routing logic during development. Source is available on GitHub.
+  description: I created a mod for piping around items within Minecraft, using the MinecraftForge Modding API. This mod allows for the transfer of items, fluid, energy, and signals around the game. The mod was build to be extensible, so that it can be extended by other mods to add additional features. I used concepts of client/server synchronization, textures, GUIs, graph search, and routing logic during development. Source is available on GitHub.
 
 - name: C0 Language Compiler
   startDate:
@@ -241,6 +254,8 @@ skillCategories:
   skills:
   - name: C
     level: 5
+  - name: Java
+    level: 5
   - name: Go
     level: 5
   - name: Rust
@@ -259,15 +274,15 @@ skillCategories:
     level: 4
   - name: Haskell
     level: 4
-  - name: Java
-    level: 4
   - name: Bash
     level: 3
   - name: Typescript
     level: 3
   - name: 'C#'
-    level: 2
+    level: 3
   - name: Python
+    level: 2
+  - name: Perl
     level: 2
 
 - category: Tools
@@ -291,11 +306,5 @@ links:
 - name: Github
   icon: /img/octocat.svg
   href: https://github.com/jsorrell
-- name: Twitter
-  icon: /img/Twitter_Social_Icon_Circle_Color.svg
-  href: https://twitter.com/jsorrell414
-- name: Keybase
-  icon: /img/keybase_logo_official.svg
-  href: https://keybase.io/jsorrell
 
-updatedDate: November 2018
+updatedDate: October 2019
